@@ -1,0 +1,16 @@
+@import "tailwindcss"; 
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+/* #1D64EC */
+
+@theme {
+  --color-primary: #FFFFFF;
+  --color-secondary: #1D64EC;
+  --color-border: #DEDEDE;
+  --color-gray-custom: #F8F8F8;
+  --color-black-opacity: #858585;
+  --color-green-custom: #E1FFD7;
+  --font-Prompt: "Prompt", sans-serif;  
+  --font-DMsams: "DM Sans", sans-serif;
+}
