@@ -47,7 +47,7 @@ export const LoginForm = () => {
                 <fieldset className='my-10 flex flex-col gap-5'>
                     <div className='flex flex-col gap-1'>
                         <label>Correo electrónico</label>
-                        <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-2xl'
+                        <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-4xl'
                             {...register("email", {
                                 required: {
                                     value: true,
@@ -65,7 +65,7 @@ export const LoginForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Contraseña</label>
-                        <input type='password' name='password' placeholder='Contraseña' className='p-4 border rounded-2xl'
+                        <input type='password' name='password' placeholder='Contraseña' className='p-4 border rounded-4xl'
                             {...register("password", {
                                 required: {
                                     value: true,
@@ -83,7 +83,7 @@ export const LoginForm = () => {
                     </div>
                     <p className='flex justify-end underline my-2 cursor-pointer'>Todavía no tengo contraseña / He olvidado mi contraseña</p>
                     <div className='flex flex-col gap-1 mb-20'>
-                        <button className='p-4 border bg-secondary rounded-2xl border-secondary text-primary cursor-pointer'>Enviar</button>
+                        <button className='p-4 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer'>Enviar</button>
                     </div>
                 </fieldset>
             </form>

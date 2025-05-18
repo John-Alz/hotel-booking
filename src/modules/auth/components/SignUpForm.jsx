@@ -48,7 +48,7 @@ export const SignUpForm = () => {
                 <fieldset className='my-10 flex flex-col gap-5'>
                     <div className='flex flex-col gap-1'>
                         <label>Nombre</label>
-                        <input type='text' name='name' placeholder='Nombre' className='p-4 border rounded-2xl'
+                        <input type='text' name='name' placeholder='Nombre' className='p-4 border rounded-4xl'
                             {...register('name', {
                                 required: {
                                     value: true,
@@ -70,7 +70,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Primer apellido</label>
-                        <input type='text' name='lastName' placeholder='Primer apellido' className='p-4 border rounded-2xl'
+                        <input type='text' name='lastName' placeholder='Primer apellido' className='p-4 border rounded-4xl'
                             {...register('lastName', {
                                 required: {
                                     value: true,
@@ -92,7 +92,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Correo electrónico</label>
-                        <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-2xl'
+                        <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-4xl'
                             {...register("email", {
                                 required: {
                                     value: true,
@@ -107,11 +107,11 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Fecha de nacimiento</label>
-                        <input type='date' className='p-4 border rounded-2xl' />
+                        <input type='date' className='p-4 border rounded-4xl' />
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Contraseña</label>
-                        <input type='password' name='password' placeholder='Contraseña' className='p-4 border rounded-2xl'
+                        <input type='password' name='password' placeholder='Contraseña' className='p-4 border rounded-4xl'
                             {...register("password", {
                                 required: {
                                     value: true,
@@ -127,7 +127,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Confirmar contraseña</label>
-                        <input type='password' name='confirmPassword' placeholder='Confirmar contraseña' className='p-4 border rounded-2xl'
+                        <input type='password' name='confirmPassword' placeholder='Confirmar contraseña' className='p-4 border rounded-4xl'
                             {...register("confirmPassword", {
                                 required: {
                                     value: true,
@@ -139,7 +139,7 @@ export const SignUpForm = () => {
                         {errors.confirmPassword && <span className='text-red-400 text-xs'>{errors.confirmPassword.message}</span>}
                     </div>
                     <div className='flex flex-col gap-1 mt-10 mb-20'>
-                        <button className='p-4 border bg-secondary rounded-2xl border-secondary text-primary cursor-pointer'>Crear cuenta</button>
+                        <button className='p-4 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer'>Crear cuenta</button>
                     </div>
                 </fieldset>
             </form>

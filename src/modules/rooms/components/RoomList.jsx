@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import imageRoom from '../../../../public/images/img-room.jpeg'
 import { RoomCard } from './RoomCard'
 import { rooms } from './roomsMock'
@@ -12,7 +13,9 @@ export const RoomList = () => {
             <div className='flex flex-col gap-6 mb-8'>
                 {
                     rooms.map((item) => (
-                        <RoomCard item={item} />
+                        <Link key={item.id} to={`/rooms/room/${item.id}`}>
+                            <RoomCard item={item} />
+                        </Link>
                     ))
                 }
             </div>
