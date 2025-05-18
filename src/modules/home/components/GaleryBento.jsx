@@ -7,7 +7,7 @@ import image6 from '../../../../public/images/img-bento-6.avif'
 
 export const GaleryBento = () => {
     return (
-        <section className='w-[95%] m-auto font-semibold text-lg'>
+        <section className='w-[95%] m-auto font-medium text-lg'>
             <h3>Galeria de imagenes</h3>
             <div className="grid grid-cols-4 md:grid-cols-4 grid-rows-4 md:grid-rows-3 gap-4 md:gap-4 m-4">
                 <div className="col-start-1 row-start-1 row-span-4 md:col-start-1 md:row-start-1 md:col-span-1 md:row-span-3 bg-gray-300 rounded-4xl ">

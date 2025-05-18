@@ -6,7 +6,7 @@ export const FiltersList = () => {
             <div className='w-[80%] m-auto'>
                 <div className='flex flex-col gap-2'>
                     <div className='flex justify-between'>
-                        <h3 className='font-bold mb-1'>Tipos de habitacion</h3>
+                        <h3 className='font-bold mb-1 text-xl'>Tipos de habitacion</h3>
                         <button className='text-[#858585] cursor-pointer hover:text-secondary'>Reiniciar</button>
                     </div>
                     <div className='flex gap-1'>
@@ -27,7 +27,7 @@ export const FiltersList = () => {
                     </div>
                 </div>
                 <div className='flex flex-col gap-2 mt-8 '>
-                    <h3 className='font-bold mb-1'>Servicios</h3>
+                    <h3 className='font-bold mb-1 text-xl'>Servicios</h3>
                     <div className='flex gap-1'>
                         <input type='checkbox' />
                         <label>Wifi gratis</label>

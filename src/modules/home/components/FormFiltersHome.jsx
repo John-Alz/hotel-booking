@@ -3,17 +3,17 @@ import React from 'react'
 
 export const FormFiltersHome = () => {
     return (
-        <form className='bg-primary w-[600px] flex justify-between px-4 py-2 rounded-full shadow-md'>
-            <div className='flex flex-col border-r-1 border-border px-6 gap-1'>
-                <label>Entrada</label>
+        <form className='bg-primary w-[700px] flex justify-between px-4 py-2 rounded-full shadow-md'>
+            <div className='flex flex-col border-r-1 border-border px-8 gap-1'>
+                <label className='font-bold'>Entrada</label>
                 <input type='date' />
             </div>
-            <div className='flex flex-col border-r-1 border-border px-6 gap-1'>
-                <label>Salida</label>
+            <div className='flex flex-col border-r-1 border-border px-8 gap-1'>
+                <label className='font-bold'>Salida</label>
                 <input type='date' />
             </div>
             <div className='flex flex-col gap-1'>
-                <label>Huespedes</label>
+                <label className='font-bold'>Huespedes</label>
                 <select>
                     <option>1</option>
                     <option>1</option>
