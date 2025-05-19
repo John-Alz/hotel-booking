@@ -11,7 +11,7 @@ export const RoomCard = ({ item }) => {
                             <h2 className='font-bold text-xl'>{item.name}</h2>
                             <div className='text-black-opacity flex flex-col'>
                                 <span >{item.meters} mts cuadrados</span>
-                                <span>Free cancelation . Breakfast included</span>
+                                <span>{item.description}</span>
                             </div>
                         </div>
                         <div className='flex flex-col mt-4'>

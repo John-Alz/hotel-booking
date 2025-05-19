@@ -2,14 +2,15 @@ export const rooms = [
     {
         id: 1,
         name: 'Habitacion doble estandar',
-        description: 'Habitacion doble estandar descripcion',
+        description: '35m², cama King, vista al mar',
         meters: 30,
         beds: '1x cama King Size',
         bath: 1,
         price: 180,
         amenities: ["WiFi", "TV", "Jacuzzi"],
         quantity_available: 10,
-        images: '../../../../public/images/img-room.jpeg'
+        images: ['/public/images/img-room.jpeg'],
+        tags: ["Más reservada"]
     },
     {
         id: 2,
