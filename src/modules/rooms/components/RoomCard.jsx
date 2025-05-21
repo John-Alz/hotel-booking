@@ -5,19 +5,19 @@ export const RoomCard = ({ item }) => {
         <div id='card' className='bg-primary shadow-md inset-shadow-2xs flex rounded-4xl '>
             <div className='w-full p-4 flex justify-between '>
                 <div className='flex gap-4'>
-                    <img src={item.images} width={250} className='rounded-4xl' alt='ImgAlt' />
+                    <img src={item.images[0]} width={250} className='rounded-4xl' alt='ImgAlt' />
                     <div>
                         <div className='flex flex-col gap-1'>
                             <h2 className='font-bold text-xl'>{item.name}</h2>
                             <div className='text-black-opacity flex flex-col'>
                                 <span >{item.meters} mts cuadrados</span>
-                                <span>{item.description}</span>
+                                <span>{item.description.slice(0, 55)}...</span>
                             </div>
                         </div>
                         <div className='flex flex-col mt-4'>
                             <h2 className='font-bold'>Confort de la habitacion</h2>
                             <div className='flex flex-col'>
-                                <span>{item.beds}</span>
+                                <span>{item.beds}X Camas</span>
                                 <span>{item.bath} Banios</span>
                             </div>
                             <div className='flex gap-3 mt-3'>

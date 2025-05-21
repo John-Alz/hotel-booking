@@ -23,7 +23,7 @@ export const Rules = () => {
                 </div>
             </div>
             <div className='flex flex-col gap-2 mt-6'>
-                <p className=''>A tener en cuenta</p>
+                <p className='font-bold'>A tener en cuenta</p>
                 <div className='flex text-[14px] text-center justify-between'>
                     <div className='flex gap-2'>
                         <Dog />

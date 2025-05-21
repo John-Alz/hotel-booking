@@ -1,10 +1,14 @@
 import { AirVent, ArrowLeft, IdCard, ParkingCircle, Wifi } from 'lucide-react';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom'
 import { PersonalData } from './PersonalData';
 import { Rules } from './Rules';
 import { PaymentData } from './PaymentData';
+import useRoomStore from '../store/useRoomStore';
+import { useDateFormat } from '../helpers/DateFormat';
+import dayjs from 'dayjs';
+import { totalPrice } from '../helpers/totalPrice';
 
 
 export const RoomDetail = () => {
@@ -14,33 +18,41 @@ export const RoomDetail = () => {
 
     const id = params.id;
 
+    const roomSelected = useRoomStore(state => state.roomSelected)
+    const fetchRoom = useRoomStore(state => state.fetchRoom)
+    const filters = useRoomStore(state => state.filters);
+
+    const dateCheckin = useDateFormat(filters.checkin, true)
+    const dateCheckout = useDateFormat(filters.checkout, true)
+
+    useEffect(() => {
+        fetchRoom(id);
+    }, [])
+
+
+    const { nights, total, totalWithoutService } = totalPrice(filters.checkin, filters.checkout, roomSelected?.price)
+
+
     return (
         <section className='flex border-t-2 border-border'>
             <div id='right' className='w-[50%] py-8 border-r-2 border-border'>
 
                 <section className='flex flex-col gap-5 pl-10 pr-40 pb-10'>
                     <ArrowLeft />
-                    <h2 className='text-2xl font-bold'>Reserva habitacion doble estandar</h2>
+                    <h2 className='text-2xl font-bold'>Reserva {roomSelected?.name}</h2>
                     <h2 className='text-xl font-semibold'>Paso 1:</h2>
                     <div className='flex flex-col gap-2'>
                         <p className='font-semibold'>Servicios de la habitacion</p>
-                        <div className='flex gap-4'>
-                            <div className='flex gap-2'>
-                                <Wifi />
-                                <span>Wifi gratis</span>
-                            </div>
-                            <div className='flex gap-2'>
-                                <ParkingCircle />
-                                <span>Wifi gratis</span>
-                            </div>
-                            <div className='flex gap-2'>
-                                <AirVent />
-                                <span>Wifi gratis</span>
-                            </div>
-                            <div className='flex gap-2'>
-                                <IdCard />
-                                <span>Wifi gratis</span>
-                            </div>
+                        <div className='flex gap-4 flex-wrap'>
+                            {
+                                roomSelected?.amenities.map((item) => (
+                                    <div className='flex gap-1'>
+                                        <img src={item.image} width={25} />
+                                        <span>{item.name}</span>
+                                    </div>
+                                ))
+                            }
+
                         </div>
                     </div>
                     <div className='flex flex-col gap-2 mt-3'>
@@ -73,30 +85,31 @@ export const RoomDetail = () => {
             <div id='left' className='w-[50%] py-8 relative'>
                 <section className='w-[80%] m-auto shadow-md inset-shadow-2xs rounded-4xl text-[14px]'>
                     <article className='p-6'>
-                        <img src='/public/images/hero-img.avif' alt='imgRoomDetail' className='rounded-4xl' />
+                        <img src={roomSelected?.images[0]} height={373} alt='imgRoomDetail' className='rounded-4xl h-[373px] w-full object-cover' />
                         <div className=' mt-3'>
-                            <h2 className='text-xl font-bold'>Habitacion doble estandar</h2>
-                            <p>3-star hotel located in the heart of Copenhagen</p>
+                            <h2 className='text-xl font-bold'>{roomSelected?.name}</h2>
+                            <p>{roomSelected?.description}</p>
                         </div>
                         <div className='py-5'>
                             <div className='flex gap-5'>
                                 <p className='font-bold'>Check in</p>
-                                <span>Viernes, 09 Julio 2025</span>
+                                <span>{dateCheckin}</span>
+
                             </div>
                             <div className='flex gap-5'>
                                 <p className='font-bold'>Check out</p>
-                                <span>Lunes, 12 Julio 2025</span>
+                                <span>{dateCheckout}</span>
                             </div>
                         </div>
                         <div className='py-5 border-y-2 border-border'>
                             <h2 className='font-bold'>Habitacion doble estandar</h2>
                             <div className='w-[200px] flex justify-between'>
                                 <p>Precio por noche</p>
-                                <span>$180</span>
+                                <span>${roomSelected?.price}</span>
                             </div>
                             <div className='w-[200px] flex justify-between'>
-                                <p>3 Noches</p>
-                                <span>$540</span>
+                                <p>{nights} Noches</p>
+                                <span>${totalWithoutService}</span>
                             </div>
                             <div className='w-[200px] flex justify-between mt-5 '>
                                 <p>Tarifa de servicio</p>
@@ -105,7 +118,7 @@ export const RoomDetail = () => {
                         </div>
                         <div className='font-bold w-[200px] flex justify-between my-5'>
                             <p>TOTAL</p>
-                            <span>$600</span>
+                            <span>${total}</span>
                         </div>
                     </article>
                 </section>
