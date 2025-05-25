@@ -4,6 +4,7 @@ import { AuthLayout } from '../layouts/AuthLayout'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { toast, ToastContainer } from 'react-toastify'
+import { authService } from '../services/authservice'
 
 export const SignUpForm = () => {
 
@@ -16,6 +17,8 @@ export const SignUpForm = () => {
             if (response.status === 201) toast.success(`Felicidades haces parte de Tripster`);
         } catch (error) {
             if (error) toast.error(`Error al crear el usuario`)
+            console.log(error);
+
         }
 
     }
@@ -24,12 +27,17 @@ export const SignUpForm = () => {
         console.log(data);
         let userCreated = {
             username: data.name,
+            lastName: data.lastName,
             email: data.email,
+            phoneNumber: data.phoneNumber,
+            birthday: data.birthday,
             password: data.password,
             roleRequest: {
                 roles: ["CUSTOMER"]
             }
         }
+        console.log(userCreated);
+
         userSignUp(userCreated);
     })
 
@@ -48,7 +56,7 @@ export const SignUpForm = () => {
                 <fieldset className='my-10 flex flex-col gap-5'>
                     <div className='flex flex-col gap-1'>
                         <label>Nombre</label>
-                        <input type='text' name='name' placeholder='Nombre' className='p-4 border rounded-2xl'
+                        <input type='text' name='name' placeholder='Nombre' className='p-4 border rounded-4xl'
                             {...register('name', {
                                 required: {
                                     value: true,
@@ -70,7 +78,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Primer apellido</label>
-                        <input type='text' name='lastName' placeholder='Primer apellido' className='p-4 border rounded-2xl'
+                        <input type='text' name='lastName' placeholder='Primer apellido' className='p-4 border rounded-4xl'
                             {...register('lastName', {
                                 required: {
                                     value: true,
@@ -92,7 +100,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Correo electrónico</label>
-                        <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-2xl'
+                        <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-4xl'
                             {...register("email", {
                                 required: {
                                     value: true,
@@ -106,12 +114,34 @@ export const SignUpForm = () => {
                         />
                     </div>
                     <div className='flex flex-col gap-1'>
+                        <label>Numero de telefono</label>
+                        <input type='text' name='phoneNumber' placeholder='Correo electrónico' className='p-4 border rounded-4xl'
+                            {...register("phoneNumber", {
+                                required: {
+                                    value: true,
+                                    message: 'El numero de teelfono es requerido '
+                                },
+                                pattern: {
+                                    value: /^\+?[0-9]{1,13}$/,
+                                    message: 'El formato del numero de telefono no es válido.'
+                                }
+                            })}
+                        />
+                    </div>
+                    <div className='flex flex-col gap-1'>
                         <label>Fecha de nacimiento</label>
-                        <input type='date' className='p-4 border rounded-2xl' />
+                        <input type='date' name='birthday' className='p-4 border rounded-4xl'
+                            {...register("birthday", {
+                                required: {
+                                    value: true,
+                                    message: 'La fecha de nacimiento es rquerida'
+                                }
+                            })}
+                        />
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Contraseña</label>
-                        <input type='password' name='password' placeholder='Contraseña' className='p-4 border rounded-2xl'
+                        <input type='password' name='password' placeholder='Contraseña' className='p-4 border rounded-4xl'
                             {...register("password", {
                                 required: {
                                     value: true,
@@ -127,7 +157,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Confirmar contraseña</label>
-                        <input type='password' name='confirmPassword' placeholder='Confirmar contraseña' className='p-4 border rounded-2xl'
+                        <input type='password' name='confirmPassword' placeholder='Confirmar contraseña' className='p-4 border rounded-4xl'
                             {...register("confirmPassword", {
                                 required: {
                                     value: true,
@@ -139,7 +169,7 @@ export const SignUpForm = () => {
                         {errors.confirmPassword && <span className='text-red-400 text-xs'>{errors.confirmPassword.message}</span>}
                     </div>
                     <div className='flex flex-col gap-1 mt-10 mb-20'>
-                        <button className='p-4 border bg-secondary rounded-2xl border-secondary text-primary cursor-pointer'>Crear cuenta</button>
+                        <button className='p-4 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer'>Crear cuenta</button>
                     </div>
                 </fieldset>
             </form>

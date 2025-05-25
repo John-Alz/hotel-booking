@@ -1,13 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { toast, ToastContainer } from 'react-toastify'
 import { AuthLayout } from '../layouts/AuthLayout'
 import { authService } from '../services/authservice'
 import { ArrowLeft } from 'lucide-react'
+import useAuthStore from '../store/useAuthStore'
 
 export const LoginForm = () => {
 
+    const fetchProfile = useAuthStore(state => state.fetchProfile);
+    const profile = useAuthStore(state => state.profile);
+
+    const navigate = useNavigate()
 
     const { register, reset, handleSubmit,
         formState: { errors }
@@ -17,9 +22,13 @@ export const LoginForm = () => {
 
     const userLogin = async (user) => {
         try {
-            let response = await authService.login(user, { withCredentials: true },)
+            let response = await authService.login(user, { withCredentials: true })
             console.log(response);
-            if (response.status === 200) toast.success(`Bienvenido`);
+            if (response.status === 200) {
+                toast.success(`Bienvenido`)
+                fetchProfile();
+            }
+            // navigate('/')
         } catch (error) {
             if (error) toast.error(`Credenciales invalidas`)
         }
@@ -31,6 +40,8 @@ export const LoginForm = () => {
         reset();
     })
 
+
+    console.log(profile);
 
     return (
         <AuthLayout>
@@ -47,7 +58,7 @@ export const LoginForm = () => {
                 <fieldset className='my-10 flex flex-col gap-5'>
                     <div className='flex flex-col gap-1'>
                         <label>Correo electrónico</label>
-                        <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-2xl'
+                        <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-4xl'
                             {...register("email", {
                                 required: {
                                     value: true,
@@ -65,16 +76,16 @@ export const LoginForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Contraseña</label>
-                        <input type='password' name='password' placeholder='Contraseña' className='p-4 border rounded-2xl'
+                        <input type='password' name='password' placeholder='Contraseña' className='p-4 border rounded-4xl'
                             {...register("password", {
                                 required: {
                                     value: true,
                                     message: 'Contraseña es requerida'
                                 },
-                                minLength: {
-                                    value: 6,
-                                    message: 'La contraseña debe tener minimo 6 caracteres'
-                                }
+                                // minLength: {
+                                //     value: 6,
+                                //     message: 'La contraseña debe tener minimo 6 caracteres'
+                                // }
                             })}
                         />
                         {
@@ -83,7 +94,8 @@ export const LoginForm = () => {
                     </div>
                     <p className='flex justify-end underline my-2 cursor-pointer'>Todavía no tengo contraseña / He olvidado mi contraseña</p>
                     <div className='flex flex-col gap-1 mb-20'>
-                        <button className='p-4 border bg-secondary rounded-2xl border-secondary text-primary cursor-pointer'>Enviar</button>
+                        <button className='p-4 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer'>Enviar</button>
+
                     </div>
                 </fieldset>
             </form>

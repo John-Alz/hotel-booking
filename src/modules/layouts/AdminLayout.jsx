@@ -1,0 +1,23 @@
+import { Outlet } from "react-router-dom"
+import { SideBar } from "../core/components/SideBar"
+import { HeaderAdmin } from "../core/components/HeaderAdmin"
+import { Footer } from "../core/components/Footer"
+
+
+export const AdminLayout = () => {
+    return (
+        <div className='bg-admin-bg'>
+            <div className='flex'>
+                <div>
+                    <SideBar />
+                </div>
+                <div className='w-full'>
+                    <HeaderAdmin />
+                    <Outlet />
+                </div>
+
+            </div>
+            <Footer />
+        </div>
+    )
+}
