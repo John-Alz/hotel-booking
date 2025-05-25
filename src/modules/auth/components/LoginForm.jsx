@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { toast, ToastContainer } from 'react-toastify'
 import { AuthLayout } from '../layouts/AuthLayout'
@@ -8,6 +8,7 @@ import { ArrowLeft } from 'lucide-react'
 
 export const LoginForm = () => {
 
+    const navigate = useNavigate()
 
     const { register, reset, handleSubmit,
         formState: { errors }
@@ -17,9 +18,10 @@ export const LoginForm = () => {
 
     const userLogin = async (user) => {
         try {
-            let response = await authService.login(user, { withCredentials: true },)
+            let response = await authService.login(user, { withCredentials: true })
             console.log(response);
-            if (response.status === 200) toast.success(`Bienvenido`);
+            if (response.status === 200) toast.success(`Bienvenido`)
+            navigate('/')
         } catch (error) {
             if (error) toast.error(`Credenciales invalidas`)
         }
@@ -71,10 +73,10 @@ export const LoginForm = () => {
                                     value: true,
                                     message: 'Contraseña es requerida'
                                 },
-                                minLength: {
-                                    value: 6,
-                                    message: 'La contraseña debe tener minimo 6 caracteres'
-                                }
+                                // minLength: {
+                                //     value: 6,
+                                //     message: 'La contraseña debe tener minimo 6 caracteres'
+                                // }
                             })}
                         />
                         {

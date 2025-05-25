@@ -2,16 +2,23 @@ import { create } from "zustand";
 import { api } from "../../../shared/api/apiClient";
 
 
-const useRoomStore = create((set) => ({
+const useRoomStore = create((set, get) => ({
     rooms: [],
     roomSelected: null,
     filters: {},
     setFilter: (payload) => {
         set({ filters: payload })
     },
+    clearFilters: () => {
+        set({ filters: {} })
+    },
 
-    fetchRooms: async () => {
-        const data = await api.get('/api/v1/rooms/types?page=0&size=10')
+    fetchRooms: async (filters2) => {
+        console.log(filters2);
+
+        const url = `/api/v1/rooms/types?page=0&size=10&roomName=${filters2?.type ?? ""}&amenityId=${filters2?.amenity ?? ""}&roomCapacity=${filters2?.capacity ?? ""}`;
+        console.log("URL:", url);
+        const data = await api.get(url)
         if (data) set({ rooms: data })
     },
 

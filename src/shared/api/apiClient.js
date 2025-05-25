@@ -11,6 +11,8 @@ const apiClient = axios.create({
 
 export const api = {
     get: async (endpoint) => {
+        console.log(endpoint);
+
         try {
             let response = await apiClient.get(endpoint);
             return response.data;

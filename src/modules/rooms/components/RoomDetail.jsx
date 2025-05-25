@@ -32,6 +32,9 @@ export const RoomDetail = () => {
 
     const { nights, total, totalWithoutService } = totalPrice(filters.checkin, filters.checkout, roomSelected?.price)
 
+    console.log(roomSelected);
+
+
 
     return (
         <section className='flex border-t-2 border-border'>
@@ -56,11 +59,11 @@ export const RoomDetail = () => {
                         </div>
                     </div>
                     <div className='flex flex-col gap-2 mt-3'>
-                        <p>Seleccione opcion de cama</p>
+                        <p>Seleccione opcion de habitaciones</p>
                         <select className='w-[406px] border border-border py-2 px-3 rounded-4xl'>
-                            <option>2 camas separadas</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                            <option>1 habitacion</option>
+                            <option>2 Habitaciones</option>
+                            <option>3 Habitaciones</option>
                         </select>
                     </div>
                 </section>
