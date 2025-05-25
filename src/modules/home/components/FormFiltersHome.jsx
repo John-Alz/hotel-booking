@@ -10,13 +10,14 @@ export const FormFiltersHome = () => {
     const navigate = useNavigate();
 
     const setFilter = useRoomStore(state => state.setFilter)
+    const filters = useRoomStore(state => state.filters)
 
     const { register, reset, handleSubmit,
         formState: { errors }
     } = useForm({
         defaultValues: {
-            checkin: dayjs().add(1, 'day').format('YYYY-MM-DD'),
-            checkout: dayjs().add(2, 'day').format('YYYY-MM-DD'),
+            checkin: filters.checkin ? filters.checkin : dayjs().add(1, 'day').format('YYYY-MM-DD'),
+            checkout: filters.checkout ? filters.checkout : dayjs().add(2, 'day').format('YYYY-MM-DD'),
             capacity: 2,
         }
     });

@@ -5,8 +5,12 @@ import { toast, ToastContainer } from 'react-toastify'
 import { AuthLayout } from '../layouts/AuthLayout'
 import { authService } from '../services/authservice'
 import { ArrowLeft } from 'lucide-react'
+import useAuthStore from '../store/useAuthStore'
 
 export const LoginForm = () => {
+
+    const fetchProfile = useAuthStore(state => state.fetchProfile);
+    const profile = useAuthStore(state => state.profile);
 
     const navigate = useNavigate()
 
@@ -20,8 +24,11 @@ export const LoginForm = () => {
         try {
             let response = await authService.login(user, { withCredentials: true })
             console.log(response);
-            if (response.status === 200) toast.success(`Bienvenido`)
-            navigate('/')
+            if (response.status === 200) {
+                toast.success(`Bienvenido`)
+                fetchProfile();
+            }
+            // navigate('/')
         } catch (error) {
             if (error) toast.error(`Credenciales invalidas`)
         }
@@ -33,6 +40,8 @@ export const LoginForm = () => {
         reset();
     })
 
+
+    console.log(profile);
 
     return (
         <AuthLayout>
@@ -86,6 +95,7 @@ export const LoginForm = () => {
                     <p className='flex justify-end underline my-2 cursor-pointer'>Todavía no tengo contraseña / He olvidado mi contraseña</p>
                     <div className='flex flex-col gap-1 mb-20'>
                         <button className='p-4 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer'>Enviar</button>
+
                     </div>
                 </fieldset>
             </form>

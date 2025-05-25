@@ -5,8 +5,10 @@ import { GaleryBento } from '../components/GaleryBento'
 import { Footer } from '../../core/components/Footer'
 import { Newsletter } from '../components/Newsletter'
 import { ToastContainer } from 'react-toastify'
+import useAuthStore from '../../auth/store/useAuthStore'
 
 export const HomePage = () => {
+
     return (
         <>
             <div >

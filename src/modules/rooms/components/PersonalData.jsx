@@ -1,8 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import useAuthStore from '../../auth/store/useAuthStore';
 
 export const PersonalData = () => {
 
+    const profile = useAuthStore(state => state.profile);
 
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
 
@@ -12,7 +14,7 @@ export const PersonalData = () => {
             <form className='flex flex-col gap-3'>
                 <div className='flex flex-col gap-1'>
                     <label>Nombre</label>
-                    <input type='text' name='name' placeholder='e.j. John' className='border border-border py-2 px-3 rounded-4xl'
+                    <input type='text' name='name' value={profile?.name} placeholder='e.j. John' className='border border-border py-2 px-3 rounded-4xl'
                         {...register('name', {
                             required: {
                                 value: true,
@@ -31,7 +33,7 @@ export const PersonalData = () => {
                 </div>
                 <div className='flex flex-col gap-1'>
                     <label>Apellido</label>
-                    <input type='text' name='lastName' placeholder='e.j. Angel' className='border border-border py-2 px-3 rounded-4xl'
+                    <input type='text' name='lastName' value={profile?.lastName} placeholder='e.j. Angel' className='border border-border py-2 px-3 rounded-4xl'
                         {...register('lastName', {
                             required: {
                                 value: true,
@@ -50,7 +52,7 @@ export const PersonalData = () => {
                 </div>
                 <div className='flex flex-col gap-1'>
                     <label>Email</label>
-                    <input type='text' name='email' placeholder='email@email.com' className='border border-border py-2 px-3 rounded-4xl'
+                    <input type='text' name='email' value={profile?.email} placeholder='email@email.com' className='border border-border py-2 px-3 rounded-4xl'
                         {...register('email', {
                             required: {
                                 value: true,
@@ -65,7 +67,7 @@ export const PersonalData = () => {
                 </div>
                 <div className='flex flex-col gap-1'>
                     <label>Telefono</label>
-                    <input type='text' name='phone' placeholder='+57 123456789' className='border border-border py-2 px-3 rounded-4xl'
+                    <input type='text' name='phone' value={profile?.phoneNumber} placeholder='+57 123456789' className='border border-border py-2 px-3 rounded-4xl'
                         {...register('phone', {
                             required: {
                                 value: true,
