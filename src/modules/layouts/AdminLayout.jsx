@@ -7,7 +7,7 @@ import { Footer } from "../core/components/Footer"
 export const AdminLayout = () => {
     return (
         <div className='bg-admin-bg'>
-            <div className='flex'>
+            <div className='flex border-b-1 border-border'>
                 <div>
                     <SideBar />
                 </div>

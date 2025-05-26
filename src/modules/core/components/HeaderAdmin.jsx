@@ -14,7 +14,7 @@ export const HeaderAdmin = () => {
             </div>
             <div className='flex items-center gap-3'>
                 <Bell className='mr-3' />
-                <p className='border bg-black border-black py-2 px-4.5 rounded-full text-white cursor-pointer hover:bg-transparent hover:text-black'>{profile.name.slice(0, 1)}</p>
+                <p className='border bg-black border-black py-2 px-4.5 rounded-full text-white cursor-pointer'>{profile.name.slice(0, 1)}</p>
                 <div>
                     <div className='flex'>
                         <p className='font-bold'>{profile.name} {profile.lastName}</p>
