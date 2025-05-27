@@ -1,31 +1,84 @@
 import React, { useEffect } from 'react'
 import useRoomStore from '../store/useRoomStore';
-import { Bed, Edit3, Trash2, Users } from 'lucide-react';
+import { Bed, Edit3, Filter, Plus, Search, Trash2, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Button } from '../../../components/ui/button';
+import { Input } from "@/components/ui/input"
+import { useForm } from 'react-hook-form';
+import { FiltersTable } from './FiltersTable';
+import { api } from '../../../shared/api/apiClient';
+
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
+
+
 
 export const RoomTableTwo = () => {
 
     const fetchRooms = useRoomStore(state => state.fetchRooms);
     const rooms = useRoomStore(state => state.rooms);
 
+    const { register, handleSubmit } = useForm();
+
     useEffect(() => {
         fetchRooms();
     }, [])
 
+    const onChange = (e) => {
+        console.log(e.target.value);
+    }
+
+    const handleDelete = async (id) => {
+        console.log("CLICCCK");
+
+        try {
+            let response = await api.delete(`/api/v1/rooms/types/${id}`)
+            console.log(response);
+            if (response.status === 200) {
+                fetchRooms();
+            }
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
 
     return (
-        <div className='w-11/12 m-auto pt-10' >
-            <Link to={'/admin/crear-tipo-habitacion'}><button>Crear una habitacion</button></Link>
+        <div className='pt-5 flex flex-col gap-7' >
+
+            <div className='flex justify-between'>
+                <div className='w-[400px] relative'>
+                    {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
+                    <Input className="bg-[#F2F2F2] rounded-3xl" onChange={onChange} placeholder='Busca aqui' />
+                    <Search color='#737373' className='absolute right-0 top-1.5 mx-2' />
+                </div>
+                <div className='flex gap-8'>
+                    <FiltersTable />
+                    <Link to={'/admin/crear-tipo-habitacion'}><Button ><Plus /> Crear una habitacion</Button></Link>
+                </div>
+            </div>
             <table className='min-w-full  text-base font-light text-surface bg-gray rounded-xl bg-primary'>
-                <thead className=" border-b border-[#ced4da] ">
+                <thead className=" border-b border-[#ced4da] bg-[#ced4da]/35 rounded-xl">
                     <tr>
-                        <th className="px-6 py-3 text-start text-sm font-bold opacity-50">ID</th>
-                        <th className="px-6 py-3 text-start text-sm font-bold opacity-50">Image</th>
-                        <th className="px-6 py-3 text-start text-sm font-bold opacity-50">Nombre</th>
-                        <th className="px-6 py-3 text-start text-sm font-bold opacity-50">Precio noche</th>
-                        <th className="px-6 py-3 text-start text-sm font-bold opacity-50">Meter</th>
-                        <th className="px-6 py-3 text-start text-sm font-bold opacity-50">Capacity</th>
-                        <th className="px-6 py-3 text-start text-sm font-bold opacity-50">Acciones</th>
+                        <th className="px-6 py-3 text-start text-sm font-bold ">ID</th>
+                        <th className="px-6 py-3 text-start text-sm font-bold ">Image</th>
+                        <th className="px-6 py-3 text-start text-sm font-bold ">Nombre</th>
+                        <th className="px-6 py-3 text-start text-sm font-bold ">Precio noche</th>
+                        <th className="px-6 py-3 text-start text-sm font-bold ">Meter</th>
+                        <th className="px-6 py-3 text-start text-sm font-bold ">Capacity</th>
+                        <th className="px-6 py-3 text-start text-sm font-bold ">Stado</th>
+                        <th className="px-6 py-3 text-start text-sm font-bold ">Acciones</th>
                     </tr>
                 </thead>
                 <tbody className='font-medium'>
@@ -52,10 +105,30 @@ export const RoomTableTwo = () => {
                                         </div>
                                     </div>
                                 </td>
+                                <td>
+                                    <p className='bg-[#10A760] py-1.5 px-3 rounded-xl text-center text-primary'>Disponible</p>
+                                </td>
                                 <td className='px-6 py-4 text-sm'>
                                     <div className='flex items-center gap-4  text-sm'>
-                                        <button className="text-blue-500"><Edit3 /></button>
-                                        <button className="text-red-500"><Trash2 /></button>
+                                        <Link to={`/admin/tipo-habitacion/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
+
+                                        <AlertDialog>
+                                            <AlertDialogTrigger><button className="text-red-500 cursor-pointer"><Trash2 /></button></AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>Estas seguro que quieres eliminar la habitacion?</AlertDialogTitle>
+                                                    <AlertDialogDescription>
+                                                        This action cannot be undone. This will permanently delete your account
+                                                        and remove your data from our servers.
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                                    <AlertDialogAction onClick={() => handleDelete(item.id)}>Confirmar</AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+
                                     </div>
                                 </td>
                             </tr>

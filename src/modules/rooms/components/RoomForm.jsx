@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import useAmenityStore from '../../amenities/store/useAmenityStore'
-import axios from 'axios'
 import { ImagePlus } from 'lucide-react'
 import { useUpLoadImage } from '../hooks/useUploadImage'
 import { useForm } from 'react-hook-form'
@@ -8,7 +7,9 @@ import { api } from '../../../shared/api/apiClient'
 import { notifyService } from '../../core/services/notifyService'
 import { ToastContainer } from 'react-toastify'
 
-export const RoomForm = () => {
+export const RoomForm = ({ onSubmitData, initialState = null }) => {
+
+    console.log(initialState);
 
     const [amenityId, setAmenityId] = useState([])
 
@@ -25,22 +26,25 @@ export const RoomForm = () => {
 
     console.log(amenities);
 
+    useEffect(() => {
+        if (initialState) {
+            reset({
+                name: initialState.name,
+                description: initialState.description,
+                beds: initialState.beds,
+                bathRooms: initialState.bathRooms,
+                meters: initialState.meters,
+                quantity_available: initialState.quantity_available,
+                capacity: initialState.capacity,
+                price: initialState.price
+            });
+        }
+    }, [initialState, reset])
+
     const handleChangeAmenity = (e) => {
         const value = e.target.value;
         console.log(value);
         setAmenityId(prev => [...prev, ...value])
-    }
-
-    const createRoom = async (data) => {
-        console.log("LEGUEE");
-        try {
-            const response = await api.post('/api/v1/rooms/types', data)
-            console.log(response);
-
-            if (response.status === 201) notifyService.success("Se creo la habitacion")
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     const onSubmit = handleSubmit((data) => {
@@ -51,7 +55,7 @@ export const RoomForm = () => {
             beds: data.beds,
             bathRooms: data.bathRooms,
             meters: data.meters,
-            images: image,
+            images: image?.length == 0 ? initialState?.images : image,
             quantity_available: data.quantity_available,
             capacity: data.capacity,
             price: data.price,
@@ -60,7 +64,8 @@ export const RoomForm = () => {
 
         console.log(roomCreated);
 
-        createRoom(roomCreated)
+        onSubmitData(roomCreated)
+        reset();
 
     })
 
@@ -70,15 +75,19 @@ export const RoomForm = () => {
 
 
     return (
+
         <form className='bg-primary border border-border shadow-md inset-shadow-2xs p-5 rounded-2xl flex flex-col' onSubmit={onSubmit}>
             <ToastContainer />
             <div className='flex flex-col gap-4  pb-6 border-b-2 border-border'>
                 <h2 className='text-lg font-bold'>Fotos de la habitacion</h2>
                 <div className='flex gap-2'>
                     {
-                        image.map(item => (
+                        image.length > 0 ? image.map(item => (
                             <img src={item} alt='img' className='h-[120px] w-[200px] rounded-2xl' />
-                        ))
+                        )) :
+                            initialState?.images?.map(item => (
+                                <img src={item} alt='img' className='h-[120px] w-[200px] rounded-2xl' />
+                            ))
                     }
                     <input type='file' multiple name='file' id='fileInput' placeholder='Upload an image' className="hidden" onChange={(e) => uploadImage(e)} />
                     <label htmlFor='fileInput' className='border border-dashed h-[120px] w-[200px] rounded-2xl flex justify-between text-black-opacity cursor-pointer'><span className='w-full text-center self-center'><p className='flex justify-center'><ImagePlus /> </p>Agregar imagen</span></label>

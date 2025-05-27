@@ -8,6 +8,10 @@ import { Test } from '../modules/core/components/Test'
 import { RoomTable } from '../modules/rooms/components/RoomTable'
 import { RoomTableTwo } from '../modules/rooms/components/RoomTableTwo'
 import { RoomCreatePage } from '../modules/rooms/pages/RoomCreatePage'
+import { RoomTablePage } from '../modules/rooms/pages/RoomTablePage'
+import { RoomEditPage } from '../modules/rooms/pages/RoomEditPage'
+import { BookingTablePage } from '../modules/booking/pages/BookingTablePage'
+import { BookingCreatePage } from '../modules/booking/pages/BookingCreatePage'
 
 export const AppRouter = () => {
     return (
@@ -22,10 +26,12 @@ export const AppRouter = () => {
                 <Route index element={<Navigate to='dashboard' replace />} />
                 <Route path="dashboard" element={<Test />} />
                 <Route path="habitaciones" element={<Test />} />
-                <Route path="reservas" element={<Test />} />
+                <Route path="reservas" element={<BookingTablePage />} />
+                <Route path="crear-reserva" element={<BookingCreatePage />} />
                 <Route path="usuarios" element={<Test />} />
-                <Route path="tipos-habitacion" element={<RoomTableTwo />} />
+                <Route path="tipos-habitacion" element={<RoomTablePage />} />
                 <Route path="crear-tipo-habitacion" element={<RoomCreatePage />} />
+                <Route path="tipo-habitacion/:id" element={<RoomEditPage />} />
                 <Route path="amenidades" element={<Test />} />
             </Route>
 

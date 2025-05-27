@@ -112,6 +112,9 @@ export const RoomTable = () => {
 
     return (
         <div className='w-11/12 m-auto pt-10' >
+            <div>
+                <input className='border' />
+            </div>
             <table className='min-w-full  text-base font-light text-surface bg-gray rounded-xl bg-primary'>
                 <thead className=" border-b border-[#ced4da] ">
                     {
