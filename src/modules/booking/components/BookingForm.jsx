@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import useBookingStore from '../store/useBookingStore'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import useRoomStore from '../../rooms/store/useRoomStore'
 import { format } from "date-fns";
 import { da, es } from "date-fns/locale";
@@ -140,7 +140,7 @@ export const BookingForm = ({ onSubmitData }) => {
                             <option selected disabled>Seleccione una habitacion</option>
                             {
                                 rooms?.content?.map(item => (
-                                    <option value={item.id}>{item.name}</option>
+                                    <option key={item.id} value={item.id}>{item.name}</option>
                                 ))
                             }
                         </select>
@@ -182,7 +182,7 @@ export const BookingForm = ({ onSubmitData }) => {
             </div>
             <div className='flex gap-5 pt-4 justify-end'>
                 <button className='py-2 px-8 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer hover:bg-secondary/90'>Guardar</button>
-                <button className='py-2 px-8 border bg-primary rounded-4xl border-secondary text-secondary cursor-pointer'>Cancelar</button>
+                <Link to={'/admin/reservas'}><button className='py-2 px-8 border bg-primary rounded-4xl border-secondary text-secondary cursor-pointer'>Cancelar</button></Link>
             </div>
         </form >
     )

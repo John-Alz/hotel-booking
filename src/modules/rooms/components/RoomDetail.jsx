@@ -43,10 +43,10 @@ export const RoomDetail = () => {
 
     const [booking, setBooking] = useState({
         clientId: profile?.id,
-        name: profile.name,
-        lastName: profile.lastName,
-        email: profile.email,
-        phoneNumber: profile.phoneNumber,
+        name: profile?.name,
+        lastName: profile?.lastName,
+        email: profile?.email,
+        phoneNumber: profile?.phoneNumber,
         roomTypeId: parseInt(id),
         status: 'CONFIRMADA',
         checkInDate: filters.checkin,

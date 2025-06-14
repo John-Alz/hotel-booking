@@ -1,5 +1,6 @@
 import React from 'react'
 import { RoomTableTwo } from '../components/RoomTableTwo'
+import { RoomTable } from '../components/RoomTable'
 
 export const RoomTablePage = () => {
     return (
@@ -7,6 +8,7 @@ export const RoomTablePage = () => {
             <div>
                 <h2 className='text-3xl font-bold'>Tipos de habitaciones</h2>
             </div>
+            {/* <RoomTable /> */}
             <RoomTableTwo />
         </div>
     )

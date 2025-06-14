@@ -123,7 +123,7 @@ export const BookingTable = () => {
                                             <AlertDialogTrigger><button className="text-red-500 cursor-pointer"><Trash2 /></button></AlertDialogTrigger>
                                             <AlertDialogContent>
                                                 <AlertDialogHeader>
-                                                    <AlertDialogTitle>Estas seguro que quieres eliminar la habitacion?</AlertDialogTitle>
+                                                    <AlertDialogTitle>Estas seguro que quieres eliminar la reserva?</AlertDialogTitle>
                                                     <AlertDialogDescription>
                                                         This action cannot be undone. This will permanently delete your account
                                                         and remove your data from our servers.
