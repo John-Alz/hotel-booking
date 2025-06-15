@@ -32,4 +32,29 @@ export const api = {
         }
     },
 
+    put: async (endpoint, data) => {
+        console.log(endpoint, data);
+        try {
+            console.log('PUT endpoint:', endpoint, data);  // Agrega esto
+            let response = await apiClient.put(endpoint, data);
+            return response;
+        } catch (error) {
+            console.log(`Error en el PUT de la app:`, error.response || error.message || error);
+            throw new Error;
+        }
+    },
+
+    delete: async (endPonit) => {
+        console.log("SE ELIMINO");
+        console.log(endPonit);
+        try {
+            let response = await apiClient.delete(endPonit);
+            return response;
+        } catch (error) {
+            console.log(`Error en la peticon DELETE: ${error}`);
+            throw error;
+        }
+    }
+
+
 }

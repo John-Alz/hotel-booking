@@ -18,7 +18,7 @@ export const RoomCard = ({ item }) => {
                             <h2 className='font-bold'>Confort de la habitacion</h2>
                             <div className='flex flex-col'>
                                 <span>{item.beds}X Camas</span>
-                                <span>{item.bath} Banios</span>
+                                <span>{item.bathRooms} Banios</span>
                             </div>
                             <div className='flex gap-3 mt-3'>
                                 <p className='border border-secondary py-1 px-3 rounded-full text-secondary'>#Hot sale</p>

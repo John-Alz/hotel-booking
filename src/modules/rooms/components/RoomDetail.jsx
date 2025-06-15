@@ -13,6 +13,14 @@ import { api } from '../../../shared/api/apiClient';
 import { notifyService } from '../../core/services/notifyService';
 import { ToastContainer } from 'react-toastify';
 import useAuthStore from '../../auth/store/useAuthStore';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
+
 
 
 export const RoomDetail = () => {
@@ -35,6 +43,10 @@ export const RoomDetail = () => {
 
     const [booking, setBooking] = useState({
         clientId: profile?.id,
+        name: profile?.name,
+        lastName: profile?.lastName,
+        email: profile?.email,
+        phoneNumber: profile?.phoneNumber,
         roomTypeId: parseInt(id),
         status: 'CONFIRMADA',
         checkInDate: filters.checkin,
@@ -144,7 +156,20 @@ export const RoomDetail = () => {
             <div id='left' className='w-[50%] py-8 relative'>
                 <section className='w-[80%] m-auto shadow-md inset-shadow-2xs rounded-4xl text-[14px]'>
                     <article className='p-6'>
-                        <img src={roomSelected?.images[0]} height={373} alt='imgRoomDetail' className='rounded-4xl h-[373px] w-full object-cover' />
+                        <Carousel>
+                            <CarouselPrevious />
+                            <CarouselContent>
+                                {
+                                    roomSelected?.images?.map(image => (
+                                        <CarouselItem><img src={image} height={373} alt='imgRoomDetail' className='rounded-4xl h-[373px] w-full object-cover' /></CarouselItem>
+                                    ))
+                                }
+                            </CarouselContent>
+
+                            <CarouselNext />
+                        </Carousel>
+
+                        {/* <img src={roomSelected?.images[0]} height={373} alt='imgRoomDetail' className='rounded-4xl h-[373px] w-full object-cover' /> */}
                         <div className=' mt-3'>
                             <h2 className='text-xl font-bold'>{roomSelected?.name}</h2>
                             <p>{roomSelected?.description}</p>
