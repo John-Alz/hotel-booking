@@ -1,6 +1,17 @@
 import React from 'react'
+import useRoomStore from '../store/useRoomStore'
+import { totalPrice } from '../helpers/totalPrice';
 
 export const RoomCard = ({ item }) => {
+
+    const filters = useRoomStore(state => state.filters)
+    console.log(filters);
+
+    const { nights } = totalPrice(filters.checkin, filters.checkout);
+    console.log(nights);
+
+
+
     return (
         <div id='card' className='bg-primary shadow-md inset-shadow-2xs flex rounded-4xl '>
             <div className='w-full p-4 flex justify-between '>
@@ -21,8 +32,11 @@ export const RoomCard = ({ item }) => {
                                 <span>{item.bathRooms} Banios</span>
                             </div>
                             <div className='flex gap-3 mt-3'>
-                                <p className='border border-secondary py-1 px-3 rounded-full text-secondary'>#Hot sale</p>
-                                <p className='border border-secondary py-1 px-3 rounded-full text-secondary'>#Popular</p>
+                                {
+                                    item?.tags?.map(tag => (
+                                        <p className='border border-secondary py-1 px-3 rounded-full text-secondary'>#{tag}</p>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
@@ -36,7 +50,7 @@ export const RoomCard = ({ item }) => {
                     <div className='text-right flex flex-col gap-3'>
                         <div>
                             <p className='font-bold'>${item.price}</p>
-                            <p>3 noches, 2 huespedes</p>
+                            <p>{nights} noches, {filters.capacity} huespedes</p>
                         </div>
                         <button className='bg-secondary border border-secondary py-2 px-8 rounded-full text-primary cursor-pointer hover:bg-transparent hover:text-secondary '>Reservalo ahora</button>
                     </div>

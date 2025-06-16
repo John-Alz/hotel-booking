@@ -9,8 +9,8 @@ export const HeaderAdmin = () => {
     return (
         <header className='bg-white w-full flex justify-between p-2'>
             <div className='flex items-center relative'>
-                <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' />
-                <Search color='#737373' className='absolute right-1' />
+                {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' />
+                <Search color='#737373' className='absolute right-1' /> */}
             </div>
             <div className='flex items-center gap-3'>
                 <Bell className='mr-3' />

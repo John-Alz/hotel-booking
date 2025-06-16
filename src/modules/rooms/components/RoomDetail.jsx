@@ -201,7 +201,7 @@ export const RoomDetail = () => {
                             </div>
                             <div className='w-[200px] flex justify-between mt-5 '>
                                 <p>Tarifa de servicio</p>
-                                <span className='text-left'>$20</span>
+                                <span className='text-left'>$20.000</span>
                             </div>
                         </div>
                         <div className='font-bold w-[200px] flex justify-between my-5'>

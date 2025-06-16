@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { api } from "../../../shared/api/apiClient";
 import { persist } from "zustand/middleware";
+import dayjs from "dayjs";
 
 
 const useRoomStore = create(
@@ -17,9 +18,10 @@ const useRoomStore = create(
             },
 
             fetchRooms: async (filters2) => {
-                console.log(filters2);
-
-                const url = `/api/v1/rooms/types?page=0&size=10&roomName=${filters2?.type ?? ""}&amenityId=${filters2?.amenity ?? ""}&roomCapacity=${filters2?.capacity ?? ""}`;
+                console.log("FILTERS: " + JSON.stringify(filters2));
+                let today = dayjs().add(1, 'day').format('YYYY-MM-DD');
+                let after = dayjs().add(2, 'day').format('YYYY-MM-DD');
+                const url = `/api/v1/rooms/types?page=0&size=10&checkIn=${filters2?.checkin ?? today}&checkOut=${filters2?.checkout ?? after}&roomName=${filters2?.type ?? ""}&amenityId=${filters2?.amenity ?? ""}&roomCapacity=${filters2?.capacity ?? ""}`;
                 console.log("URL:", url);
                 const data = await api.get(url)
                 if (data) set({ rooms: data })

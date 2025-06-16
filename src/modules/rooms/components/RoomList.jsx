@@ -19,6 +19,8 @@ export const RoomList = () => {
         fetchRooms();
     }, [])
 
+    console.log(rooms);
+
 
 
     return (
