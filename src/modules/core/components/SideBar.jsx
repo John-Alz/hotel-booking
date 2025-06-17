@@ -30,12 +30,6 @@ export const SideBar = () => {
             link: '/admin/reservas'
         },
         {
-            id: 4,
-            icon: <Users />,
-            text: 'Usuarios',
-            link: '/admin/usuarios'
-        },
-        {
             id: 5,
             icon: <BedDouble />,
             text: 'Habitaciones',
@@ -48,10 +42,10 @@ export const SideBar = () => {
             link: '/admin/amenidades'
         },
         {
-            id: 7,
-            icon: <Bolt />,
-            text: 'Configuracion',
-            link: '/admin/configuracion',
+            id: 4,
+            icon: <Users />,
+            text: 'Usuarios',
+            link: '/admin/usuarios'
         },
         {
             id: 8,

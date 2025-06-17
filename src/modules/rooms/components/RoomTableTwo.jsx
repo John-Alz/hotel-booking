@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import { FiltersTable } from './FiltersTable';
 import { api } from '../../../shared/api/apiClient';
 
+import { RoomList } from './RoomList';
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -19,6 +21,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { RoomCardAdmin } from './RoomCardAdmin';
 
 
 
@@ -58,9 +61,9 @@ export const RoomTableTwo = () => {
         <div className='pt-5 flex flex-col gap-7' >
 
             <div className='flex justify-between'>
-                <div className='w-[400px] relative'>
+                <div className='w-[480px] relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
-                    <Input className="bg-[#F2F2F2] rounded-3xl" onChange={onChange} placeholder='Busca aqui' />
+                    <Input className="bg-primary rounded-3xl h-[40px]" onChange={onChange} placeholder='Busca aqui' />
                     <Search color='#737373' className='absolute right-0 top-1.5 mx-2' />
                 </div>
                 <div className='flex gap-8'>
@@ -68,7 +71,77 @@ export const RoomTableTwo = () => {
                     <Link to={'/admin/crear-tipo-habitacion'}><Button ><Plus /> Crear una habitacion</Button></Link>
                 </div>
             </div>
-            <table className='min-w-full  text-base font-light text-surface bg-gray rounded-xl bg-primary'>
+            <div className='flex flex-col gap-6 mb-8'>
+                {
+                    rooms?.content?.map((item) => (
+                        <div id='card' className='bg-primary shadow-md inset-shadow-2xs flex rounded-4xl '>
+                            <div className='w-full p-4 flex justify-between '>
+                                <div className='flex gap-4'>
+                                    <img src={item.images[0]} width={250} className='rounded-4xl' alt='ImgAlt' />
+                                    <div>
+                                        <div className='flex flex-col gap-1'>
+                                            <h2 className='font-bold text-xl'>{item.name}</h2>
+                                            <div className='text-black-opacity flex flex-col'>
+                                                <span >{item.meters} mts cuadrados</span>
+                                                <span>{item.description.slice(0, 55)}...</span>
+                                            </div>
+                                        </div>
+                                        <div className='flex flex-col mt-4'>
+                                            <h2 className='font-bold'>Confort de la habitacion</h2>
+                                            <div className='flex flex-col'>
+                                                <span>{item.capacity}X Capacidad</span>
+                                                <span>{item.beds}X Camas</span>
+                                                <span>{item.bathRooms} Banios</span>
+                                            </div>
+                                            <div className='flex gap-3 mt-3'>
+                                                {
+                                                    item?.tags?.map(tag => (
+                                                        <p className='border border-secondary py-1 px-3 rounded-full text-secondary'>#{tag}</p>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='flex flex-col justify-between'>
+                                    <div className='flex justify-end gap-3 text-[#009D52] items-center '>
+                                        <p className=''>Excelente</p>
+                                        <span className='bg-green-custom py-1 px-4 rounded-4xl'>9.6</span>
+                                    </div>
+                                    <div className='text-right flex flex-col gap-3'>
+                                        <div>
+                                            <p className='font-bold'>${item.price}</p>
+                                        </div>
+                                        <div className='flex justify-end gap-8 text-sm bg-trasnparent   cursor-pointer  '>
+                                            <Link to={`/admin/tipo-habitacion/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
+
+                                            <AlertDialog>
+                                                <AlertDialogTrigger><button className="text-red-500 cursor-pointer"><Trash2 /></button></AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                        <AlertDialogTitle>Estas seguro que quieres eliminar la habitacion?</AlertDialogTitle>
+                                                        <AlertDialogDescription>
+                                                            This action cannot be undone. This will permanently delete your account
+                                                            and remove your data from our servers.
+                                                        </AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                                        <AlertDialogAction onClick={() => handleDelete(item.id)}>Confirmar</AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+            {/* <table className='min-w-full  text-base font-light text-surface bg-gray rounded-xl bg-primary'>
                 <thead className=" border-b border-[#ced4da] bg-[#ced4da]/35 rounded-xl">
                     <tr>
                         <th className="px-6 py-3 text-start text-sm font-bold ">ID</th>
@@ -135,7 +208,7 @@ export const RoomTableTwo = () => {
                         ))
                     }
                 </tbody>
-            </table>
+            </table> */}
         </div>
     )
 }

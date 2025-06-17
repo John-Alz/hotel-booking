@@ -13,7 +13,7 @@ const useBookingStore = create((set, get) => ({
 
     fetchBooking: async (id) => {
         const data = await api.get(`/api/v1/booking/${id}`);
-        if (data) set({ bookings: data })
+        if (data) set({ booking: data })
     },
 
 }));

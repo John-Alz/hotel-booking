@@ -14,13 +14,13 @@ export const HeaderAdmin = () => {
             </div>
             <div className='flex items-center gap-3'>
                 <Bell className='mr-3' />
-                <p className='border bg-black border-black py-2 px-4.5 rounded-full text-white cursor-pointer'>{profile.name.slice(0, 1)}</p>
+                <p className='border bg-black border-black py-2 px-4.5 rounded-full text-white cursor-pointer'>{profile?.name.slice(0, 1)}</p>
                 <div>
                     <div className='flex'>
-                        <p className='font-bold'>{profile.name} {profile.lastName}</p>
+                        <p className='font-bold'>{profile?.name} {profile?.lastName}</p>
                         <ChevronDown />
                     </div>
-                    <p>{profile.roles[0].roleEnum.toLowerCase()}</p>
+                    <p>{profile?.roles[0].roleEnum.toLowerCase()}</p>
                 </div>
             </div>
         </header>

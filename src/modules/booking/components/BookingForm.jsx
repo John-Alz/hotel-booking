@@ -17,10 +17,12 @@ import {
 } from "@/components/ui/popover"
 import { useForm } from 'react-hook-form'
 
-export const BookingForm = ({ onSubmitData }) => {
+export const BookingForm = ({ onSubmitData, initialState = null }) => {
+    console.log("INITIALSTATE: " + JSON.stringify(initialState));
 
-    const [dateCheckin, setDateCheckin] = useState('');
-    const [dateCheckout, setDateCheckout] = useState('');
+
+    const [dateCheckin, setDateCheckin] = useState(initialState?.checkInDate);
+    const [dateCheckout, setDateCheckout] = useState(initialState?.checkOutDate);
 
     const fetchRooms = useRoomStore(state => state.fetchRooms);
     const rooms = useRoomStore(state => state.rooms);
@@ -29,7 +31,23 @@ export const BookingForm = ({ onSubmitData }) => {
         fetchRooms()
     }, []);
 
-    const { register, handleSubmit, setValue } = useForm()
+    const { register, handleSubmit, setValue, reset } = useForm()
+
+    useEffect(() => {
+        if (initialState) {
+            reset({
+                name: initialState.client.name,
+                lastName: initialState.client.name,
+                email: initialState.client.email,
+                phoneNumber: initialState.client.name,
+                roomTypeId: initialState.RoomType.id,
+                status: initialState.status,
+                checkin: initialState.checkInDate,
+                checkout: initialState.checkOutDate,
+                numberOfRoom: initialState.numberOfRoom
+            });
+        }
+    }, [initialState, reset])
 
     const onSubmit = handleSubmit((data) => {
         console.log(data);
@@ -179,6 +197,10 @@ export const BookingForm = ({ onSubmitData }) => {
                         </div>
                     </fieldset>
                 </div>
+            </div>
+            <div>
+                <h2 className='text-xl font-bold mb-4'>Habitaciones asignadas</h2>
+
             </div>
             <div className='flex gap-5 pt-4 justify-end'>
                 <button className='py-2 px-8 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer hover:bg-secondary/90'>Guardar</button>

@@ -57,7 +57,7 @@ export const BookingTable = () => {
             <div className='flex justify-between'>
                 <div className='w-[400px] relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
-                    <Input className="bg-[#F2F2F2] rounded-3xl" onChange={onChange} placeholder='Busca aqui' />
+                    <Input className="bg-primary rounded-3xl" onChange={onChange} placeholder='Busca aqui' />
                     <Search color='#737373' className='absolute right-0 top-1.5 mx-2' />
                 </div>
                 <div className='flex gap-8'>
@@ -73,11 +73,12 @@ export const BookingTable = () => {
                         <th className="px-6 py-3 text-start text-sm font-bold ">Cliente</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Email</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Habitacion</th>
-                        <th className="px-6 py-3 text-start text-sm font-bold ">Fecha reserva</th>
+                        {/* <th className="px-6 py-3 text-start text-sm font-bold ">Fecha reserva</th> */}
                         <th className="px-6 py-3 text-start text-sm font-bold ">Ceck-in</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Check-out</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Precio total</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Habitaciones</th>
+                        <th className="px-6 py-3 text-start text-sm font-bold ">Estado</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Acciones</th>
                     </tr>
                 </thead>
@@ -101,12 +102,12 @@ export const BookingTable = () => {
                                 </td>
                                 <td className='px-6 py-4 text-sm'>{item.client.email != null ? item.client.email : item.email}</td>
                                 <td className='px-6 py-4 text-sm'>{item.RoomType.name}</td>
-                                <td className='px-6 py-4 text-sm'>{item.bookingDate.slice(0, 10)}</td>
+                                {/* <td className='px-6 py-4 text-sm'>{item.bookingDate.slice(0, 10)}</td> */}
                                 <td className='px-6 py-4 text-sm'>
                                     <p className=' bg-green-400 py-1 px-1.5 rounded-3xl'>{item.checkInDate}</p>
                                 </td>
                                 <td className='px-6 py-4 text-sm'>
-                                    <p className=' bg-red-400 py-1 px-1.5 rounded-3xl'>{item.checkInDate}</p>
+                                    <p className=' bg-red-400 py-1 px-1.5 rounded-3xl'>{item.checkOutDate}</p>
                                 </td>
                                 <td className='px-6 py-4 text-sm'>${item.totalPrice}</td>
                                 <td className='px-6 py-4 text-sm'>
@@ -116,8 +117,11 @@ export const BookingTable = () => {
                                     </div>
                                 </td>
                                 <td className='px-6 py-4 text-sm'>
+                                    <p className='bg-[#10A760] py-1.5 px-3 rounded-xl text-center text-primary'>{item.status}</p>
+                                </td>
+                                <td className='px-6 py-4 text-sm'>
                                     <div className='flex items-center gap-4  text-sm'>
-                                        <Link to={`/admin/reservas/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
+                                        <Link to={`/admin/editar-reserva/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
 
                                         <AlertDialog>
                                             <AlertDialogTrigger><button className="text-red-500 cursor-pointer"><Trash2 /></button></AlertDialogTrigger>
