@@ -29,11 +29,11 @@ export const AppRouter = () => {
                 <Route path="dashboard" element={<Test />} />
                 <Route path="reservas" element={<BookingTablePage />} />
                 <Route path="crear-reserva" element={<BookingCreatePage />} />
-                <Route path="editar-reserva/:id" element={<BookingEditPage />} />
+                <Route path="reservas/editar-reserva/:id" element={<BookingEditPage />} />
                 <Route path="usuarios" element={<Test />} />
                 <Route path="tipos-habitacion" element={<RoomTablePage />} />
-                <Route path="crear-tipo-habitacion" element={<RoomCreatePage />} />
-                <Route path="tipo-habitacion/:id" element={<RoomEditPage />} />
+                <Route path="tipos-habitacion/crear-tipo-habitacion" element={<RoomCreatePage />} />
+                <Route path="tipos-habitacion/tipo-habitacion/:id" element={<RoomEditPage />} />
                 <Route path="habitaciones" element={<RoomsSingleTablePage />} />
                 <Route path="amenidades" element={<Test />} />
             </Route>

@@ -22,6 +22,8 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { RoomCardAdmin } from './RoomCardAdmin';
+import { ToastContainer } from 'react-toastify';
+import { notifyService } from '../../core/services/notifyService';
 
 
 
@@ -49,6 +51,10 @@ export const RoomTableTwo = () => {
             console.log(response);
             if (response.status === 200) {
                 fetchRooms();
+                notifyService.success("Se elimino la habitacion.")
+            }
+            if (response.status === 400) {
+                notifyService.error(response.data.message)
             }
         } catch (error) {
             console.log(error);
@@ -59,7 +65,7 @@ export const RoomTableTwo = () => {
 
     return (
         <div className='pt-5 flex flex-col gap-7' >
-
+            <ToastContainer />
             <div className='flex justify-between'>
                 <div className='w-[480px] relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
@@ -68,7 +74,7 @@ export const RoomTableTwo = () => {
                 </div>
                 <div className='flex gap-8'>
                     <FiltersTable />
-                    <Link to={'/admin/crear-tipo-habitacion'}><Button ><Plus /> Crear una habitacion</Button></Link>
+                    <Link to={'/admin/tipos-habitacion/crear-tipo-habitacion'}><Button ><Plus /> Crear una habitacion</Button></Link>
                 </div>
             </div>
             <div className='flex flex-col gap-6 mb-8'>
@@ -114,7 +120,7 @@ export const RoomTableTwo = () => {
                                             <p className='font-bold'>${item.price}</p>
                                         </div>
                                         <div className='flex justify-end gap-8 text-sm bg-trasnparent   cursor-pointer  '>
-                                            <Link to={`/admin/tipo-habitacion/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
+                                            <Link to={`/admin/tipos-habitacion/tipo-habitacion/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
 
                                             <AlertDialog>
                                                 <AlertDialogTrigger><button className="text-red-500 cursor-pointer"><Trash2 /></button></AlertDialogTrigger>
@@ -122,8 +128,8 @@ export const RoomTableTwo = () => {
                                                     <AlertDialogHeader>
                                                         <AlertDialogTitle>Estas seguro que quieres eliminar la habitacion?</AlertDialogTitle>
                                                         <AlertDialogDescription>
-                                                            This action cannot be undone. This will permanently delete your account
-                                                            and remove your data from our servers.
+                                                            Esta acción no se puede deshacer.
+                                                            Toda la información relacionada con esta habitación se perderá permanentemente.
                                                         </AlertDialogDescription>
                                                     </AlertDialogHeader>
                                                     <AlertDialogFooter>

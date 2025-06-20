@@ -5,6 +5,7 @@ import { api } from "../../../shared/api/apiClient";
 const useBookingStore = create((set, get) => ({
     bookings: [],
     booking: null,
+    roomAssigment: null,
 
     fetchBookings: async () => {
         const data = await api.get("/api/v1/booking?page=0&size=10");
@@ -15,6 +16,11 @@ const useBookingStore = create((set, get) => ({
         const data = await api.get(`/api/v1/booking/${id}`);
         if (data) set({ booking: data })
     },
+
+    fetchRoomAssignment: async (bookingId) => {
+        const data = await api.get(`/api/v1/room_assigment/${bookingId}`)
+        if (data) set({ roomAssigment: data })
+    }
 
 }));
 

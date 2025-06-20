@@ -20,6 +20,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
+import usePaymentStore from '../../payments/store/usePaymentStore';
 
 
 
@@ -37,8 +38,8 @@ export const RoomDetail = () => {
     const dateCheckin = useDateFormat(filters.checkin, true)
     const dateCheckout = useDateFormat(filters.checkout, true)
 
-    console.log(filters);
-    console.log("Profile.id: " + profile?.id);
+    // console.log(filters);
+    // console.log("Profile.id: " + profile?.id);
 
 
     const [booking, setBooking] = useState({
@@ -68,8 +69,8 @@ export const RoomDetail = () => {
     const handleChange = (e) => {
         const name = e.target.name;
         const value = parseInt(e.target.value);
-        console.log(value);
-        console.log(typeof value);
+        // console.log(value);
+        // console.log(typeof value);
 
         setBooking({
             ...booking,
@@ -78,10 +79,10 @@ export const RoomDetail = () => {
         console.log(booking);
     }
 
-    console.log("checkin: " + booking.checkin);
-    console.log("checkout: " + booking.checkout);
-    console.log("rooms: " + booking.numberOfRoom);
-    console.log(booking);
+    // console.log("checkin: " + booking.checkin);
+    // console.log("checkout: " + booking.checkout);
+    // console.log("rooms: " + booking.numberOfRoom);
+    // console.log(booking);
 
 
 
@@ -90,12 +91,22 @@ export const RoomDetail = () => {
             notifyService.error("Debes iniciar sesion para completar tu reserva.")
             return;
         }
-        console.log(booking);
+        // console.log(booking);
 
         try {
             const response = await api.post('/api/v1/booking', booking);
             console.log(response);
-            if (response.status === 201) notifyService.success(response.data.message)
+            const data = {
+                bookingId: response.data.bookingId
+            }
+            const paymentResponse = await api.post('/api/v1/payments', data);
+            const mpUrl = paymentResponse.data.message;
+            if (mpUrl) {
+                window.location.href = mpUrl;
+            } else {
+                notifyService.error("No se pudo obtener el link de pago.");
+            }
+
         } catch (error) {
             notifyService.error("No se pude Crear la reserva.")
         }

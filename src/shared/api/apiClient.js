@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 
 
@@ -51,6 +52,9 @@ export const api = {
             let response = await apiClient.delete(endPonit);
             return response;
         } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                return error.response;
+            }
             console.log(`Error en la peticon DELETE: ${error}`);
             throw error;
         }

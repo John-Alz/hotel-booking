@@ -52,20 +52,20 @@ export const BookingTable = () => {
 
 
     return (
-        <div className='pt-5 flex flex-col gap-7' >
+        <div className='pt-5 flex flex-col gap-7 mb-18' >
 
-            <div className='flex justify-between'>
+            <div className='flex justify-between bg-primary py-4 px-1 rounded-2xl '>
                 <div className='w-[400px] relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
                     <Input className="bg-primary rounded-3xl" onChange={onChange} placeholder='Busca aqui' />
                     <Search color='#737373' className='absolute right-0 top-1.5 mx-2' />
                 </div>
-                <div className='flex gap-8'>
+                <div className='flex gap-8 '>
                     <FiltersTable />
                     <Link to={'/admin/crear-reserva'}><Button ><Plus /> Crear una reserva</Button></Link>
                 </div>
             </div>
-            <table className='min-w-full  text-base font-light text-surface bg-gray rounded-xl bg-primary table-auto w-full'>
+            <table className='min-w-full  text-base font-light text-surface bg-gray rounded-2xl bg-primary table-auto w-full'>
                 <thead className=" border-b border-[#ced4da] bg-[#ced4da]/35 rounded-xl">
                     <tr>
                         {/* <th className="px-6 py-3 text-start text-sm font-bold ">ID</th> */}
@@ -121,7 +121,7 @@ export const BookingTable = () => {
                                 </td>
                                 <td className='px-6 py-4 text-sm'>
                                     <div className='flex items-center gap-4  text-sm'>
-                                        <Link to={`/admin/editar-reserva/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
+                                        <Link to={`/admin/reservas/editar-reserva/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
 
                                         <AlertDialog>
                                             <AlertDialogTrigger><button className="text-red-500 cursor-pointer"><Trash2 /></button></AlertDialogTrigger>

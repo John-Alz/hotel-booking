@@ -16,20 +16,38 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { useForm } from 'react-hook-form'
+import useRoomSingleStore from '../../roomsSingle/store/userRoomSingleStore';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
 
-export const BookingForm = ({ onSubmitData, initialState = null }) => {
-    console.log("INITIALSTATE: " + JSON.stringify(initialState));
+export const BookingForm = ({ onSubmitData, initialState = null, bookingId, roomTypeId }) => {
+
+    console.log("ROOMTYPEID PARA EL FETCH ROOMS: " + roomTypeId);
+
 
 
     const [dateCheckin, setDateCheckin] = useState(initialState?.checkInDate);
     const [dateCheckout, setDateCheckout] = useState(initialState?.checkOutDate);
 
+
     const fetchRooms = useRoomStore(state => state.fetchRooms);
     const rooms = useRoomStore(state => state.rooms);
+    const fetchRoomAssignment = useBookingStore(state => state.fetchRoomAssignment);
+    const roomAssigment = useBookingStore(state => state.roomAssigment);
+    const fetchRoomsSingle = useRoomSingleStore(state => state.fetchRoomsSingle);
+    const roomsSingle = useRoomSingleStore(state => state.roomsSingle);
+
 
     useEffect(() => {
-        fetchRooms()
-    }, []);
+        fetchRooms();
+        fetchRoomAssignment(bookingId);
+        fetchRoomsSingle(0, 10, roomTypeId)
+    }, [roomTypeId]);
 
     const { register, handleSubmit, setValue, reset } = useForm()
 
@@ -47,7 +65,7 @@ export const BookingForm = ({ onSubmitData, initialState = null }) => {
                 numberOfRoom: initialState.numberOfRoom
             });
         }
-    }, [initialState, reset])
+    }, [initialState, reset, dateCheckin, dateCheckout])
 
     const onSubmit = handleSubmit((data) => {
         console.log(data);
@@ -67,9 +85,16 @@ export const BookingForm = ({ onSubmitData, initialState = null }) => {
         onSubmitData(bookingCreated)
 
     })
+    console.log(roomsSingle);
+
+
+
+
+
+    //http://localhost:8080/api/v1/rooms?page=0&size=20&orderAsc=true&roomTypeId=1&status=DISPONIBLE
 
     return (
-        <form className='bg-primary border border-border shadow-md inset-shadow-2xs px-5 py-10 rounded-2xl flex flex-col' onSubmit={onSubmit}>
+        <form className='bg-primary border border-border shadow-md inset-shadow-2xs px-5 py-10 rounded-2xl flex flex-col' >
             <h2 className='text-xl font-bold mb-4'>Detalles de la reserva</h2>
             <div className='flex flex-col gap-5'>
                 <fieldset className='flex gap-10'>
@@ -145,7 +170,7 @@ export const BookingForm = ({ onSubmitData, initialState = null }) => {
 
                 <fieldset className='flex gap-10'>
                     <div className='w-full flex flex-col gap-1' >
-                        <label>No. de huespedes</label>
+                        <label>No. de Habitaciones</label>
                         <input type='text' name='numberOfRoom' placeholder='Escribe el nombre de la habitacion' className='border-2 border-border py-2 px-3 rounded-3xl'
                             {...register('numberOfRoom')}
                         />
@@ -198,12 +223,63 @@ export const BookingForm = ({ onSubmitData, initialState = null }) => {
                     </fieldset>
                 </div>
             </div>
-            <div>
+            <div >
+                <h2 className='text-xl font-bold mb-4'>Habitaciones disponibles para asignar</h2>
+                <div className='flex gap-8 '>
+                    <Carousel>
+                        <CarouselPrevious type="button" />
+                        <CarouselContent>
+                            {
+                                roomsSingle?.content?.length > 0 ? roomsSingle?.content?.map(item => (
+                                    <CarouselItem className="basis-1/6">
+                                        <article className='bg-primary border p-2 rounded-3xl not-only:inset-shadow-2xs shadow-md'>
+                                            <img className='w-[250px] rounded-2xl' src={item.room_type.images[0]} alt={item.room_type.name} />
+                                            <div className='flex flex-col gap-1 mt-2'>
+                                                <h2 className='text-3xl font-bold'>No.{item.room_number}</h2>
+                                                <h4 className='text-black-opacity'>{item.room_type.name} </h4>
+                                                <div className='flex gap-2 bg-secondary py-1 px-2 rounded-2xl text-white w-24'>
+                                                    <input type='radio' value={item.room_type.id} />
+                                                    <label>Asignar</label>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </CarouselItem>
+
+                                )) :
+                                    <h2 className='text-center text-3xl'>No hay habitaciones asignadas para esta reserva aun.</h2>
+                            }
+                        </CarouselContent>
+
+                        <CarouselNext type="button" />
+                    </Carousel>
+
+                </div>
+                <div className='mt-6 flex justify-end'>
+                    <Button type="button">Asignar habitaciones</Button>
+                </div>
+            </div>
+            <div className='my-6'>
                 <h2 className='text-xl font-bold mb-4'>Habitaciones asignadas</h2>
+                <div className='flex gap-8 '>
+
+                    {
+                        roomAssigment?.rooms.length > 0 ? roomAssigment?.rooms.map(item => (
+                            <article className='bg-primary border p-2 rounded-3xl not-only:inset-shadow-2xs shadow-md'>
+                                <img className='w-[250px] rounded-2xl' src={item.room_type.images[0]} alt={item.room_type.name} />
+                                <div className='flex flex-col gap-1 mt-2'>
+                                    <h2 className='text-3xl font-bold'>No.{item.room_number}</h2>
+                                    <h4 className='text-black-opacity'>{item.room_type.name} </h4>
+                                </div>
+                            </article>
+
+                        )) :
+                            <h2 className='text-center text-3xl'>No hay habitaciones asignadas para esta reserva aun.</h2>
+                    }
+                </div>
 
             </div>
             <div className='flex gap-5 pt-4 justify-end'>
-                <button className='py-2 px-8 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer hover:bg-secondary/90'>Guardar</button>
+                <button type='button' className='py-2 px-8 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer hover:bg-secondary/90' onClick={onSubmit}>Guardar</button>
                 <Link to={'/admin/reservas'}><button className='py-2 px-8 border bg-primary rounded-4xl border-secondary text-secondary cursor-pointer'>Cancelar</button></Link>
             </div>
         </form >

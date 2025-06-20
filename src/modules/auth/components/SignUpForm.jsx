@@ -112,6 +112,9 @@ export const SignUpForm = () => {
                                 }
                             })}
                         />
+                        {
+                            errors.email && <span className='text-red-400 text-xs'>{errors.email.message}</span>
+                        }
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Numero de telefono</label>
@@ -127,6 +130,9 @@ export const SignUpForm = () => {
                                 }
                             })}
                         />
+                        {
+                            errors.phoneNumber && <span className='text-red-400 text-xs'>{errors.phoneNumber.message}</span>
+                        }
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Fecha de nacimiento</label>
@@ -138,6 +144,9 @@ export const SignUpForm = () => {
                                 }
                             })}
                         />
+                        {
+                            errors.birthday && <span className='text-red-400 text-xs'>{errors.birthday.message}</span>
+                        }
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Contraseña</label>

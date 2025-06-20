@@ -40,7 +40,7 @@ export const RoomsSingleTable = () => {
     const fetchRoomsSingle = useRoomSingleStore(state => state.fetchRoomsSingle);
 
     useEffect(() => {
-        fetchRoomsSingle(page, roomTypeId);
+        fetchRoomsSingle(page, 5, roomTypeId);
     }, [page, roomTypeId])
 
     console.log(roomsSingle);

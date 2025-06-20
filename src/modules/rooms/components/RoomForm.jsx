@@ -65,7 +65,7 @@ export const RoomForm = ({ onSubmitData, initialState = null }) => {
         console.log(roomCreated);
 
         onSubmitData(roomCreated)
-        reset();
+        // reset();
 
     })
 

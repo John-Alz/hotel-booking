@@ -56,7 +56,7 @@ export const SideBar = () => {
     ];
 
     return (
-        <nav className='bg-white h-screen w-58 flex flex-col gap-8 pb-8 '>
+        <nav className='bg-white h-full w-58 flex flex-col gap-8 pb-8 '>
             <div className='mt-3 flex justify-center'>
                 <div>
                     <Link to={'/'}><h1 className='font-bold text-3xl'>Tripster</h1></Link>

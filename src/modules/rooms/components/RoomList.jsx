@@ -28,7 +28,7 @@ export const RoomList = () => {
             <div className='mb-8'>
                 {
                     Object.keys(filters).length === 0 ?
-                        <h2 className='font-bold text-4xl'>Habitaciones dispinibles</h2> :
+                        <h2 className='font-bold text-4xl'>Habitaciones disponibles</h2> :
                         <div>
                             <p>Los resultados para la busqueda</p>
                             <h2 className='font-bold text-4xl'>{dateCheckin} - {dateCheckout}, {filters.capacity} huespedes</h2>
