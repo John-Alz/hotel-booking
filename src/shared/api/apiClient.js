@@ -28,7 +28,9 @@ export const api = {
             let response = await apiClient.post(endpoint, data);
             return response;
         } catch (error) {
-            console.log(`Error en el post de la app: ${error}`);
+            if (error.response && error.response.data && error.response.data.message) {
+                return error.response;
+            }
             throw new Error;
         }
     },

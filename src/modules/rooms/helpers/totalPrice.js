@@ -6,7 +6,7 @@ export const totalPrice = (checkin, checkout, price, rooms) => {
     const dateFinish = dayjs(checkout);
     const nights = dateFinish.diff(dateInit, 'day')
 
-    const total = (price * nights) * rooms + 20;
+    const total = (price * nights) * rooms + 20000;
     const totalWithoutService = (price * nights);
 
     console.log(total, nights);

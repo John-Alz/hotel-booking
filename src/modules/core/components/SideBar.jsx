@@ -35,12 +35,12 @@ export const SideBar = () => {
             text: 'Habitaciones',
             link: '/admin/habitaciones'
         },
-        {
-            id: 6,
-            icon: <NotepadText />,
-            text: 'Amenidades',
-            link: '/admin/amenidades'
-        },
+        // {
+        //     id: 6,
+        //     icon: <NotepadText />,
+        //     text: 'Amenidades',
+        //     link: '/admin/amenidades'
+        // },
         {
             id: 4,
             icon: <Users />,

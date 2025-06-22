@@ -57,7 +57,7 @@ export const BookingTable = () => {
             <div className='flex justify-between bg-primary py-4 px-1 rounded-2xl '>
                 <div className='w-[400px] relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
-                    <Input className="bg-primary rounded-3xl" onChange={onChange} placeholder='Busca aqui' />
+                    <Input className="bg-primary rounded-3xl h-[40px]" onChange={onChange} placeholder='Busca aqui' />
                     <Search color='#737373' className='absolute right-0 top-1.5 mx-2' />
                 </div>
                 <div className='flex gap-8 '>

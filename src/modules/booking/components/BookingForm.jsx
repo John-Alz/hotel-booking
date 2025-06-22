@@ -24,11 +24,14 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
+import { api } from '../../../shared/api/apiClient';
+import { notifyService } from '../../core/services/notifyService';
 
 export const BookingForm = ({ onSubmitData, initialState = null, bookingId, roomTypeId }) => {
 
     console.log("ROOMTYPEID PARA EL FETCH ROOMS: " + roomTypeId);
 
+    const [roomsByBooking, setRoomsByBooking] = useState([]);
 
 
     const [dateCheckin, setDateCheckin] = useState(initialState?.checkInDate);
@@ -86,6 +89,46 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
 
     })
     console.log(roomsSingle);
+
+    const handleChange = (e) => {
+        console.log(e.target.value);
+        let value = parseInt(e.target.value);
+        setRoomsByBooking([...roomsByBooking, value])
+    }
+
+    const assigmentRoomsPost = async () => {
+        const data = {
+            bookingId: bookingId,
+            roomsIds: roomsByBooking
+        }
+        console.log(bookingId);
+        console.log(roomsByBooking);
+        console.log(data);
+        try {
+            const response = await api.post('/api/v1/room_assigment', data);
+
+            switch (response.status) {
+                case 201:
+                    notifyService.success(response.data.message)
+                    fetchRoomAssignment(bookingId);
+                    break;
+                case 400:
+                    notifyService.error(response.data.message)
+                    break;
+                default:
+                    break;
+            }
+
+            console.log(response);
+            // if (response.status === 400) {
+            //     notifyService.error(response.data.message)
+            // }
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
 
 
 
@@ -238,7 +281,7 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
                                                 <h2 className='text-3xl font-bold'>No.{item.room_number}</h2>
                                                 <h4 className='text-black-opacity'>{item.room_type.name} </h4>
                                                 <div className='flex gap-2 bg-secondary py-1 px-2 rounded-2xl text-white w-24'>
-                                                    <input type='radio' value={item.room_type.id} />
+                                                    <input onChange={handleChange} type='checkbox' value={item.id} />
                                                     <label>Asignar</label>
                                                 </div>
                                             </div>
@@ -255,7 +298,7 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
 
                 </div>
                 <div className='mt-6 flex justify-end'>
-                    <Button type="button">Asignar habitaciones</Button>
+                    <button className='py-2 px-8 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer hover:bg-secondary/90' onClick={assigmentRoomsPost} type="button">Asignar habitaciones</button>
                 </div>
             </div>
             <div className='my-6'>

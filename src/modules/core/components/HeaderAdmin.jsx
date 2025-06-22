@@ -20,7 +20,7 @@ export const HeaderAdmin = () => {
                         <p className='font-bold'>{profile?.name} {profile?.lastName}</p>
                         <ChevronDown />
                     </div>
-                    <p>{profile?.roles[0].roleEnum.toLowerCase()}</p>
+                    <p>{profile?.role?.roleEnum.toLowerCase()}</p>
                 </div>
             </div>
         </header>
