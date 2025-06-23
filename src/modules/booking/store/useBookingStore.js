@@ -8,7 +8,7 @@ const useBookingStore = create((set, get) => ({
     roomAssigment: null,
 
     fetchBookings: async () => {
-        const data = await api.get("/api/v1/booking?page=0&size=10");
+        const data = await api.get("/api/v1/booking?page=0&size=20");
         if (data) set({ bookings: data })
     },
 

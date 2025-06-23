@@ -72,7 +72,7 @@ export const BookingTable = () => {
                         bookings?.content?.map(item => (
                             <tr className='hover:bg-grayDark border-b border-[#ced4da]'>
                                 {/* <td className='px-6 py-4 text-sm'>{item.id}</td> */}
-                                <td className='px-6 py-4 text-sm'>R-223971</td>
+                                <td className='px-6 py-4 text-sm'>{item.bookingNumber}</td>
                                 {/* <td className='px-6 py-4 text-sm'>
                                     <div>
                                         <img src={item.images[0]} alt={item.name} className='w-[112px] h-[75px] rounded-2xl' />

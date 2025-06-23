@@ -65,7 +65,7 @@ export const Header = () => {
                             <DropdownMenuSeparator />
                             <DropdownMenuItem><button className='cursor-pointer hover:text-secondary'>Mi perfil</button></DropdownMenuItem>
                             {
-                                profile.role.roleEnum === "ADMINISTRADOR" ?
+                                profile.role.roleEnum === "ADMINISTRADOR" || "RECEPCIONISTA" ?
                                     <Link to={'/admin'}>
                                         <DropdownMenuItem><button className='cursor-pointer hover:text-secondary'>Dashboard</button></DropdownMenuItem>
                                     </Link> :
