@@ -1,24 +1,24 @@
 import { useEffect } from 'react'
 
-import { Bed, BedDouble, DoorOpen, Edit3, Filter, Plus, Search, Trash2, Users } from 'lucide-react';
+import { Bed, BedDouble, CircleX, DoorOpen, Edit3, Filter, Plus, Search, Trash2, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../../components/ui/button';
 import { Input } from "@/components/ui/input"
 
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import useBookingStore from '../store/useBookingStore';
 import { FiltersTable } from '../../rooms/components/FiltersTable';
 import { api } from '../../../shared/api/apiClient';
+import { CancelleationCreatePage } from '../../cancellations/pages/CancelleationCreatePage';
+import { ToastContainer } from 'react-toastify';
+import { FiltersTableBooking } from './FiltersTableBooking';
 
 
 
@@ -35,25 +35,10 @@ export const BookingTable = () => {
         console.log(e.target.value);
     }
 
-    console.log(bookings);
-
-    const deleteBooking = async (id) => {
-        try {
-            const response = await api.delete(`/api/v1/booking/${id}`)
-            console.log(response);
-            if (response.status === 200) {
-                fetchBookings();
-            }
-        } catch (error) {
-            console.log(error);
-
-        }
-    }
-
 
     return (
         <div className='pt-5 flex flex-col gap-7 mb-18' >
-
+            <ToastContainer />
             <div className='flex justify-between bg-primary py-4 px-1 rounded-2xl '>
                 <div className='w-[400px] relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
@@ -61,7 +46,7 @@ export const BookingTable = () => {
                     <Search color='#737373' className='absolute right-0 top-1.5 mx-2' />
                 </div>
                 <div className='flex gap-8 '>
-                    <FiltersTable />
+                    <FiltersTableBooking />
                     <Link to={'/admin/crear-reserva'}><Button ><Plus /> Crear una reserva</Button></Link>
                 </div>
             </div>
@@ -117,28 +102,20 @@ export const BookingTable = () => {
                                     </div>
                                 </td>
                                 <td className='px-6 py-4 text-sm'>
-                                    <p className='bg-[#10A760] py-1.5 px-3 rounded-xl text-center text-primary'>{item.status}</p>
+                                    <p className={`${item.status === "CONFIRMADA" ? "bg-[#10A760]" : item.status === "CANCELADA" ? "bg-red-500" : null} py-1.5 px-3 rounded-xl text-center text-primary`}>{item.status}</p>
                                 </td>
                                 <td className='px-6 py-4 text-sm'>
                                     <div className='flex items-center gap-4  text-sm'>
                                         <Link to={`/admin/reservas/editar-reserva/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
-
-                                        <AlertDialog>
-                                            <AlertDialogTrigger><button className="text-red-500 cursor-pointer"><Trash2 /></button></AlertDialogTrigger>
-                                            <AlertDialogContent>
-                                                <AlertDialogHeader>
-                                                    <AlertDialogTitle>Estas seguro que quieres eliminar la reserva?</AlertDialogTitle>
-                                                    <AlertDialogDescription>
-                                                        This action cannot be undone. This will permanently delete your account
-                                                        and remove your data from our servers.
-                                                    </AlertDialogDescription>
-                                                </AlertDialogHeader>
-                                                <AlertDialogFooter>
-                                                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                                    <AlertDialogAction onClick={() => deleteBooking(item.id)}>Confirmar</AlertDialogAction>
-                                                </AlertDialogFooter>
-                                            </AlertDialogContent>
-                                        </AlertDialog>
+                                        <Dialog>
+                                            <DialogTrigger><button className="text-red-500 cursor-pointer"><CircleX /></button></DialogTrigger>
+                                            <DialogContent className="left-[50%]">
+                                                <DialogHeader>
+                                                    <DialogTitle>Cancelar reserva.</DialogTitle>
+                                                </DialogHeader>
+                                                <CancelleationCreatePage bookingId={item.id} />
+                                            </DialogContent>
+                                        </Dialog>
 
                                     </div>
                                 </td>

@@ -33,7 +33,7 @@ export const SignUpForm = () => {
             birthday: data.birthday,
             password: data.password,
             roleRequest: {
-                roles: ["CUSTOMER"]
+                role: "CLIENTE"
             }
         }
         console.log(userCreated);

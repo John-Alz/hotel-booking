@@ -78,7 +78,7 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
             email: data.email,
             phoneNumber: data.phoneNumber,
             roomTypeId: parseInt(data.roomTypeId),
-            status: "CONFIRMADA",
+            // status: "CONFIRMADA",
             checkInDate: data.checkin,
             checkOutDate: data.checkout,
             numberOfRoom: parseInt(data.numberOfRoom)

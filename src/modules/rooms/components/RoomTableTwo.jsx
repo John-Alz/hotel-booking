@@ -24,6 +24,7 @@ import {
 import { RoomCardAdmin } from './RoomCardAdmin';
 import { ToastContainer } from 'react-toastify';
 import { notifyService } from '../../core/services/notifyService';
+import { FilterOrderTableRoomType } from './FilterOrderTableRoomType';
 
 
 
@@ -74,6 +75,7 @@ export const RoomTableTwo = () => {
                 </div>
                 <div className='flex gap-8'>
                     <FiltersTable />
+                    <FilterOrderTableRoomType />
                     <Link to={'/admin/tipos-habitacion/crear-tipo-habitacion'}><Button ><Plus /> Crear una habitacion</Button></Link>
                 </div>
             </div>

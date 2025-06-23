@@ -64,6 +64,7 @@ export const RoomsSingleTable = () => {
             const response = await api.delete(`/api/v1/rooms/${id}`)
             console.log(response);
             if (response.status === 200) {
+                notifyService.success(response.data.message)
                 setPage(0)
                 fetchRoomsSingle(page)
             }
@@ -93,7 +94,7 @@ export const RoomsSingleTable = () => {
                     {/* <Link to={'/admin/crear-habitacion'}><Button ><Plus /> Crear una habitacion</Button></Link> */}
                     <Dialog>
                         <DialogTrigger><Button ><Plus /> Crear una habitacion</Button></DialogTrigger>
-                        <DialogContent >
+                        <DialogContent className="left-[50%]">
                             <DialogHeader>
                                 <DialogTitle>Crea una habitacion.</DialogTitle>
                             </DialogHeader>
@@ -169,8 +170,8 @@ export const RoomsSingleTable = () => {
                                     <div className='flex items-center gap-4  text-sm'>
                                         <Dialog>
                                             <DialogTrigger><button className="text-blue-500 cursor-pointer"><Edit3 /></button></DialogTrigger>
-                                            <DialogContent >
-                                                <DialogHeader>
+                                            <DialogContent className="left-[50%]">
+                                                <DialogHeader >
                                                     <DialogTitle>Edita una habitacion.</DialogTitle>
                                                 </DialogHeader>
                                                 <RoomsSingleEditPage roomId={item.id} />

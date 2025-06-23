@@ -15,9 +15,21 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import { Edit3, Plus, Search, Trash2 } from 'lucide-react';
 import { FiltersTable } from '../../rooms/components/FiltersTable';
 import { Link } from 'react-router-dom';
+import { UsersEditPage } from '../pages/UsersEditPage';
+import { ToastContainer } from 'react-toastify';
+import { api } from '../../../shared/api/apiClient';
+import { notifyService } from '../../core/services/notifyService';
 
 export const UsersTable = () => {
     // const [filtersUsers, setFiltersUsers] = useState('')
@@ -31,8 +43,6 @@ export const UsersTable = () => {
         fetchUsers(filtersUsers);
     }, [filtersUsers])
 
-    console.log(users);
-
     const onChange = (e) => {
         console.log(e.target.value);
         console.log(e.target.name);
@@ -45,10 +55,32 @@ export const UsersTable = () => {
         setFiltersUsers(newFilters);
     }
 
+    const deleteUser = async (id) => {
+
+        try {
+            const response = await api.delete(`/api/v1/users/${id}`);
+            console.log(response);
+
+            switch (response.status) {
+                case 200:
+                    notifyService.success(response.data.message);
+                    fetchUsers(filtersUsers);
+                    break;
+                case 400:
+                    notifyService.error(response.data.message)
+                    break;
+                default:
+                    break;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
-        <div className='pt-5 flex flex-col gap-7 mb-18' >
-
+        <div className='flex flex-col gap-7 mb-18' >
+            <ToastContainer />
             <div className='flex justify-between items-center py-4 px-1 rounded-2xl '>
                 <div className='w-[400px] relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
@@ -129,7 +161,18 @@ export const UsersTable = () => {
                                 </td> */}
                                 <td className='px-6 py-4 text-sm'>
                                     <div className='flex items-center gap-4  text-sm'>
-                                        <Link to={`/admin/reservas/editar-reserva/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
+                                        <div className='flex gap-8'>
+                                            {/* <Link to={'/admin/crear-habitacion'}><Button ><Plus /> Crear una habitacion</Button></Link> */}
+                                            <Dialog>
+                                                <DialogTrigger><button className="text-blue-500 cursor-pointer"><Edit3 /></button></DialogTrigger>
+                                                <DialogContent className="left-[50%]">
+                                                    <DialogHeader>
+                                                        <DialogTitle>Detalles del usuario</DialogTitle>
+                                                    </DialogHeader>
+                                                    <UsersEditPage userId={item.id} />
+                                                </DialogContent>
+                                            </Dialog>
+                                        </div>
 
                                         <AlertDialog>
                                             <AlertDialogTrigger><button className="text-red-500 cursor-pointer"><Trash2 /></button></AlertDialogTrigger>
@@ -142,7 +185,7 @@ export const UsersTable = () => {
                                                 </AlertDialogHeader>
                                                 <AlertDialogFooter>
                                                     <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                                    <AlertDialogAction onClick={() => deleteBooking(item.id)}>Confirmar</AlertDialogAction>
+                                                    <AlertDialogAction onClick={() => deleteUser(item.id)}>Confirmar</AlertDialogAction>
                                                 </AlertDialogFooter>
                                             </AlertDialogContent>
                                         </AlertDialog>

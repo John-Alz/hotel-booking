@@ -1,4 +1,4 @@
-import { BedDouble } from 'lucide-react';
+import { BedDouble, Bookmark, BookmarkX } from 'lucide-react';
 import { Users } from 'lucide-react';
 import { BookDown } from 'lucide-react';
 import { Bolt } from 'lucide-react';
@@ -46,6 +46,12 @@ export const SideBar = () => {
             icon: <Users />,
             text: 'Usuarios',
             link: '/admin/usuarios'
+        },
+        {
+            id: 10,
+            icon: <BookmarkX />,
+            text: 'Cancelaciones',
+            link: '/admin/cancelaciones'
         },
         {
             id: 8,

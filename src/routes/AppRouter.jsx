@@ -13,6 +13,7 @@ import { BookingCreatePage } from '../modules/booking/pages/BookingCreatePage'
 import { BookingEditPage } from '../modules/booking/pages/BookingEditPage'
 import { RoomsSingleTablePage } from '../modules/roomsSingle/pages/RoomsSingleTablePage'
 import { UsersTablePage } from '../modules/users/pages/UsersTablePage'
+import { CancellationsTablePage } from '../modules/cancellations/pages/CancellationsTablePage'
 
 export const AppRouter = () => {
     return (
@@ -36,6 +37,7 @@ export const AppRouter = () => {
                 <Route path="amenidades" element={<Test />} />
 
                 <Route path="usuarios" element={<UsersTablePage />} />
+                <Route path="cancelaciones" element={<CancellationsTablePage />} />
             </Route>
 
         </Routes>

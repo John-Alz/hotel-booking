@@ -1,7 +1,3 @@
-
-import { Button } from '../../../components/ui/button';
-import { Input } from "@/components/ui/input"
-import { useForm } from 'react-hook-form';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -16,24 +12,14 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Filter } from 'lucide-react';
-import useAmenityStore from '../../amenities/store/useAmenityStore';
-import { useEffect } from 'react';
-import { Counter } from '../../core/components/Counter';
-export const FiltersTable = () => {
+import { Button } from "@/components/ui/button"
+import { Filter } from "lucide-react"
 
-    const fetchAmenities = useAmenityStore(state => state.fetchAmenities);
-    const amenities = useAmenityStore(state => state.amenities);
 
-    useEffect(() => {
-        fetchAmenities();
-    }, []);
 
-    const onChange = (e) => {
-        console.log(e.target.value);
-    }
+export const FiltersTableCancellations = () => {
+
+
 
     return (
         <DropdownMenu>
@@ -46,7 +32,7 @@ export const FiltersTable = () => {
                 <DropdownMenuGroup>
                     <div className='px-2 py-1.5 text-sm flex flex-col gap-2'>
                         <div className="flex justify-between">
-                            <h2 className="font-medium text-black-opacity">Fecha de disponibilidad:</h2>
+                            <h2 className="font-medium text-black-opacity">Fecha de cancelación:</h2>
                             <button className="text-secondary font-medium cursor-pointer">Limpiar</button>
                         </div>
                         <article className="flex justify-between gap-4">
@@ -62,31 +48,7 @@ export const FiltersTable = () => {
                     </div>
                     <div className='px-2 py-1.5 text-sm flex flex-col gap-2'>
                         <div className="flex justify-between">
-                            <h2 className="font-medium text-black-opacity">Cantidad de camas/baños:</h2>
-                            <button className="text-secondary font-medium cursor-pointer">Limpiar</button>
-                        </div>
-                        <article className="flex justify-between gap-4">
-                            <div className="w-full flex flex-col gap-1">
-                                <label className="text-xs font-bold">Camas</label>
-                                <select className="border-2 px-2 py-2 rounded-lg">
-                                    <option>Option1</option>
-                                    <option>Option1</option>
-                                    <option>Option1</option>
-                                </select>
-                            </div>
-                            <div className="w-full flex flex-col gap-1">
-                                <label className="text-xs font-bold">Baños</label>
-                                <select className="border-2 px-2 py-2 rounded-lg">
-                                    <option>Option1</option>
-                                    <option>Option1</option>
-                                    <option>Option1</option>
-                                </select>
-                            </div>
-                        </article>
-                    </div>
-                    <div className='px-2 py-1.5 text-sm flex flex-col gap-2'>
-                        <div className="flex justify-between">
-                            <h2 className="font-medium text-black-opacity">Precio menor:</h2>
+                            <h2 className="font-medium text-black-opacity">Precio mayor:</h2>
                             <button className="text-secondary font-medium cursor-pointer">Limpiar</button>
                         </div>
                         <article className="flex justify-between gap-4">
@@ -110,22 +72,6 @@ export const FiltersTable = () => {
                             </div>
                         </article>
                     </div>
-                    <div className='px-2 py-1.5 text-sm flex flex-col gap-2'>
-                        <div className="flex justify-between">
-                            <h2 className="font-medium text-black-opacity">Tipo de amenidad:</h2>
-                            <button className="text-secondary font-medium cursor-pointer">Limpiar</button>
-                        </div>
-                        <article className="flex justify-between gap-4">
-                            <div className="w-full flex flex-col gap-1">
-                                <select className="border-2 px-2 py-2 rounded-lg">
-                                    <option>Option1</option>
-                                    <option>Option1</option>
-                                    <option>Option1</option>
-                                </select>
-                            </div>
-                        </article>
-                    </div>
-
                     <div className="px-2 py-1.5 mt-2 flex justify-between">
                         <Button variant="gray">Limpiar</Button>
                         <Button>Aplicar</Button>
