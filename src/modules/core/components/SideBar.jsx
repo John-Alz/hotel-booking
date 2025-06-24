@@ -52,37 +52,41 @@ export const SideBar = () => {
             icon: <BookmarkX />,
             text: 'Cancelaciones',
             link: '/admin/cancelaciones'
-        },
-        {
-            id: 8,
-            icon: <LogOut />,
-            text: 'Cerrar sesion',
-            link: '/'
         }
     ];
 
     return (
-        <nav className='bg-white h-full w-58 flex flex-col gap-8 pb-8 '>
-            <div className='mt-3 flex justify-center'>
-                <div>
-                    <Link to={'/'}><h1 className='font-bold text-3xl'>Tripster</h1></Link>
+        <nav className='bg-white h-screen w-58 flex flex-col gap-8 pb-8 border'>
+            <div className='mt-3 flex '>
+                <div className='ml-3'>
+                    <Link to={'/'}><h1 className='font-bold text-4xl'>Tripster</h1></Link>
                 </div>
             </div>
-            <ul className='flex flex-col gap-5'>
-                {navLinks.map((item) => (
-                    <NavLink key={item.link} to={`${item.link}`}>
-                        {({ isActive }) => (
-                            <div className={`flex gap-2 items-center group h-[56px]`}>
-                                <div className={`w-1 h-full rounded-tr-2xl rounded-br-2xl group-hover:bg-btn-admin ${isActive ? 'bg-btn-admin' : 'bg-transparent'}`}></div>
-                                <li className={`flex gap-2 py-4 px-4 rounded-2xl w-full mr-5 group-hover:bg-btn-admin  hover:text-white ${isActive ? 'bg-btn-admin text-white' : 'bg-transparent'}`}>
-                                    {item.icon}
-                                    {item.text}
-                                </li>
-                            </div>
-                        )}
-                    </NavLink>
-                ))}
-            </ul>
+            <div className='h-screen flex flex-col justify-between'>
+                <ul className='flex flex-col gap-5'>
+                    {navLinks.map((item) => (
+                        <NavLink key={item.link} to={`${item.link}`}>
+                            {({ isActive }) => (
+                                <div className={`flex gap-2 items-center group h-[56px]`}>
+                                    <div className={`w-1 h-full rounded-tr-2xl rounded-br-2xl group-hover:bg-btn-admin ${isActive ? 'bg-btn-admin' : 'bg-transparent'}`}></div>
+                                    <li className={`flex gap-2 py-4 px-4 rounded-2xl w-full mr-5 group-hover:bg-btn-admin  hover:text-white ${isActive ? 'bg-btn-admin text-white' : 'bg-transparent'}`}>
+                                        {item.icon}
+                                        {item.text}
+                                    </li>
+                                </div>
+                            )}
+                        </NavLink>
+                    ))}
+
+                </ul>
+                <div className={`flex gap-2 items-center group h-[56px] cursor-pointer`}>
+                    <div className={`w-1 h-full rounded-tr-2xl rounded-br-2xl group-hover:bg-btn-admin `}></div>
+                    <li className={`flex gap-2 py-4 px-4 rounded-2xl w-full mr-5 group-hover:bg-btn-admin  hover:text-white `}>
+                        <LogOut /> Cerrar sesion
+                    </li>
+                </div>
+            </div>
+
         </nav >
     )
 }

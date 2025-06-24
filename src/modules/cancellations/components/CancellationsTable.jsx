@@ -21,6 +21,8 @@ import { CancellationDetailsPage } from "../pages/CancellationDetailsPage";
 import { FiltersTable } from "../../rooms/components/FiltersTable";
 import { Link } from "react-router-dom";
 import { FiltersTableCancellations } from "./FiltersTableCancellations";
+import { Pagination } from "../../core/components/Pagination";
+import usePagination from "../../core/store/userPagination";
 
 export const CancellationsTable = () => {
 
@@ -28,13 +30,14 @@ export const CancellationsTable = () => {
     const cancellations = useCancellationStore(state => state.cancellations);
     const filtersCancellations = useCancellationStore(state => state.filtersCancellations);
     const setFiltersCancellations = useCancellationStore(state => state.setFiltersCancellations);
+    const { page } = usePagination();
 
     console.log(filtersCancellations);
 
 
     useEffect(() => {
-        fetchCancellations(filtersCancellations);
-    }, [filtersCancellations])
+        fetchCancellations(page, filtersCancellations);
+    }, [page, filtersCancellations])
 
 
     const onChange = (e) => {
@@ -45,8 +48,8 @@ export const CancellationsTable = () => {
     return (
         <div className='flex flex-col gap-7 mb-18' >
             <ToastContainer />
-            <div className='flex justify-between items-center py-4 px-1 rounded-2xl '>
-                <div className='w-[400px] relative'>
+            <div className='flex justify-between items-center rounded-2xl '>
+                <div className='w-[40%]  relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
                     <Input className="bg-primary rounded-lg h-[40px]" name="email" onChange={onChange} placeholder='Busca por email' />
                     <Search color='#737373' className='absolute right-0 top-2 mx-2' />
@@ -62,7 +65,7 @@ export const CancellationsTable = () => {
                     <thead className=" border-b border-[#ced4da] bg-[#ced4da]/35 rounded-xl justify-between">
                         <tr>
                             {/* <th className="px-6 py-3 text-start text-sm font-bold ">ID</th> */}
-                            <th className="px-6 py-3 text-start text-sm font-bold ">ID</th>
+                            {/* <th className="px-6 py-3 text-start text-sm font-bold ">ID</th> */}
                             <th className="px-6 py-3 text-start text-sm font-bold ">N. reserva</th>
                             <th className="px-6 py-3 text-start text-sm font-bold ">Nombre del cliente</th>
                             <th className="px-6 py-3 text-start text-sm font-bold ">Correo del cliente</th>
@@ -74,11 +77,18 @@ export const CancellationsTable = () => {
                             <th className="px-6 py-3 text-start text-sm font-bold ">Acciones</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr>
+                            <td colSpan="8">
+                                <Pagination data={cancellations} />
+                            </td>
+                        </tr>
+                    </tfoot>
                     <tbody className='font-medium'>
                         {
                             cancellations?.content?.map(item => (
                                 <tr className='hover:bg-grayDark border-b border-[#ced4da]'>
-                                    <td className='px-6 py-4 text-sm'>{item.id}</td>
+                                    {/* <td className='px-6 py-4 text-sm'>{item.id}</td> */}
                                     <td className='px-6 py-4 text-sm'>{item.boooking.bookingNumber}</td>
                                     <td className='px-6 py-4 text-sm'>
                                         <div className='flex gap-3 items-center'>

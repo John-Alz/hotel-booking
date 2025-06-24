@@ -6,7 +6,7 @@ import { Footer } from "../core/components/Footer"
 
 export const AdminLayout = () => {
     return (
-        <div className='bg-admin-bg'>
+        <div className='bg-[#FAFAFA]'>
             <div className='flex border-b-1 border-border'>
                 <div>
                     <SideBar />
@@ -17,7 +17,7 @@ export const AdminLayout = () => {
                 </div>
 
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

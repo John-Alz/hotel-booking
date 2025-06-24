@@ -14,6 +14,7 @@ import { BookingEditPage } from '../modules/booking/pages/BookingEditPage'
 import { RoomsSingleTablePage } from '../modules/roomsSingle/pages/RoomsSingleTablePage'
 import { UsersTablePage } from '../modules/users/pages/UsersTablePage'
 import { CancellationsTablePage } from '../modules/cancellations/pages/CancellationsTablePage'
+import { PanelPage } from '../modules/panel/pages/PanelPage'
 
 export const AppRouter = () => {
     return (
@@ -26,7 +27,7 @@ export const AppRouter = () => {
 
             <Route path='/admin' element={<AdminLayout />}>
                 <Route index element={<Navigate to='dashboard' replace />} />
-                <Route path="dashboard" element={<Test />} />
+                <Route path="dashboard" element={<PanelPage />} />
                 <Route path="reservas" element={<BookingTablePage />} />
                 <Route path="crear-reserva" element={<BookingCreatePage />} />
                 <Route path="reservas/editar-reserva/:id" element={<BookingEditPage />} />

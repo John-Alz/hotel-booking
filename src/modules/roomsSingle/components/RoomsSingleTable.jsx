@@ -30,14 +30,16 @@ import { ToastContainer } from 'react-toastify';
 import { notifyService } from '../../core/services/notifyService';
 import { api } from '../../../shared/api/apiClient';
 import { RoomsSingleEditPage } from '../pages/RoomsSingleEditPage';
+import { Pagination } from '../../core/components/Pagination';
+import usePagination from '../../core/store/userPagination';
 
 export const RoomsSingleTable = () => {
-    const [page, setPage] = useState(0);
     const [roomTypeId, setRoomTypeId] = useState("");
 
 
     const roomsSingle = useRoomSingleStore(state => state.roomsSingle);
     const fetchRoomsSingle = useRoomSingleStore(state => state.fetchRoomsSingle);
+    const { page } = usePagination();
 
     useEffect(() => {
         fetchRoomsSingle(page, 5, roomTypeId);
@@ -81,13 +83,13 @@ export const RoomsSingleTable = () => {
 
 
     return (
-        <div className='pt-5 flex flex-col gap-7' >
+        <div className='flex flex-col gap-7' >
             <ToastContainer />
 
             <div className='flex justify-between'>
-                <div className='w-[480px] relative'>
+                <div className='w-[40%]  relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
-                    <Input className="bg-primary rounded-3xl h-[40px]" onChange={onChange} placeholder='Busca aqui' />
+                    <Input className="bg-primary rounded-lg h-[40px]" onChange={onChange} placeholder='Busca aqui' />
                     <Search color='#737373' className='absolute right-0 top-1.5 mx-2' />
                 </div>
                 <div className='flex gap-8'>
@@ -123,7 +125,7 @@ export const RoomsSingleTable = () => {
                     </Button>
                 </div>
             </div>
-            <table className='min-w-full  text-base font-light text-surface bg-gray rounded-xl bg-primary'>
+            <table className='min-w-full  text-base font-light text-surface bg-gray rounded-xl bg-primary mb-4'>
                 <thead className=" border-b border-[#ced4da] bg-[#ced4da]/35 rounded-xl">
                     <tr>
                         {/* <th className="px-6 py-3 text-start text-sm font-bold ">ID</th> */}
@@ -137,6 +139,14 @@ export const RoomsSingleTable = () => {
                         <th className="px-6 py-3 text-start text-sm font-bold ">Acciones</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <td colSpan="8">
+                            <Pagination data={roomsSingle} />
+                        </td>
+                    </tr>
+                </tfoot>
+
                 <tbody className='font-medium'>
                     {
                         roomsSingle?.content?.map(item => (
@@ -203,11 +213,7 @@ export const RoomsSingleTable = () => {
                     }
                 </tbody>
             </table>
-            <div className='flex justify-center gap-7 items-center'>
-                <button className='bg-secondary rounded-full text-primary p-1 cursor-pointer' onClick={prevPage}><ChevronLeft size={33} /></button>
-                <p className='text-2xl'>{page}</p>
-                <button className='bg-secondary rounded-full text-primary p-1 cursor-pointer' onClick={nextPage}><ChevronRight size={35} /> </button>
-            </div>
+
 
         </div>
     )

@@ -30,7 +30,7 @@ export const FiltersTableCancellations = () => {
     const fetchRooms = useRoomStore(state => state.fetchRooms);
 
     useEffect(() => {
-        fetchRooms()
+        fetchRooms(0, 4)
     }, [])
 
     const { register, handleSubmit, reset, resetField } = useForm();

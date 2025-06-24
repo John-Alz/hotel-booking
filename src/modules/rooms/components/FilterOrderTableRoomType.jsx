@@ -42,22 +42,7 @@ export const FilterOrderTableRoomType = () => {
                             </div>
                         </article>
                     </div>
-                    <div className='px-2 py-1.5 text-sm flex flex-col gap-2'>
-                        <div className="flex justify-between">
-                            <h2 className="font-medium text-black-opacity">Precio:</h2>
-                            {/* <button className="text-secondary font-medium cursor-pointer">Limpiar</button> */}
-                        </div>
-                        <article className="flex flex-col gap-2">
-                            <div className="w-full flex gap-1">
-                                <input type="radio" placeholder="Escribe el precio que deseas filtrar" className="border-2 px-2 py-2 rounded-lg" />
-                                <label className="text-sm font-medium">Ascendente</label>
-                            </div>
-                            <div className="w-full flex gap-1">
-                                <input type="radio" placeholder="Escribe el precio que deseas filtrar" className="border-2 px-2 py-2 rounded-lg" />
-                                <label className="text-sm font-medium">Descendente</label>
-                            </div>
-                        </article>
-                    </div>
+
                     <div className="px-2 py-1.5 mt-2 flex justify-between">
                         <Button variant="gray">Limpiar</Button>
                         <Button>Aplicar</Button>

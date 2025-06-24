@@ -6,9 +6,32 @@ const useBookingStore = create((set, get) => ({
     bookings: [],
     booking: null,
     roomAssigment: null,
+    filtersBooking: {
+        checkInDate: '',
+        checkOutDate: '',
+        priceMin: '',
+        roomTypeId: '',
+        status: '',
+    },
 
-    fetchBookings: async () => {
-        const data = await api.get("/api/v1/booking?page=0&size=20");
+    setFiltersBooking: (payload) => {
+        set({ filtersBooking: payload })
+    },
+
+    clearFiltersBooking: () => {
+        set({
+            filtersBooking: {
+                checkInDate: '',
+                checkOutDate: '',
+                priceMin: '',
+                roomTypeId: '',
+                status: '',
+            },
+        })
+    },
+
+    fetchBookings: async (page, filters, numberBooking = '') => {
+        const data = await api.get(`/api/v1/booking?page=${page}&size=10&checkInDate=${filters.checkInDate}&checkOutDate=${filters.checkOutDate}&priceMin=${filters.priceMin}&roomTypeId=${filters.roomTypeId}&status=${filters.status}&numberBooking=${numberBooking}`);
         if (data) set({ bookings: data })
     },
 

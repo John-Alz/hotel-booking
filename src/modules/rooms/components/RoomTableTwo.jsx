@@ -25,6 +25,8 @@ import { RoomCardAdmin } from './RoomCardAdmin';
 import { ToastContainer } from 'react-toastify';
 import { notifyService } from '../../core/services/notifyService';
 import { FilterOrderTableRoomType } from './FilterOrderTableRoomType';
+import { Pagination } from '../../core/components/Pagination';
+import usePagination from '../../core/store/userPagination';
 
 
 
@@ -33,12 +35,13 @@ export const RoomTableTwo = () => {
 
     const fetchRooms = useRoomStore(state => state.fetchRooms);
     const rooms = useRoomStore(state => state.rooms);
+    const { page } = usePagination();
 
     const { register, handleSubmit } = useForm();
 
     useEffect(() => {
-        fetchRooms();
-    }, [])
+        fetchRooms(page, 2);
+    }, [page])
 
     const onChange = (e) => {
         console.log(e.target.value);
@@ -65,12 +68,12 @@ export const RoomTableTwo = () => {
 
 
     return (
-        <div className='pt-5 flex flex-col gap-7' >
+        <div className='flex flex-col gap-7' >
             <ToastContainer />
             <div className='flex justify-between'>
-                <div className='w-[480px] relative'>
+                <div className='w-[40%]  relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
-                    <Input className="bg-primary rounded-3xl h-[40px]" onChange={onChange} placeholder='Busca aqui' />
+                    <Input className="bg-primary rounded-lg h-[40px]" onChange={onChange} placeholder='Busca aqui' />
                     <Search color='#737373' className='absolute right-0 top-1.5 mx-2' />
                 </div>
                 <div className='flex gap-8'>
@@ -148,6 +151,7 @@ export const RoomTableTwo = () => {
                         </div>
                     ))
                 }
+                <Pagination data={rooms} />
             </div>
             {/* <table className='min-w-full  text-base font-light text-surface bg-gray rounded-xl bg-primary'>
                 <thead className=" border-b border-[#ced4da] bg-[#ced4da]/35 rounded-xl">

@@ -17,11 +17,11 @@ const useRoomStore = create(
                 set({ filters: {} })
             },
 
-            fetchRooms: async (filters2) => {
+            fetchRooms: async (page, size = 4, filters2) => {
                 console.log("FILTERS: " + JSON.stringify(filters2));
                 let today = dayjs().add(1, 'day').format('YYYY-MM-DD');
                 let after = dayjs().add(2, 'day').format('YYYY-MM-DD');
-                const url = `/api/v1/rooms/types?page=0&size=10&checkIn=${filters2?.checkin ?? today}&checkOut=${filters2?.checkout ?? after}&roomName=${filters2?.type ?? ""}&amenityId=${filters2?.amenity ?? ""}&roomCapacity=${filters2?.capacity ?? ""}`;
+                const url = `/api/v1/rooms/types?page=${page}&size=${size}&checkIn=${filters2?.checkin ?? today}&checkOut=${filters2?.checkout ?? after}&roomName=${filters2?.type ?? ""}&amenityId=${filters2?.amenity ?? ""}&roomCapacity=${filters2?.capacity ?? ""}`;
                 console.log("URL:", url);
                 const data = await api.get(url)
                 if (data) set({ rooms: data })

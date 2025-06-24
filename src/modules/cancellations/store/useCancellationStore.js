@@ -33,10 +33,10 @@ const useCancellationStore = create((set, get) => ({
 
 
 
-    fetchCancellations: async (filters, search = "") => {
+    fetchCancellations: async (page, filters, search = "") => {
         console.log(filters);
 
-        const data = await api.get(`/api/v1/cancellations?page=0&size=10&orderAsc=true&dateFromCancellation=${filters.dateFromCancellation}&dateToCancellation=${filters.dateToCancellation}&priceMin=${filters.priceMin}&roomTypeId=${filters.roomTypeId}&numberBooking=${search}`)
+        const data = await api.get(`/api/v1/cancellations?page=${page}&size=10&orderAsc=true&dateFromCancellation=${filters.dateFromCancellation}&dateToCancellation=${filters.dateToCancellation}&priceMin=${filters.priceMin}&roomTypeId=${filters.roomTypeId}&numberBooking=${search}`)
         if (data) set({ cancellations: data })
     },
 

@@ -14,10 +14,10 @@ const useUsersStore = create((set, get) => ({
     users: [],
     userSelected: null,
 
-    fetchUsers: async (filters) => {
+    fetchUsers: async (page, filters) => {
         console.log(filters);
 
-        const data = await api.get(`/api/v1/users?page=0&size=20&orderAsc=true&email=${filters.email}&role=${filters.role}`)
+        const data = await api.get(`/api/v1/users?page=${page}&size=10&orderAsc=true&email=${filters.email}&role=${filters.role}`)
         if (data) set({ users: data })
     },
 

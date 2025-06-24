@@ -30,6 +30,8 @@ import { UsersEditPage } from '../pages/UsersEditPage';
 import { ToastContainer } from 'react-toastify';
 import { api } from '../../../shared/api/apiClient';
 import { notifyService } from '../../core/services/notifyService';
+import { Pagination } from '../../core/components/Pagination';
+import usePagination from '../../core/store/userPagination';
 
 export const UsersTable = () => {
     // const [filtersUsers, setFiltersUsers] = useState('')
@@ -38,10 +40,11 @@ export const UsersTable = () => {
     const fetchUsers = useUsersStore(state => state.fetchUsers);
     const filtersUsers = useUsersStore(state => state.filtersUsers);
     const setFiltersUsers = useUsersStore(state => state.setFiltersUsers);
+    const { page } = usePagination();
 
     useEffect(() => {
-        fetchUsers(filtersUsers);
-    }, [filtersUsers])
+        fetchUsers(page, filtersUsers);
+    }, [page, filtersUsers])
 
     const onChange = (e) => {
         console.log(e.target.value);
@@ -81,10 +84,10 @@ export const UsersTable = () => {
     return (
         <div className='flex flex-col gap-7 mb-18' >
             <ToastContainer />
-            <div className='flex justify-between items-center py-4 px-1 rounded-2xl '>
-                <div className='w-[400px] relative'>
+            <div className='flex justify-between items-center px-1 rounded-2xl '>
+                <div className='w-[40%]  relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
-                    <Input className="bg-primary rounded-3xl h-[40px]" name="email" onChange={onChange} placeholder='Busca por email' />
+                    <Input className="bg-primary rounded-lg h-[40px]" name="email" onChange={onChange} placeholder='Busca por email' />
                     <Search color='#737373' className='absolute right-0 top-2 mx-2' />
                 </div>
                 <div className='flex gap-8 '>
@@ -117,9 +120,17 @@ export const UsersTable = () => {
                         <th className="px-6 py-3 text-start text-sm font-bold ">Telefono</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Email</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Rol</th>
+                        <th className="px-6 py-3 text-start text-sm font-bold ">Estado</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Acciones</th>
                     </tr>
                 </thead>
+                <tfoot>
+                    <tr>
+                        <td colSpan="8">
+                            <Pagination data={users} />
+                        </td>
+                    </tr>
+                </tfoot>
                 <tbody className='font-medium'>
                     {
                         users?.content?.map(item => (
@@ -159,6 +170,7 @@ export const UsersTable = () => {
                                 {/* <td className='px-6 py-4 text-sm'>
                                     <p className='bg-[#10A760] py-1.5 px-3 rounded-xl text-center text-primary'>{item.name}</p>
                                 </td> */}
+                                <td className='px-6 py-4 text-sm'>Activo</td>
                                 <td className='px-6 py-4 text-sm'>
                                     <div className='flex items-center gap-4  text-sm'>
                                         <div className='flex gap-8'>

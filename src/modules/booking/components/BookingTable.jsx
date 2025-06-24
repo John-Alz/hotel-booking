@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import { Bed, BedDouble, CircleX, DoorOpen, Edit3, Filter, Plus, Search, Trash2, Users } from 'lucide-react';
+import { Bed, BedDouble, ChevronLeft, ChevronRight, CircleX, DoorOpen, Edit3, Filter, Plus, Search, Trash2, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../../components/ui/button';
 import { Input } from "@/components/ui/input"
@@ -19,34 +19,51 @@ import { api } from '../../../shared/api/apiClient';
 import { CancelleationCreatePage } from '../../cancellations/pages/CancelleationCreatePage';
 import { ToastContainer } from 'react-toastify';
 import { FiltersTableBooking } from './FiltersTableBooking';
+import { Pagination } from '../../core/components/Pagination';
+import usePagination from '../../core/store/userPagination';
+import { FilterOrderTableRoomType } from '../../rooms/components/FilterOrderTableRoomType';
 
 
 
 export const BookingTable = () => {
 
+
     const fetchBookings = useBookingStore(state => state.fetchBookings);
     const bookings = useBookingStore(state => state.bookings);
+    const filtersBooking = useBookingStore(state => state.filtersBooking);
+    const setFiltersBooking = useBookingStore(state => state.setFiltersBooking);
+    const { page } = usePagination();
 
     useEffect(() => {
-        fetchBookings();
-    }, [])
+        fetchBookings(page, filtersBooking);
+    }, [page, filtersBooking])
 
     const onChange = (e) => {
         console.log(e.target.value);
+        const value = e.target.value;
+        fetchBookings(filtersBooking, value)
     }
 
+    const prevPage = () => {
+        setPage(page - 1)
+    }
+
+    const nextPage = () => {
+        setPage(page + 1)
+    }
 
     return (
-        <div className='pt-5 flex flex-col gap-7 mb-18' >
+        <div className='flex flex-col gap-7 mb-18' >
             <ToastContainer />
-            <div className='flex justify-between bg-primary py-4 px-1 rounded-2xl '>
-                <div className='w-[400px] relative'>
+            <div className='flex justify-between  rounded-2xl '>
+                <div className='w-[40%] relative'>
                     {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
-                    <Input className="bg-primary rounded-3xl h-[40px]" onChange={onChange} placeholder='Busca aqui' />
+                    <Input className="bg-primary rounded-lg h-[40px] w-full" onChange={onChange} placeholder='Busca aqui' />
                     <Search color='#737373' className='absolute right-0 top-1.5 mx-2' />
                 </div>
                 <div className='flex gap-8 '>
                     <FiltersTableBooking />
+                    <FilterOrderTableRoomType />
                     <Link to={'/admin/crear-reserva'}><Button ><Plus /> Crear una reserva</Button></Link>
                 </div>
             </div>
@@ -62,11 +79,20 @@ export const BookingTable = () => {
                         <th className="px-6 py-3 text-start text-sm font-bold ">Ceck-in</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Check-out</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Precio total</th>
-                        <th className="px-6 py-3 text-start text-sm font-bold ">Habitaciones</th>
+                        {/* <th className="px-6 py-3 text-start text-sm font-bold ">Habitaciones</th> */}
                         <th className="px-6 py-3 text-start text-sm font-bold ">Estado</th>
                         <th className="px-6 py-3 text-start text-sm font-bold ">Acciones</th>
                     </tr>
                 </thead>
+
+                <tfoot>
+                    <tr>
+                        <td colSpan="8">
+                            <Pagination data={bookings} />
+                        </td>
+                    </tr>
+                </tfoot>
+
                 <tbody className='font-medium'>
                     {
                         bookings?.content?.map(item => (
@@ -95,14 +121,14 @@ export const BookingTable = () => {
                                     <p className=' bg-red-400 py-1 px-1.5 rounded-3xl'>{item.checkOutDate}</p>
                                 </td>
                                 <td className='px-6 py-4 text-sm'>${item.totalPrice}</td>
-                                <td className='px-6 py-4 text-sm'>
+                                {/* <td className='px-6 py-4 text-sm'>
                                     <div className='flex gap-3 items-center'>
                                         <DoorOpen />
                                         {item.numberOfRoom}
                                     </div>
-                                </td>
+                                </td> */}
                                 <td className='px-6 py-4 text-sm'>
-                                    <p className={`${item.status === "CONFIRMADA" ? "bg-[#10A760]" : item.status === "CANCELADA" ? "bg-red-500" : null} py-1.5 px-3 rounded-xl text-center text-primary`}>{item.status}</p>
+                                    <p className={`${item.status === "CONFIRMADA" ? "bg-[#10A760]" : item.status === "CANCELADA" ? "bg-red-500" : item.status === "CHECK_IN" ? "bg-blue-500" : item.status === "CHECK_OUT" ? "bg-yellow-500" : null} py-1.5 px-3 rounded-xl text-center text-primary`}>{item.status}</p>
                                 </td>
                                 <td className='px-6 py-4 text-sm'>
                                     <div className='flex items-center gap-4  text-sm'>

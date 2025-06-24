@@ -63,13 +63,13 @@ export const Header = () => {
                         <DropdownMenuContent>
                             <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem><button className='cursor-pointer hover:text-secondary'>Mi perfil</button></DropdownMenuItem>
+
                             {
                                 profile.role.roleEnum === "ADMINISTRADOR" || "RECEPCIONISTA" ?
                                     <Link to={'/admin'}>
                                         <DropdownMenuItem><button className='cursor-pointer hover:text-secondary'>Dashboard</button></DropdownMenuItem>
                                     </Link> :
-                                    null
+                                    <DropdownMenuItem><button className='cursor-pointer hover:text-secondary'>Mi perfil</button></DropdownMenuItem>
                             }
 
                             <DropdownMenuItem><button className='cursor-pointer hover:text-secondary' onClick={handleLogOut}>Cerrar sesion</button></DropdownMenuItem>
