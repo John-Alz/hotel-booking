@@ -35,7 +35,8 @@ export const Header = () => {
         <header className=' w-[95%] m-auto flex justify-between  py-5 '>
             <section className='flex items-center gap-15'>
                 <div>
-                    <Link to={'/'}><h1 className='font-bold text-3xl'>Tripster</h1></Link>
+                    {/* <Link to={'/'}><h1 className='font-bold text-3xl'>Tripster</h1></Link> */}
+                    <Link to={'/'}><h1 className='font-bold text-3xl'>SanDiego</h1></Link>
                 </div>
                 <nav className='flex'>
                     <ul className='flex gap-10'>
@@ -57,7 +58,7 @@ export const Header = () => {
                         <DropdownMenuTrigger>
                             <div className='w-[150px] flex gap-3 items-center justify-end'>
                                 <p>{profile.name}</p>
-                                <button onClick={() => handleToggle()} className='border bg-black border-black py-2 px-4.5 rounded-full text-white cursor-pointer hover:bg-transparent hover:text-black'>{profile.name.slice(0, 1)}</button>
+                                <button onClick={() => handleToggle()} className='border bg-black border-black py-2.5 px-4  rounded-full text-white cursor-pointer hover:bg-transparent hover:text-black'>{profile.name.slice(0, 1)}</button>
                             </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>

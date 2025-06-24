@@ -25,7 +25,9 @@ export const LoginForm = () => {
             let response = await authService.login(user, { withCredentials: true })
             console.log(response);
             if (response.status === 200) {
+                navigate('/')
                 toast.success(`Bienvenido`)
+
                 fetchProfile();
             }
             // navigate('/')
@@ -37,7 +39,10 @@ export const LoginForm = () => {
     const onSubmit = handleSubmit((data) => {
         console.log(data)
         userLogin(data);
-        reset();
+        if (!errors) {
+
+            reset();
+        }
     })
 
 

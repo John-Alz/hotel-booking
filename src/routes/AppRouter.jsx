@@ -15,6 +15,7 @@ import { RoomsSingleTablePage } from '../modules/roomsSingle/pages/RoomsSingleTa
 import { UsersTablePage } from '../modules/users/pages/UsersTablePage'
 import { CancellationsTablePage } from '../modules/cancellations/pages/CancellationsTablePage'
 import { PanelPage } from '../modules/panel/pages/PanelPage'
+import { PaymentTablePage } from '../modules/payments/pages/PaymentTablePage'
 
 export const AppRouter = () => {
     return (
@@ -39,6 +40,8 @@ export const AppRouter = () => {
 
                 <Route path="usuarios" element={<UsersTablePage />} />
                 <Route path="cancelaciones" element={<CancellationsTablePage />} />
+                <Route path="pagos" element={<PaymentTablePage />} />
+
             </Route>
 
         </Routes>

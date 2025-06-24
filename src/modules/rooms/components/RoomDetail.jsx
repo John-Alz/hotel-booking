@@ -49,7 +49,6 @@ export const RoomDetail = () => {
         email: profile?.email,
         phoneNumber: profile?.phoneNumber,
         roomTypeId: parseInt(id),
-        status: 'CONFIRMADA',
         checkInDate: filters.checkin,
         checkOutDate: filters.checkout,
         numberOfRoom: 1

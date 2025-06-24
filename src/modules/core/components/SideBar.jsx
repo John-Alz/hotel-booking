@@ -1,4 +1,4 @@
-import { BedDouble, Bookmark, BookmarkX } from 'lucide-react';
+import { BedDouble, Bookmark, BookmarkX, Receipt } from 'lucide-react';
 import { Users } from 'lucide-react';
 import { BookDown } from 'lucide-react';
 import { Bolt } from 'lucide-react';
@@ -52,6 +52,12 @@ export const SideBar = () => {
             icon: <BookmarkX />,
             text: 'Cancelaciones',
             link: '/admin/cancelaciones'
+        },
+        {
+            id: 10,
+            icon: <Receipt />,
+            text: 'Pagos',
+            link: '/admin/pagos'
         }
     ];
 
@@ -59,7 +65,7 @@ export const SideBar = () => {
         <nav className='bg-white h-screen w-58 flex flex-col gap-8 pb-8 border'>
             <div className='mt-3 flex '>
                 <div className='ml-3'>
-                    <Link to={'/'}><h1 className='font-bold text-4xl'>Tripster</h1></Link>
+                    <Link to={'/'}><h1 className='font-bold text-4xl'>Roomify</h1></Link>
                 </div>
             </div>
             <div className='h-screen flex flex-col justify-between'>

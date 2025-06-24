@@ -128,7 +128,7 @@ export const BookingTable = () => {
                                     </div>
                                 </td> */}
                                 <td className='px-6 py-4 text-sm'>
-                                    <p className={`${item.status === "CONFIRMADA" ? "bg-[#10A760]" : item.status === "CANCELADA" ? "bg-red-500" : item.status === "CHECK_IN" ? "bg-blue-500" : item.status === "CHECK_OUT" ? "bg-yellow-500" : null} py-1.5 px-3 rounded-xl text-center text-primary`}>{item.status}</p>
+                                    <p className={`${item.status === "CONFIRMADA" ? "bg-[#10A760]" : item.status === "CANCELADA" ? "bg-red-500" : item.status === "CHECK_IN" ? "bg-blue-500" : item.status === "CHECK_OUT" ? "bg-yellow-500" : item.status === "PAGADA" ? "bg-[#0EA5E9]" : item.status === "PENDIENTE" ? "bg-violet-400" : null} py-1.5 px-3 rounded-xl text-center text-primary`}>{item.status}</p>
                                 </td>
                                 <td className='px-6 py-4 text-sm'>
                                     <div className='flex items-center gap-4  text-sm'>

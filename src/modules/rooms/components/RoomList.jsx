@@ -16,8 +16,8 @@ export const RoomList = () => {
     const dateCheckout = useDateFormat(filters.checkout, false)
 
     useEffect(() => {
-        fetchRooms(0, 4);
-    }, [])
+        fetchRooms(0, 4, filters);
+    }, [filters])
 
     console.log(rooms);
 
