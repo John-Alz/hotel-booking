@@ -12,6 +12,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { hasRole } from '../utils/auth';
 
 
 export const Header = () => {
@@ -57,7 +58,10 @@ export const Header = () => {
                     <DropdownMenu>
                         <DropdownMenuTrigger>
                             <div className='w-[150px] flex gap-3 items-center justify-end'>
-                                <p>{profile.name}</p>
+                                <div className='text-right'>
+                                    <p>{profile.name} {profile.lastName}</p>
+                                    <p className='text-black-opacity'>{profile.email}</p>
+                                </div>
                                 <button onClick={() => handleToggle()} className='border bg-black border-black py-2.5 px-4  rounded-full text-white cursor-pointer hover:bg-transparent hover:text-black'>{profile.name.slice(0, 1)}</button>
                             </div>
                         </DropdownMenuTrigger>
@@ -66,7 +70,7 @@ export const Header = () => {
                             <DropdownMenuSeparator />
 
                             {
-                                profile.role.roleEnum === "ADMINISTRADOR" || "RECEPCIONISTA" ?
+                                hasRole(["ADMINISTRADOR", "RECEPCIONISTA"]) ?
                                     <Link to={'/admin'}>
                                         <DropdownMenuItem><button className='cursor-pointer hover:text-secondary'>Dashboard</button></DropdownMenuItem>
                                     </Link> :

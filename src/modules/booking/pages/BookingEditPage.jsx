@@ -44,7 +44,7 @@ export const BookingEditPage = () => {
                 <ArrowLeft size={35} />
                 <h2 className='text-3xl font-bold'>Editar la reserva</h2>
             </div>
-            <BookingForm initialState={booking} onSubmitData={updateBooking} bookingId={params.id} roomTypeId={booking?.RoomType?.id} />
+            <BookingForm initialState={booking} onSubmitData={updateBooking} bookingId={params.id} roomTypeId={booking?.RoomType?.id} flag={true} />
         </div>
     )
 }

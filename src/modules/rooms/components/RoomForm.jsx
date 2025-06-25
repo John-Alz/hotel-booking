@@ -65,7 +65,10 @@ export const RoomForm = ({ onSubmitData, initialState = null }) => {
         console.log(roomCreated);
 
         onSubmitData(roomCreated)
-        // reset();
+        if (!errors) {
+
+            reset();
+        }
 
     })
 
@@ -100,62 +103,119 @@ export const RoomForm = ({ onSubmitData, initialState = null }) => {
 
                     <div className='w-full flex flex-col gap-1' >
                         <label>Nombre</label>
-                        <input type='text' name='name' placeholder='Escribe el nombre de la habitacion' className='border-2 border-border py-2 px-3 rounded-3xl'
-                            {...register('name')}
+                        <input type='text' name='name' placeholder='Escribe el nombre de la habitacion' className={`${errors.name ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                            {...register('name', {
+                                required: {
+                                    value: true,
+                                    message: 'Nombre es requerido '
+                                }
+                            })}
                         />
-                    </div>
-                    <div className='w-full flex flex-col gap-1'>
-                        <label>Estado*</label>
-                        <select className='border-2 border-border py-2 px-3 rounded-3xl' >
-                            <option>Activa</option>
-                            <option>Inactiva</option>
-                        </select>
+                        {
+                            errors.name && <span className='text-red-400 text-xs'>{errors.name.message}</span>
+                        }
                     </div>
                     <div className='w-full flex flex-col gap-1'>
                         <label>Precio *</label>
-                        <input type='text' name='price' placeholder='Ingresa el precio por noche' className='border-2 border-border py-2 px-3 rounded-3xl'
-                            {...register('price')}
+                        <input type='text' name='price' placeholder='Ingresa el precio por noche' className={`${errors.price ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                            {...register('price', {
+                                required: {
+                                    value: true,
+                                    message: 'Precio es requerido '
+                                }
+                            })}
                         />
+                        {
+                            errors.price && <span className='text-red-400 text-xs'>{errors.price.message}</span>
+                        }
                     </div>
                     <div className='w-full flex flex-col gap-1'>
                         <label>Stock *</label>
-                        <input type='text' name='quantity_available' placeholder='Ingresa el stock' className='border-2 border-border py-2 px-3 rounded-3xl'
-                            {...register('quantity_available')}
+                        <input type='text' name='quantity_available' placeholder='Ingresa el stock' className={`${errors.quantity_available ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                            {...register('quantity_available', {
+                                required: {
+                                    value: true,
+                                    message: 'Stock es requerido '
+                                }
+                            })}
                         />
+                        {
+                            errors.quantity_available && <span className='text-red-400 text-xs'>{errors.quantity_available.message}</span>
+                        }
                     </div>
                 </fieldset>
                 <fieldset className='w-full flex justify-between gap-10'>
                     <div className='w-full flex flex-col gap-1'>
                         <label>Camas *</label>
-                        <input type='text' name='beds' placeholder='Ingresa el numero de camas' className='border-2 border-border py-2 px-3 rounded-3xl'
-                            {...register('beds')}
+                        <input type='text' name='beds' placeholder='Ingresa el numero de camas' className={`${errors.beds ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                            {...register('beds', {
+                                required: {
+                                    value: true,
+                                    message: 'Cantidad de camas es requerido '
+                                }
+                            })}
                         />
+                        {
+                            errors.beds && <span className='text-red-400 text-xs'>{errors.beds.message}</span>
+                        }
                     </div>
                     <div className='w-full flex flex-col gap-1'>
                         <label>Banios *</label>
-                        <input type='text' name='bathRooms' placeholder='Ingresa el numero de bamios' className='border-2 border-border py-2 px-3 rounded-3xl'
-                            {...register('bathRooms')}
+                        <input type='text' name='bathRooms' placeholder='Ingresa el numero de bamios' className={`${errors.bathRooms ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                            {...register('bathRooms', {
+                                required: {
+                                    value: true,
+                                    message: 'Cantidad de baños es requerido '
+                                }
+                            })}
                         />
+                        {
+                            errors.bathRooms && <span className='text-red-400 text-xs'>{errors.bathRooms.message}</span>
+                        }
                     </div>
                     <div className='w-full flex flex-col gap-1'>
                         <label>Capacidad *</label>
-                        <input type='text' name='capacity' placeholder='Ingresa la capacidad' className='border-2 border-border py-2 px-3 rounded-3xl'
-                            {...register('capacity')}
+                        <input type='text' name='capacity' placeholder='Ingresa la capacidad' className={`${errors.bathRooms ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                            {...register('capacity', {
+                                required: {
+                                    value: true,
+                                    message: 'La Capacidad es requerida.'
+                                }
+                            })}
                         />
+                        {
+                            errors.capacity && <span className='text-red-400 text-xs'>{errors.capacity.message}</span>
+                        }
                     </div>
                     <div className='w-full flex flex-col gap-1'>
                         <label>Metros *</label>
-                        <input type='text' name='meters' placeholder='Ingresa el numero de metros cuadrados' className='border-2 border-border py-2 px-3 rounded-3xl'
-                            {...register('meters')}
+                        <input type='text' name='meters' placeholder='Ingresa el numero de metros cuadrados' className={`${errors.meters ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                            {...register('meters', {
+                                required: {
+                                    value: true,
+                                    message: 'Metros cuadrados es requerido '
+                                }
+                            })}
                         />
+                        {
+                            errors.meters && <span className='text-red-400 text-xs'>{errors.meters.message}</span>
+                        }
                     </div>
                 </fieldset>
                 <fieldset className='w-full flex justify-between gap-10 mt-5'>
                     <div className='w-full flex flex-col gap-1'>
                         <label>Descripcion *</label>
-                        <textarea name='description' placeholder='Ingresa la descripcion' className='border-2 border-border py-2 px-3 rounded-3xl h-[200px] resize-none'
-                            {...register('description')}
+                        <textarea name='description' placeholder='Ingresa la descripcion' className={`${errors.description ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl h-[200px] resize-none`}
+                            {...register('description', {
+                                required: {
+                                    value: true,
+                                    message: 'La descripcion es requerida.'
+                                }
+                            })}
                         />
+                        {
+                            errors.description && <span className='text-red-400 text-xs'>{errors.description.message}</span>
+                        }
                     </div>
                 </fieldset>
             </div>

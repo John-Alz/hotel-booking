@@ -24,6 +24,11 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { RoomSingleForm } from './RoomSingleForm';
 import { RoomsSingleCreate } from '../pages/RoomsSingleCreate';
 import { ToastContainer } from 'react-toastify';
@@ -32,6 +37,7 @@ import { api } from '../../../shared/api/apiClient';
 import { RoomsSingleEditPage } from '../pages/RoomsSingleEditPage';
 import { Pagination } from '../../core/components/Pagination';
 import usePagination from '../../core/store/userPagination';
+import { hasRole } from '../../core/utils/auth';
 
 export const RoomsSingleTable = () => {
     const [roomTypeId, setRoomTypeId] = useState("");
@@ -87,15 +93,48 @@ export const RoomsSingleTable = () => {
             <ToastContainer />
 
             <div className='flex justify-between'>
-                <div className='w-[40%]  relative'>
-                    {/* <input type='text' placeholder='Busca aqui' className='bg-[#F2F2F2] py-2 px-2 rounded-lg w-100' /> */}
+                {/* <div className='w-[40%]  relative'>
                     <Input className="bg-primary rounded-lg h-[40px]" onChange={onChange} placeholder='Busca aqui' />
                     <Search color='#737373' className='absolute right-0 top-1.5 mx-2' />
+                </div> */}
+                <div>
+                    {/* <h2>Tipos de habitacion</h2> */}
+                    <div className='w-[100%] flex justify-around bg-primary shadow-sm py-3 px-3 gap-2 rounded-2xl text-[14px]'>
+                        <Button variant={roomTypeId === "" ? 'default' : 'filters'} onClick={() => handleRoomTypeFilter("")}>
+                            Ver todas
+                        </Button>
+                        <Button variant={roomTypeId === 1 ? 'default' : 'filters'} onClick={() => handleRoomTypeFilter(1)}>
+                            Hab. estandar sencilla
+                        </Button>
+                        <Button variant={roomTypeId === 2 ? 'default' : 'filters'} onClick={() => handleRoomTypeFilter(2)}>
+                            Hab. estandar doble
+                        </Button>
+                        <Button variant={roomTypeId === 3 ? 'default' : 'filters'} onClick={() => handleRoomTypeFilter(3)}>
+                            Hab. familiar
+                        </Button>
+                        <Button variant={roomTypeId === 4 ? 'default' : 'filters'} onClick={() => handleRoomTypeFilter(4)}>
+                            Hab. suite
+                        </Button>
+                    </div>
                 </div>
                 <div className='flex gap-8'>
                     {/* <Link to={'/admin/crear-habitacion'}><Button ><Plus /> Crear una habitacion</Button></Link> */}
                     <Dialog>
-                        <DialogTrigger><Button ><Plus /> Crear una habitacion</Button></DialogTrigger>
+
+                        <Tooltip>
+                            <TooltipTrigger>
+                                {hasRole(['ADMINISTRADOR']) ? (
+                                    <DialogTrigger asChild>
+                                        <Button><Plus /> Crear una habitación</Button>
+                                    </DialogTrigger>
+                                ) : (
+                                    <Button disabled><Plus /> Crear una habitación</Button>
+                                )}
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p className='text-primary'>Solo para administradores</p>
+                            </TooltipContent>
+                        </Tooltip>
                         <DialogContent className="left-[50%]">
                             <DialogHeader>
                                 <DialogTitle>Crea una habitacion.</DialogTitle>
@@ -105,26 +144,7 @@ export const RoomsSingleTable = () => {
                     </Dialog>
                 </div>
             </div>
-            <div>
-                {/* <h2>Tipos de habitacion</h2> */}
-                <div className='w-[60%] flex justify-around bg-primary shadow-sm py-3 gap-2 rounded-2xl text-[14px]'>
-                    <Button variant={roomTypeId === "" ? 'default' : 'filters'} onClick={() => handleRoomTypeFilter("")}>
-                        Ver todas
-                    </Button>
-                    <Button variant={roomTypeId === 1 ? 'default' : 'filters'} onClick={() => handleRoomTypeFilter(1)}>
-                        Hab. estandar sencilla
-                    </Button>
-                    <Button variant={roomTypeId === 2 ? 'default' : 'filters'} onClick={() => handleRoomTypeFilter(2)}>
-                        Hab. estandar doble
-                    </Button>
-                    <Button variant={roomTypeId === 3 ? 'default' : 'filters'} onClick={() => handleRoomTypeFilter(3)}>
-                        Hab. familiar
-                    </Button>
-                    <Button variant={roomTypeId === 4 ? 'default' : 'filters'} onClick={() => handleRoomTypeFilter(4)}>
-                        Hab. suite
-                    </Button>
-                </div>
-            </div>
+
             <table className='min-w-full  text-base font-light text-surface bg-gray rounded-xl bg-primary mb-4'>
                 <thead className=" border-b border-[#ced4da] bg-[#ced4da]/35 rounded-xl">
                     <tr>
@@ -179,7 +199,16 @@ export const RoomsSingleTable = () => {
                                 <td className='px-6 py-4 text-sm'>
                                     <div className='flex items-center gap-4  text-sm'>
                                         <Dialog>
-                                            <DialogTrigger><button className="text-blue-500 cursor-pointer"><Edit3 /></button></DialogTrigger>
+                                            <DialogTrigger>
+                                                <Tooltip>
+                                                    <TooltipTrigger>
+                                                        <button disabled={!hasRole(['ADMINISTRADOR'])} className="text-blue-500 cursor-pointer"><Edit3 /></button>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent>
+                                                        <p className='text-primary'>Solo para administradores</p>
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </DialogTrigger>
                                             <DialogContent className="left-[50%]">
                                                 <DialogHeader >
                                                     <DialogTitle>Edita una habitacion.</DialogTitle>
@@ -190,7 +219,15 @@ export const RoomsSingleTable = () => {
                                         {/* <Link to={`/admin/tipo-habitacion/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link> */}
 
                                         <AlertDialog>
-                                            <AlertDialogTrigger><button className="text-red-500 cursor-pointer"><Trash2 /></button></AlertDialogTrigger>
+                                            <AlertDialogTrigger>
+                                                <Tooltip>
+                                                    <TooltipTrigger>
+                                                        <button disabled={!hasRole(['ADMINISTRADOR'])} className="text-red-500 cursor-pointer"><Trash2 /></button>                                                    </TooltipTrigger>
+                                                    <TooltipContent>
+                                                        <p className='text-primary'>Solo para administradores</p>
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </AlertDialogTrigger>
                                             <AlertDialogContent>
                                                 <AlertDialogHeader>
                                                     <AlertDialogTitle>Estas seguro que quieres eliminar la habitacion?</AlertDialogTitle>

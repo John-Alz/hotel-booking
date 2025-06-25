@@ -8,7 +8,34 @@ import { NotepadText } from 'lucide-react';
 import { Home } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom';
 
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { hasRole } from '../utils/auth';
+import useAuthStore from '../../auth/store/useAuthStore';
+import { useToggle } from '../hooks/useToggle';
+
 export const SideBar = () => {
+
+    const profile = useAuthStore(state => state.profile);
+    const logOut = useAuthStore(state => state.logOut);
+    const { toggle, handleToggle } = useToggle(false);
+
+    console.log(profile);
+
+    const handleLogOut = async () => {
+        try {
+            authService.logOut();
+        } catch (error) {
+            console.log(error);
+        }
+        logOut();
+    }
 
     const navLinks = [
         {
@@ -87,9 +114,30 @@ export const SideBar = () => {
                 </ul>
                 <div className={`flex gap-2 items-center group h-[56px] cursor-pointer`}>
                     <div className={`w-1 h-full rounded-tr-2xl rounded-br-2xl group-hover:bg-btn-admin `}></div>
-                    <li className={`flex gap-2 py-4 px-4 rounded-2xl w-full mr-5 group-hover:bg-btn-admin  hover:text-white `}>
+                    {/* <li className={`flex gap-2 py-4 px-4 rounded-2xl w-full mr-5 group-hover:bg-btn-admin  hover:text-white `}>
                         <LogOut /> Cerrar sesion
-                    </li>
+                    </li> */}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <li className={`flex gap-2 py-4 px-4 rounded-2xl w-full mr-5 group-hover:bg-btn-admin  hover:text-white `}>
+                                <LogOut /> Cerrar sesion
+                            </li>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+
+                            {
+                                hasRole(["ADMINISTRADOR", "RECEPCIONISTA"]) ?
+                                    <Link to={'/admin'}>
+                                        <DropdownMenuItem><button className='cursor-pointer hover:text-secondary'>Dashboard</button></DropdownMenuItem>
+                                    </Link> :
+                                    <DropdownMenuItem><button className='cursor-pointer hover:text-secondary'>Mi perfil</button></DropdownMenuItem>
+                            }
+
+                            <DropdownMenuItem><button className='cursor-pointer hover:text-secondary' onClick={handleLogOut}>Cerrar sesion</button></DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
             </div>
 

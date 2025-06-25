@@ -41,16 +41,9 @@ export const BookingTable = () => {
     const onChange = (e) => {
         console.log(e.target.value);
         const value = e.target.value;
-        fetchBookings(filtersBooking, value)
+        fetchBookings(page, filtersBooking, value)
     }
 
-    const prevPage = () => {
-        setPage(page - 1)
-    }
-
-    const nextPage = () => {
-        setPage(page + 1)
-    }
 
     return (
         <div className='flex flex-col gap-7 mb-18' >
@@ -64,7 +57,7 @@ export const BookingTable = () => {
                 <div className='flex gap-8 '>
                     <FiltersTableBooking />
                     <FilterOrderTableRoomType />
-                    <Link to={'/admin/crear-reserva'}><Button ><Plus /> Crear una reserva</Button></Link>
+                    <Link to={'/admin/reservas/crear-reserva'}><Button ><Plus /> Crear una reserva</Button></Link>
                 </div>
             </div>
             <table className='min-w-full  text-base font-light text-surface bg-gray rounded-2xl bg-primary table-auto w-full'>

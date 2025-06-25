@@ -1,4 +1,4 @@
-import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react"
+// import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react"
 
 import { Badge } from "@/components/ui/badge"
 import {
@@ -39,14 +39,15 @@ export function SectionCards() {
                     </CardTitle>
                     <CardAction>
                         <Badge variant="outline">
-                            <IconTrendingUp />
+                            {/* <IconTrendingUp /> */}
                             +{metrics?.bookingsGrowth}%
                         </Badge>
                     </CardAction>
                 </CardHeader>
                 <CardFooter className="flex-col items-start gap-1.5 text-sm">
                     <div className="line-clamp-1 flex gap-2 font-medium">
-                        Actividad operativa estable <IconTrendingUp className="size-4" />
+                        Actividad operativa estable
+                        {/* <IconTrendingUp className="size-4" /> */}
                     </div>
                     <div className="text-muted-foreground">
                         Registro de reservas mensuales
@@ -61,14 +62,15 @@ export function SectionCards() {
                     </CardTitle>
                     <CardAction>
                         <Badge variant="outline">
-                            <IconTrendingDown />
+                            {/* <IconTrendingDown /> */}
                             +20%
                         </Badge>
                     </CardAction>
                 </CardHeader>
                 <CardFooter className="flex-col items-start gap-1.5 text-sm">
                     <div className="line-clamp-1 flex gap-2 font-medium">
-                        Variación en el flujo de nuevos clientes <IconTrendingDown className="size-4" />
+                        Variación en el flujo de nuevos clientes
+                        {/* <IconTrendingDown className="size-4" /> */}
                     </div>
                     <div className="text-muted-foreground">
                         Total de clientes registrados en el sistema
@@ -84,14 +86,15 @@ export function SectionCards() {
                     </CardTitle>
                     <CardAction>
                         <Badge variant="outline">
-                            <IconTrendingUp />
+                            {/* <IconTrendingUp /> */}
                             +{metrics?.cancelledGrowth}%
                         </Badge>
                     </CardAction>
                 </CardHeader>
                 <CardFooter className="flex-col items-start gap-1.5 text-sm">
                     <div className="line-clamp-1 flex gap-2 font-medium">
-                        Cancelaciones durante el mes<IconTrendingUp className="size-4" />
+                        Cancelaciones durante el mes
+                        {/* <IconTrendingUp className="size-4" /> */}
                     </div>
                     <div className="text-muted-foreground">Incluye todas las reservas anuladas </div>
                 </CardFooter>
@@ -104,14 +107,15 @@ export function SectionCards() {
                     </CardTitle>
                     <CardAction>
                         <Badge variant="outline">
-                            <IconTrendingUp />
+                            {/* <IconTrendingUp /> */}
                             +{metrics?.revenueGrowth}%
                         </Badge>
                     </CardAction>
                 </CardHeader>
                 <CardFooter className="flex-col items-start gap-1.5 text-sm">
                     <div className="line-clamp-1 flex gap-2 font-medium">
-                        Rendimiento financiero mensual<IconTrendingUp className="size-4" />
+                        Rendimiento financiero mensual
+                        {/* <IconTrendingUp className="size-4" /> */}
                     </div>
                     <div className="text-muted-foreground">Ingresos generados por reservas pagadas</div>
                 </CardFooter>

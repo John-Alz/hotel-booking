@@ -21,12 +21,18 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { RoomCardAdmin } from './RoomCardAdmin';
 import { ToastContainer } from 'react-toastify';
 import { notifyService } from '../../core/services/notifyService';
 import { FilterOrderTableRoomType } from './FilterOrderTableRoomType';
 import { Pagination } from '../../core/components/Pagination';
 import usePagination from '../../core/store/userPagination';
+import { hasRole } from '../../core/utils/auth';
 
 
 
@@ -79,7 +85,15 @@ export const RoomTableTwo = () => {
                 <div className='flex gap-8'>
                     <FiltersTable />
                     <FilterOrderTableRoomType />
-                    <Link to={'/admin/tipos-habitacion/crear-tipo-habitacion'}><Button ><Plus /> Crear una habitacion</Button></Link>
+
+                    <Tooltip>
+                        <TooltipTrigger>
+                            <Link to={hasRole(['ADMINISTRADOR']) ? '/admin/tipos-habitacion/crear-tipo-habitacion' : null}><Button disabled={!hasRole(['ADMINISTRADOR'])} ><Plus /> Crear una habitacion</Button></Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p className='text-primary'>Solo para administradores</p>
+                        </TooltipContent>
+                    </Tooltip>
                 </div>
             </div>
             <div className='flex flex-col gap-6 mb-8'>
@@ -125,10 +139,29 @@ export const RoomTableTwo = () => {
                                             <p className='font-bold'>${item.price}</p>
                                         </div>
                                         <div className='flex justify-end gap-8 text-sm bg-trasnparent   cursor-pointer  '>
-                                            <Link to={`/admin/tipos-habitacion/tipo-habitacion/${item.id}`}><button className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
+
+
+                                            <Tooltip>
+                                                <TooltipTrigger>
+                                                    <Link to={hasRole(['ADMINISTRADOR']) ? `/admin/tipos-habitacion/tipo-habitacion/${item.id}` : null}><button
+                                                        disabled={!hasRole(['ADMINISTRADOR'])} className="text-blue-500 cursor-pointer"><Edit3 /></button></Link>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    <p className='text-primary'>Solo para administradores</p>
+                                                </TooltipContent>
+                                            </Tooltip>
 
                                             <AlertDialog>
-                                                <AlertDialogTrigger><button className="text-red-500 cursor-pointer"><Trash2 /></button></AlertDialogTrigger>
+                                                <AlertDialogTrigger>
+                                                    <Tooltip>
+                                                        <TooltipTrigger>
+                                                            <button disabled={!hasRole(['ADMINISTRADOR'])} className="text-red-500 cursor-pointer"><Trash2 /></button>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                            <p className='text-primary'>Solo para administradores</p>
+                                                        </TooltipContent>
+                                                    </Tooltip>
+                                                </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
                                                         <AlertDialogTitle>Estas seguro que quieres eliminar la habitacion?</AlertDialogTitle>

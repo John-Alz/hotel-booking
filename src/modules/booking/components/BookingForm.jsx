@@ -26,8 +26,9 @@ import {
 } from "@/components/ui/carousel"
 import { api } from '../../../shared/api/apiClient';
 import { notifyService } from '../../core/services/notifyService';
+import { ToastContainer } from 'react-toastify';
 
-export const BookingForm = ({ onSubmitData, initialState = null, bookingId, roomTypeId }) => {
+export const BookingForm = ({ onSubmitData, initialState = null, bookingId, roomTypeId, flag }) => {
 
     console.log("ROOMTYPEID PARA EL FETCH ROOMS: " + roomTypeId);
 
@@ -52,7 +53,7 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
         fetchRoomsSingle(0, 10, roomTypeId)
     }, [roomTypeId]);
 
-    const { register, handleSubmit, setValue, reset } = useForm()
+    const { register, handleSubmit, setValue, reset, formState: { errors } } = useForm()
 
     useEffect(() => {
         if (initialState) {
@@ -131,13 +132,9 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
 
 
 
-
-
-
-    //http://localhost:8080/api/v1/rooms?page=0&size=20&orderAsc=true&roomTypeId=1&status=DISPONIBLE
-
     return (
         <form className='bg-primary border border-border shadow-md inset-shadow-2xs px-5 py-10 rounded-2xl flex flex-col' >
+            <ToastContainer />
             <h2 className='text-xl font-bold mb-4'>Detalles de la reserva</h2>
             <div className='flex flex-col gap-5'>
                 <fieldset className='flex gap-10'>
@@ -214,22 +211,38 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
                 <fieldset className='flex gap-10'>
                     <div className='w-full flex flex-col gap-1' >
                         <label>No. de Habitaciones</label>
-                        <input type='text' name='numberOfRoom' placeholder='Escribe el nombre de la habitacion' className='border-2 border-border py-2 px-3 rounded-3xl'
-                            {...register('numberOfRoom')}
+                        <input type='text' name='numberOfRoom' placeholder='Escribe el nombre de la habitacion' className={`${errors.numberOfRoom ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                            {...register('numberOfRoom', {
+                                required: {
+                                    value: true,
+                                    message: 'Numero de habitaciones es requerido '
+                                }
+                            })}
                         />
+                        {
+                            errors.numberOfRoom && <span className='text-red-400 text-xs'>{errors.numberOfRoom.message}</span>
+                        }
                     </div>
                     <div className='w-full flex flex-col gap-1' >
                         <label>Tipo de habitacion</label>
-                        <select name='roomTypeId' className='border-2 border-border py-2.5 px-3 rounded-3xl'
-                            {...register('roomTypeId')}
+                        <select name='roomTypeId' className={`${errors.roomTypeId ? "border-red-400 border-1" : null} border-2 border-border py-2.5 px-3 rounded-3xl`}
+                            {...register('roomTypeId', {
+                                required: {
+                                    value: true,
+                                    message: 'El tipo de habitacion es requerido.'
+                                }
+                            })}
                         >
-                            <option selected disabled>Seleccione una habitacion</option>
+                            <option selected disabled value="">Seleccione una habitacion</option>
                             {
                                 rooms?.content?.map(item => (
                                     <option key={item.id} value={item.id}>{item.name}</option>
                                 ))
                             }
                         </select>
+                        {
+                            errors.roomTypeId && <span className='text-red-400 text-xs'>{errors.roomTypeId.message}</span>
+                        }
                     </div>
                 </fieldset>
             </div>
@@ -239,88 +252,126 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
                     <fieldset className='flex gap-10'>
                         <div className='w-full flex flex-col gap-1' >
                             <label>Nombre</label>
-                            <input type='text' name='name' placeholder='Escribe el nombre del cliente' className='border-2 border-border py-2 px-3 rounded-3xl'
-                                {...register('name')}
+                            <input type='text' name='name' placeholder='Escribe el nombre del cliente' className={`${errors.name ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                                {...register('name', {
+                                    required: {
+                                        value: true,
+                                        message: 'El nombre es requerido.'
+                                    }
+                                })}
                             />
+                            {
+                                errors.name && <span className='text-red-400 text-xs'>{errors.name.message}</span>
+                            }
                         </div>
                         <div className='w-full flex flex-col gap-1' >
                             <label>Apellido</label>
-                            <input type='text' name='lastName' placeholder='Escribe el apellido del cliente' className='border-2 border-border py-2 px-3 rounded-3xl'
-                                {...register('lastName')}
+                            <input type='text' name='lastName' placeholder='Escribe el apellido del cliente' className={`${errors.lastName ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                                {...register('lastName', {
+                                    required: {
+                                        value: true,
+                                        message: 'El apellido es requerido.'
+                                    }
+                                })}
                             />
+                            {
+                                errors.lastName && <span className='text-red-400 text-xs'>{errors.lastName.message}</span>
+                            }
                         </div>
                     </fieldset>
                     <fieldset className='flex gap-10'>
                         <div className='w-full flex flex-col gap-1' >
                             <label>Numero de telefono</label>
-                            <input type='text' name='phoneNumber' placeholder='Escribe el numero de telefono del cliente' className='border-2 border-border py-2 px-3 rounded-3xl'
-                                {...register('phoneNumber')}
+                            <input type='text' name='phoneNumber' placeholder='Escribe el numero de telefono del cliente' className={`${errors.phoneNumber ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                                {...register('phoneNumber', {
+                                    required: {
+                                        value: true,
+                                        message: 'El numero de telefono es requerido.'
+                                    }
+                                })}
                             />
+                            {
+                                errors.phoneNumber && <span className='text-red-400 text-xs'>{errors.phoneNumber.message}</span>
+                            }
                         </div>
                         <div className='w-full flex flex-col gap-1' >
                             <label>Correo electrónico</label>
-                            <input type='email' name='email' placeholder='Escribe el correo electrocico del cliente' className='border-2 border-border py-2 px-3 rounded-3xl'
-                                {...register('email')}
+                            <input type='email' name='email' placeholder='Escribe el correo electrocico del cliente' className={`${errors.email ? "border-red-400 border-1" : null} border-2 border-border py-2 px-3 rounded-3xl`}
+                                {...register('email', {
+                                    required: {
+                                        value: true,
+                                        message: 'El email es requerido.'
+                                    }
+                                })}
                             />
+                            {
+                                errors.email && <span className='text-red-400 text-xs'>{errors.email.message}</span>
+                            }
                         </div>
                     </fieldset>
                 </div>
             </div>
-            <div >
-                <h2 className='text-xl font-bold mb-4'>Habitaciones disponibles para asignar</h2>
-                <div className='flex gap-8 '>
-                    <Carousel>
-                        <CarouselPrevious type="button" />
-                        <CarouselContent>
-                            {
-                                roomsSingle?.content?.length > 0 ? roomsSingle?.content?.map(item => (
-                                    <CarouselItem className="basis-1/6">
+            {
+                flag ?
+                    <>
+                        <div >
+                            <h2 className='text-xl font-bold mb-4'>Habitaciones disponibles para asignar</h2>
+                            <div className='flex gap-8 '>
+                                <Carousel>
+                                    <CarouselPrevious type="button" />
+                                    <CarouselContent>
+                                        {
+                                            roomsSingle?.content?.length > 0 ? roomsSingle?.content?.map(item => (
+                                                <CarouselItem className="basis-1/6">
+                                                    <article className='bg-primary border p-2 rounded-3xl not-only:inset-shadow-2xs shadow-md'>
+                                                        <img className='w-[250px] rounded-2xl' src={item.room_type.images[0]} alt={item.room_type.name} />
+                                                        <div className='flex flex-col gap-1 mt-2'>
+                                                            <h2 className='text-3xl font-bold'>No.{item.room_number}</h2>
+                                                            <h4 className='text-black-opacity'>{item.room_type.name} </h4>
+                                                            <div className='flex gap-2 bg-secondary py-1 px-2 rounded-2xl text-white w-24'>
+                                                                <input onChange={handleChange} type='checkbox' value={item.id} />
+                                                                <label>Asignar</label>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </CarouselItem>
+
+                                            )) :
+                                                <h2 className='text-center text-3xl'>No hay habitaciones asignadas para esta reserva aun.</h2>
+                                        }
+                                    </CarouselContent>
+
+                                    <CarouselNext type="button" />
+                                </Carousel>
+
+                            </div>
+                            <div className='mt-6 flex justify-end'>
+                                <button className='py-2 px-8 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer hover:bg-secondary/90' onClick={assigmentRoomsPost} type="button">Asignar habitaciones</button>
+                            </div>
+                        </div>
+                        <div className='my-6'>
+                            <h2 className='text-xl font-bold mb-4'>Habitaciones asignadas</h2>
+                            <div className='flex gap-8 '>
+
+                                {
+                                    roomAssigment?.rooms.length > 0 ? roomAssigment?.rooms.map(item => (
                                         <article className='bg-primary border p-2 rounded-3xl not-only:inset-shadow-2xs shadow-md'>
                                             <img className='w-[250px] rounded-2xl' src={item.room_type.images[0]} alt={item.room_type.name} />
                                             <div className='flex flex-col gap-1 mt-2'>
                                                 <h2 className='text-3xl font-bold'>No.{item.room_number}</h2>
                                                 <h4 className='text-black-opacity'>{item.room_type.name} </h4>
-                                                <div className='flex gap-2 bg-secondary py-1 px-2 rounded-2xl text-white w-24'>
-                                                    <input onChange={handleChange} type='checkbox' value={item.id} />
-                                                    <label>Asignar</label>
-                                                </div>
                                             </div>
                                         </article>
-                                    </CarouselItem>
 
-                                )) :
-                                    <h2 className='text-center text-3xl'>No hay habitaciones asignadas para esta reserva aun.</h2>
-                            }
-                        </CarouselContent>
+                                    )) :
+                                        <h2 className='text-center text-3xl'>No hay habitaciones asignadas para esta reserva aun.</h2>
+                                }
+                            </div>
 
-                        <CarouselNext type="button" />
-                    </Carousel>
+                        </div>
+                    </> : null
+            }
 
-                </div>
-                <div className='mt-6 flex justify-end'>
-                    <button className='py-2 px-8 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer hover:bg-secondary/90' onClick={assigmentRoomsPost} type="button">Asignar habitaciones</button>
-                </div>
-            </div>
-            <div className='my-6'>
-                <h2 className='text-xl font-bold mb-4'>Habitaciones asignadas</h2>
-                <div className='flex gap-8 '>
-
-                    {
-                        roomAssigment?.rooms.length > 0 ? roomAssigment?.rooms.map(item => (
-                            <article className='bg-primary border p-2 rounded-3xl not-only:inset-shadow-2xs shadow-md'>
-                                <img className='w-[250px] rounded-2xl' src={item.room_type.images[0]} alt={item.room_type.name} />
-                                <div className='flex flex-col gap-1 mt-2'>
-                                    <h2 className='text-3xl font-bold'>No.{item.room_number}</h2>
-                                    <h4 className='text-black-opacity'>{item.room_type.name} </h4>
-                                </div>
-                            </article>
-
-                        )) :
-                            <h2 className='text-center text-3xl'>No hay habitaciones asignadas para esta reserva aun.</h2>
-                    }
-                </div>
-
-            </div>
             <div className='flex gap-5 pt-4 justify-end'>
                 <button type='button' className='py-2 px-8 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer hover:bg-secondary/90' onClick={onSubmit}>Guardar</button>
                 <Link to={'/admin/reservas'}><button className='py-2 px-8 border bg-primary rounded-4xl border-secondary text-secondary cursor-pointer'>Cancelar</button></Link>

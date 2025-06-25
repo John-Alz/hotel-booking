@@ -1,7 +1,7 @@
 import { AirVent, ArrowLeft, IdCard, ParkingCircle, Wifi } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { PersonalData } from './PersonalData';
 import { Rules } from './Rules';
 import { PaymentData } from './PaymentData';
@@ -27,6 +27,7 @@ import usePaymentStore from '../../payments/store/usePaymentStore';
 export const RoomDetail = () => {
     const filters = useRoomStore(state => state.filters);
     const params = useParams();
+    const navigate = useNavigate();
 
     const id = params.id;
 
@@ -88,6 +89,7 @@ export const RoomDetail = () => {
     const bookingSubmit = async () => {
         if (!profile) {
             notifyService.error("Debes iniciar sesion para completar tu reserva.")
+            navigate("/auth/login")
             return;
         }
         // console.log(booking);

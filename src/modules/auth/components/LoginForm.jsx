@@ -97,7 +97,9 @@ export const LoginForm = () => {
                             errors.password && <span className='text-red-400 text-xs h-[1px]'>{errors.password.message}</span>
                         }
                     </div>
-                    <p className='flex justify-end underline my-2 cursor-pointer'>Todavía no tengo contraseña / He olvidado mi contraseña</p>
+                    <Link to={'/auth/email-request'}>
+                        <p className='flex justify-end underline my-2 cursor-pointer'>He olvidado mi contraseña</p>
+                    </Link>
                     <div className='flex flex-col gap-1 mb-20'>
                         <button className='p-4 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer'>Enviar</button>
 

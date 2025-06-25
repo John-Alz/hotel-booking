@@ -8,7 +8,7 @@ export const Hero = () => {
                 className="w-full h-[300px] bg-[url('/public/images/hero-img.avif')]  bg-no-repeat object-cover bg-center rounded-3xl flex justify-center"
             >
                 <div className=' flex flex-col self-center w-[80%] m-auto text-center'>
-                    <h1 className='text-primary z-10 font-bold text-4xl'>Reserva tu estadía con Tripster</h1>
+                    <h1 className='text-primary z-10 font-bold text-4xl'>Reserva tu estadía con SanDiego</h1>
                     <p className='text-primary z-10'>¡+50 habitaciones diseñadas para tu comodidad!</p>
                 </div>
             </section>

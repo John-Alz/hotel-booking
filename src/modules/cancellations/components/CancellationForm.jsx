@@ -27,7 +27,8 @@ export const CancellationForm = ({ onSubmitData, bookingId }) => {
                 <div className='w-full flex justify-between gap-10'>
                     <div className='w-full flex flex-col gap-1' >
                         <label className='font-medium'>Razon de la cancelacion *</label>
-                        <textarea name='reasonForCancellation' placeholder='Ingresa la descripcion' className='border-2 border-border py-2 px-3 rounded-3xl h-[200px] resize-none'
+                        <textarea name='reasonForCancellation' placeholder='Ingresa la descripcion'
+                            className={`${errors.reasonForCancellation ? "border-red-400 border-1" : null} border-2 border-border py-2.5 px-3 rounded-3xl h-[200px] resize-none`}
                             {...register('reasonForCancellation', {
                                 required: {
                                     value: true,
@@ -47,7 +48,7 @@ export const CancellationForm = ({ onSubmitData, bookingId }) => {
             </fieldset>
             <div className='flex gap-5 pt-6 justify-end'>
                 <button className='py-2 px-8 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer hover:bg-secondary/90'>Guardar</button>
-                <Link to={'/admin/usuarios'}><button className='py-2 px-8 border bg-primary rounded-4xl border-secondary text-secondary cursor-pointer'>Cancelar</button></Link>
+                {/* <Link to={'/admin/usuarios'}><button className='py-2 px-8 border bg-primary rounded-4xl border-secondary text-secondary cursor-pointer'>Cancelar</button></Link> */}
             </div>
         </form>
     )

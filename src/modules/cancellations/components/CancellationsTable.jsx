@@ -42,7 +42,7 @@ export const CancellationsTable = () => {
 
     const onChange = (e) => {
         const value = e.target.value;
-        fetchCancellations(filtersCancellations, value);
+        fetchCancellations(page, filtersCancellations, value);
     }
 
     return (

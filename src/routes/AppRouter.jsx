@@ -16,6 +16,7 @@ import { UsersTablePage } from '../modules/users/pages/UsersTablePage'
 import { CancellationsTablePage } from '../modules/cancellations/pages/CancellationsTablePage'
 import { PanelPage } from '../modules/panel/pages/PanelPage'
 import { PaymentTablePage } from '../modules/payments/pages/PaymentTablePage'
+import { ProtectedRoute } from '../modules/core/components/ProtectedRoute'
 
 export const AppRouter = () => {
     return (
@@ -26,14 +27,14 @@ export const AppRouter = () => {
 
             {/* Admin layout routes */}
 
-            <Route path='/admin' element={<AdminLayout />}>
+            <Route path='/admin' element={<ProtectedRoute allowedRoles={["ADMINISTRADOR", "RECEPCIONISTA"]}><AdminLayout /></ProtectedRoute>}>
                 <Route index element={<Navigate to='dashboard' replace />} />
                 <Route path="dashboard" element={<PanelPage />} />
                 <Route path="reservas" element={<BookingTablePage />} />
-                <Route path="crear-reserva" element={<BookingCreatePage />} />
+                <Route path="reservas/crear-reserva" element={<ProtectedRoute allowedRoles={["ADMINISTRADOR", "RECEPCIONISTA"]}><BookingCreatePage /></ProtectedRoute>} />
                 <Route path="reservas/editar-reserva/:id" element={<BookingEditPage />} />
                 <Route path="tipos-habitacion" element={<RoomTablePage />} />
-                <Route path="tipos-habitacion/crear-tipo-habitacion" element={<RoomCreatePage />} />
+                <Route path="tipos-habitacion/crear-tipo-habitacion" element={<ProtectedRoute allowedRoles={["ADMINISTRADOR"]}><RoomCreatePage /></ProtectedRoute>} />
                 <Route path="tipos-habitacion/tipo-habitacion/:id" element={<RoomEditPage />} />
                 <Route path="habitaciones" element={<RoomsSingleTablePage />} />
                 <Route path="amenidades" element={<Test />} />
