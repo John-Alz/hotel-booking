@@ -11,11 +11,11 @@ export const RoomListPage = () => {
             <div className=''>
                 <Header />
                 <section className='w-full border-t-2 border-border flex'>
-                    <div className='w-[30%]'>
+                    <div className='hidden lg:block lg:w-[25%]  xl:w-[30%]'>
                         <FormSearchList />
                         <FiltersList />
                     </div>
-                    <div className='w-[70%] border-l-2 border-border'>
+                    <div className=' w-full border-l-2 border-border  xl:w-[70%]'>
                         <RoomList />
                     </div>
                 </section>

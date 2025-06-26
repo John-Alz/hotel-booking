@@ -2,12 +2,15 @@ import { CircleDollarSign, Mailbox } from 'lucide-react'
 
 export const Newsletter = () => {
     return (
-        <article className='w-[95%] m-auto bg-primary inset-shadow-2xs shadow-md h-[75px] rounded-2xl flex justify-between items-center px-4 my-14'>
-            <div className='flex gap-5'>
-                <div><CircleDollarSign size={50} /></div>
+        <article className='w-[95%] m-auto bg-primary not-only:inset-shadow-2xs shadow-md rounded-2xl flex justify-between items-center px-4 py-3 my-14'>
+            <div className='flex gap-5 '>
+                <div className='flex flex-col justify-center'><CircleDollarSign size={50} /></div>
                 <div>
                     <p className='font-bold'>Pssst!</p>
-                    <span>¿Buscas ofertas secretas y los mejores precios para estancias increíbles?</span>
+                    <div className='flex flex-col'>
+                        <span>¿Buscas ofertas secretas y los mejores precios para estancias increíbles?</span>
+                        <span>Regístrate para unirte a nuestro Travel Club!</span>
+                    </div>
                 </div>
             </div>
             <div>
