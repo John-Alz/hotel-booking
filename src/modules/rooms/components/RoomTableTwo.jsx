@@ -45,13 +45,11 @@ export const RoomTableTwo = () => {
 
     const { register, handleSubmit } = useForm();
 
-    useEffect(() => {
-        fetchRooms(page, 2);
-    }, [page])
+    const filters = useRoomStore(state => state.filters)
 
-    const onChange = (e) => {
-        console.log(e.target.value);
-    }
+    useEffect(() => {
+        fetchRooms(page, 2, filters);
+    }, [page, filters])
 
     const handleDelete = async (id) => {
         console.log("CLICCCK");
@@ -73,7 +71,13 @@ export const RoomTableTwo = () => {
     }
 
     console.log(rooms);
+    console.log(filters);
 
+    const onChange = (e) => {
+        console.log(e.target.value);
+        const value = e.target.value;
+        fetchRooms(page, 2, filters, value);
+    }
 
     return (
         <div className='flex flex-col gap-7' >

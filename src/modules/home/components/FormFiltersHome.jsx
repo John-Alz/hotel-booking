@@ -31,7 +31,7 @@ export const FormFiltersHome = () => {
 
 
     return (
-        <form onSubmit={onSubmit} className='bg-primary w-[700px] flex justify-between px-4 py-2 rounded-full shadow-md'>
+        <form onSubmit={onSubmit} className='bg-primary w-[700px] flex flex-wrap justify-between px-4 py-2 rounded-full shadow-md'>
             <div className='flex flex-col border-r-1 border-border px-8 gap-1'>
                 <label className='font-bold'>Entrada</label>
                 <input type='date' name='checkin'
