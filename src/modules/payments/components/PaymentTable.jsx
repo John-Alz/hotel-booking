@@ -21,6 +21,8 @@ import { FiltersTablePayment } from "./FiltersTablePayment";
 import { Link } from "react-router-dom";
 import { Pagination } from "../../core/components/Pagination";
 import { CancellationDetailsPage } from "../../cancellations/pages/CancellationDetailsPage";
+import { FilterOrderTable } from "./FilterOrderTable";
+import { PaymentDetailPage } from "../pages/PaymentDetailPage";
 
 export const PaymentTable = () => {
 
@@ -42,6 +44,9 @@ export const PaymentTable = () => {
         fetchPayments(page, filtersPayments, value)
     }
 
+    console.log(payments);
+
+
     return (
         <div className='flex flex-col gap-7 mb-18' >
             <ToastContainer />
@@ -53,7 +58,8 @@ export const PaymentTable = () => {
                 </div>
                 <div className='flex gap-8 '>
                     <FiltersTablePayment />
-                    <Link to={'/admin/reservas'}><Button ><Plus /> Cancelar una reserva</Button></Link>
+                    <FilterOrderTable />
+                    {/* <Link to={'/admin/reservas'}><Button ><Plus /> Cancelar una reserva</Button></Link> */}
                 </div>
 
             </div>
@@ -89,12 +95,12 @@ export const PaymentTable = () => {
                                     <td className='px-6 py-4 text-sm'>
                                         <div className='flex gap-3 items-center'>
                                             <p className='border bg-black border-black px-4 py-2.5 rounded-full text-white text-center'>
-                                                {item.booking.clientId.username != null ? item.booking.clientId.username.slice(0, 1) : item.booking.clientId.username.slice(0, 1)}
+                                                {item?.booking?.clientId?.username != null ? item?.booking?.clientId?.username.slice(0, 1) : item?.booking?.name.slice(0, 1)}
                                             </p>
-                                            {item.booking.clientId.username} {item.booking.clientId.lastName}
+                                            {item?.booking?.clientId !== null ? item?.booking?.clientId?.username : item?.booking?.name}
                                         </div>
                                     </td>
-                                    <td className='px-6 py-4 text-sm'>{item.booking.clientId.email != null ? item.booking.clientId.email : item.booking.email}</td>
+                                    <td className='px-6 py-4 text-sm'>{item?.booking?.clientId?.email != null ? item.booking?.clientId?.email : item?.booking?.email}</td>
                                     <td className='px-6 py-4 text-sm'>{item.booking.bookingDate.slice(0, 10)}</td>
                                     <td className='px-6 py-4 text-sm'>{item.booking.roomType.name}</td>
                                     <td className='px-6 py-4 text-sm'>${item.booking.totalPrice}</td>
@@ -110,10 +116,10 @@ export const PaymentTable = () => {
                                                     <DialogTrigger><button className="text-blue-500 cursor-pointer"><Eye /></button></DialogTrigger>
                                                     <DialogContent className="h-full w-[600px] translate-x-0 right-0">
                                                         <DialogHeader>
-                                                            <DialogTitle><h2 className="text-xl">Cancelacion - reserva #73467364</h2></DialogTitle>
+                                                            <DialogTitle><h2 className="text-xl">Detalle de pago - reserva {item.booking.reservationNumber}</h2></DialogTitle>
                                                         </DialogHeader>
-                                                        <ScrollArea className="h-full w-ffull rounded-md p-4 scrollbar-none">
-                                                            <CancellationDetailsPage cancellationId={item.id} />
+                                                        <ScrollArea className="h-full w-ffull rounded-md scrollbar-none">
+                                                            <PaymentDetailPage paymentId={item.id} />
                                                         </ScrollArea>
                                                     </DialogContent>
                                                 </Dialog>

@@ -6,9 +6,10 @@ export const TablePayamentsPanel = () => {
 
     const fetchPayments = usePaymentStore(state => state.fetchPayments);
     const payments = usePaymentStore(state => state.payments);
+    const filtersPayments = usePaymentStore(state => state.filtersPayments);
 
     useEffect(() => {
-        fetchPayments();
+        fetchPayments(0, filtersPayments,);
     }, [])
     console.log(payments);
 

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { toast, ToastContainer } from 'react-toastify'
 import { authService } from '../services/authservice'
+import { notifyService } from '../../core/services/notifyService'
 
 export const SignUpForm = () => {
 
@@ -14,7 +15,16 @@ export const SignUpForm = () => {
         try {
             let response = await authService.register(user)
             console.log(response);
-            if (response.status === 201) toast.success(`Felicidades haces parte de Tripster`);
+            switch (response.status) {
+                case 201:
+                    notifyService.success(`Felicidades haces parte de SanDiego`)
+                    break;
+                case 400:
+                    notifyService.error(response.data.message)
+                    break;
+                default:
+                    break;
+            }
         } catch (error) {
             if (error) toast.error(`Error al crear el usuario`)
             console.log(error);
@@ -50,13 +60,13 @@ export const SignUpForm = () => {
                         <ArrowLeft />
                         <p>Volver</p>
                     </div>
-                    <h2 className='text-5xl'>Crea tu cuenta en Tripster</h2>
+                    <h2 className='text-5xl'>Crea tu cuenta en SanDiego</h2>
                     <p>¿Ya tienes una cuenta?<Link to={'/auth/login'}> <span className='underline'>Iniciar sesion</span></Link></p>
                 </div>
                 <fieldset className='my-10 flex flex-col gap-5'>
                     <div className='flex flex-col gap-1'>
                         <label>Nombre</label>
-                        <input type='text' name='name' placeholder='Nombre' className='p-4 border rounded-4xl'
+                        <input type='text' name='name' placeholder='Nombre' className={`${errors.name ? "border-red-400" : null} p-4 border rounded-4xl`}
                             {...register('name', {
                                 required: {
                                     value: true,
@@ -78,7 +88,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Primer apellido</label>
-                        <input type='text' name='lastName' placeholder='Primer apellido' className='p-4 border rounded-4xl'
+                        <input type='text' name='lastName' placeholder='Primer apellido' className={`${errors.lastName ? "border-red-400" : null} p-4 border rounded-4xl`}
                             {...register('lastName', {
                                 required: {
                                     value: true,
@@ -100,7 +110,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Correo electrónico</label>
-                        <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-4xl'
+                        <input type='text' name='email' placeholder='Correo electrónico' className={`${errors.email ? "border-red-400" : null} p-4 border rounded-4xl`}
                             {...register("email", {
                                 required: {
                                     value: true,
@@ -118,7 +128,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Numero de telefono</label>
-                        <input type='text' name='phoneNumber' placeholder='Correo electrónico' className='p-4 border rounded-4xl'
+                        <input type='text' name='phoneNumber' placeholder='Correo electrónico' className={`${errors.phoneNumber ? "border-red-400" : null} p-4 border rounded-4xl`}
                             {...register("phoneNumber", {
                                 required: {
                                     value: true,
@@ -136,7 +146,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Fecha de nacimiento</label>
-                        <input type='date' name='birthday' className='p-4 border rounded-4xl'
+                        <input type='date' name='birthday' className={`${errors.birthday ? "border-red-400" : null} p-4 border rounded-4xl`}
                             {...register("birthday", {
                                 required: {
                                     value: true,
@@ -150,7 +160,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Contraseña</label>
-                        <input type='password' name='password' placeholder='Contraseña' className='p-4 border rounded-4xl'
+                        <input type='password' name='password' placeholder='Contraseña' className={`${errors.password ? "border-red-400" : null} p-4 border rounded-4xl`}
                             {...register("password", {
                                 required: {
                                     value: true,
@@ -166,7 +176,7 @@ export const SignUpForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Confirmar contraseña</label>
-                        <input type='password' name='confirmPassword' placeholder='Confirmar contraseña' className='p-4 border rounded-4xl'
+                        <input type='password' name='confirmPassword' placeholder='Confirmar contraseña' className={`${errors.confirmPassword ? "border-red-400" : null} p-4 border rounded-4xl`}
                             {...register("confirmPassword", {
                                 required: {
                                     value: true,

@@ -89,7 +89,7 @@ export const SideBar = () => {
     ];
 
     return (
-        <nav className='bg-white h-screen w-58 flex flex-col gap-8 pb-8 border'>
+        <nav className='bg-white h-screen w-64 flex flex-col gap-8 pb-8 border'>
             <div className='mt-3 flex '>
                 <div className='ml-3'>
                     <Link to={'/'}><h1 className='font-bold text-4xl'>Roomify</h1></Link>
@@ -119,7 +119,7 @@ export const SideBar = () => {
                     </li> */}
                     <DropdownMenu>
                         <DropdownMenuTrigger>
-                            <li className={`flex gap-2 py-4 px-4 rounded-2xl w-full mr-5 group-hover:bg-btn-admin  hover:text-white `}>
+                            <li className={`flex gap-2 py-4 px-4 rounded-2xl w-full mr-5 bg-btn-admin group-hover:bg-btn-admin  text-white `}>
                                 <LogOut /> Cerrar sesion
                             </li>
                         </DropdownMenuTrigger>

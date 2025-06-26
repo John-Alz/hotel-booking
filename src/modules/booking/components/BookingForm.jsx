@@ -41,6 +41,7 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
 
     const fetchRooms = useRoomStore(state => state.fetchRooms);
     const rooms = useRoomStore(state => state.rooms);
+    const filters = useRoomStore(state => state.filters);
     const fetchRoomAssignment = useBookingStore(state => state.fetchRoomAssignment);
     const roomAssigment = useBookingStore(state => state.roomAssigment);
     const fetchRoomsSingle = useRoomSingleStore(state => state.fetchRoomsSingle);
@@ -48,7 +49,7 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
 
 
     useEffect(() => {
-        fetchRooms();
+        fetchRooms(10, filters);
         fetchRoomAssignment(bookingId);
         fetchRoomsSingle(0, 10, roomTypeId)
     }, [roomTypeId]);
@@ -58,10 +59,10 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
     useEffect(() => {
         if (initialState) {
             reset({
-                name: initialState.client.name,
-                lastName: initialState.client.name,
-                email: initialState.client.email,
-                phoneNumber: initialState.client.name,
+                name: initialState.client.name !== null ? initialState.client.name : initialState.name,
+                lastName: initialState.client.lastName !== null ? initialState.client.lastName : initialState.lastName,
+                email: initialState.client.email !== null ? initialState.client.email : initialState.email,
+                phoneNumber: initialState.client.phoneNumber !== null ? initialState.client.phoneNumber : initialState.phoneNumber,
                 roomTypeId: initialState.RoomType.id,
                 status: initialState.status,
                 checkin: initialState.checkInDate,

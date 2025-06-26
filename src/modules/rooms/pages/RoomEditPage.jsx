@@ -39,7 +39,7 @@ export const RoomEditPage = () => {
             <ToastContainer />
             <div className='flex gap-3 mt-6'>
                 <ArrowLeft size={35} />
-                <h2 className='text-3xl font-bold'>Editar la habitación</h2>
+                <h2 className='text-3xl font-bold'>Editar el tipo dee habitación</h2>
             </div>
             <RoomForm initialState={room} onSubmitData={updateRoom} />
         </div>

@@ -46,8 +46,8 @@ export const EmailResetPasswordForm = () => {
                     <h2 className='text-center text-xl font-bold'>¿Te olvidaste la contraseña?</h2>
                     <fieldset className=' flex flex-col gap-5'>
                         <div className='flex flex-col gap-1'>
-                            <label>Ingresa la dirección de correo electrónico asociada a tu cuenta y te enviaremos un enlace para restablecer tu contraseña.</label>
-                            <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-lg'
+                            <label className='mb-3'>Ingresa la dirección de correo electrónico asociada a tu cuenta y te enviaremos un enlace para restablecer tu contraseña.</label>
+                            <input type='text' name='email' placeholder='Correo electrónico' className={`${errors.email ? "border-red-400" : null} p-4 border rounded-4xl`}
                                 {...register("email", {
                                     required: {
                                         value: true,
@@ -65,7 +65,7 @@ export const EmailResetPasswordForm = () => {
                         </div>
                     </fieldset>
                     <div className='flex flex-col gap-1'>
-                        <button onClick={submitEmailResetPassword} className='p-4 border bg-secondary rounded-lg border-secondary text-primary cursor-pointer'>Enviar enlace para reestablecer contraseña</button>
+                        <button onClick={submitEmailResetPassword} className='p-4 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer'>Enviar enlace para reestablecer contraseña</button>
 
                     </div>
                 </form>

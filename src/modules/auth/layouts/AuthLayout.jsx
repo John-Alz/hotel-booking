@@ -6,7 +6,7 @@ export const AuthLayout = ({ children }) => {
     return (
         <div className='w-full flex'>
             <div className='absolute'>
-                <Link to={"/"}><h2 className='font-bold text-4xl p-5'>Tripster</h2></Link>
+                <Link to={"/"}><h2 className='font-bold text-4xl p-5'>SanDiego</h2></Link>
             </div>
             <div className='w-[50%] flex justify-center items-center'>
                 {children}

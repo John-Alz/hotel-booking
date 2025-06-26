@@ -44,6 +44,8 @@ export const CancellationsTable = () => {
         const value = e.target.value;
         fetchCancellations(page, filtersCancellations, value);
     }
+    console.log(cancellations);
+
 
     return (
         <div className='flex flex-col gap-7 mb-18' >
@@ -93,20 +95,20 @@ export const CancellationsTable = () => {
                                     <td className='px-6 py-4 text-sm'>
                                         <div className='flex gap-3 items-center'>
                                             <p className='border bg-black border-black px-4 py-2.5 rounded-full text-white text-center'>
-                                                {item.boooking.client.name != null ? item.boooking.client.name.slice(0, 1) : item.boooking.client.name.slice(0, 1)}</p>
-                                            {item.boooking.client.name != null ? item.boooking.client.name : item.boooking.client.name}
+                                                {item?.boooking?.client?.name != null ? item?.boooking?.client?.name?.slice(0, 1) : item?.boooking?.name?.slice(0, 1)}</p>
+                                            {item?.boooking?.client?.name != null ? item?.boooking?.client?.name : item?.boooking?.name}
                                         </div>
                                     </td>
-                                    <td className='px-6 py-4 text-sm'>{item.boooking.client.email}</td>
-                                    <td className='px-6 py-4 text-sm'>{item.dateOfCancellation}</td>
+                                    <td className='px-6 py-4 text-sm'>{item?.boooking?.client?.email}</td>
+                                    <td className='px-6 py-4 text-sm'>{item?.dateOfCancellation}</td>
                                     {/* <td className='px-6 py-4 text-sm'>{item.reasonForCancellation.slice(0, 10)}</td> */}
                                     <td className='px-6 py-4 text-sm'>
                                         <div className="flex">
-                                            <p>{item.user.name} {item.user.lastName}</p>
+                                            <p>{item?.user?.name} {item?.user?.lastName}</p>
                                         </div>
-                                        <p>{item.user.role.roleEnum.toLowerCase()}</p>
+                                        <p>{item?.user?.role?.roleEnum?.toLowerCase()}</p>
                                     </td>
-                                    <td className='px-6 py-4 text-sm'>{item.boooking.RoomType.name}</td>
+                                    <td className='px-6 py-4 text-sm'>{item?.boooking?.RoomType?.name}</td>
                                     <td className='px-6 py-4 text-sm'>${item.boooking.totalPrice}</td>
                                     <td className='px-6 py-4 text-sm'>
                                         <div className='flex items-center justify-center gap-4  text-sm'>
@@ -118,7 +120,7 @@ export const CancellationsTable = () => {
                                                         <DialogHeader>
                                                             <DialogTitle><h2 className="text-xl">Cancelacion - reserva #73467364</h2></DialogTitle>
                                                         </DialogHeader>
-                                                        <ScrollArea className="h-full w-ffull rounded-md p-4 scrollbar-none">
+                                                        <ScrollArea className="h-full w-ffull rounded-md scrollbar-none">
                                                             <CancellationDetailsPage cancellationId={item.id} />
                                                         </ScrollArea>
                                                     </DialogContent>

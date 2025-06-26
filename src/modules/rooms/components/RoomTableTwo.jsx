@@ -72,6 +72,8 @@ export const RoomTableTwo = () => {
         }
     }
 
+    console.log(rooms);
+
 
     return (
         <div className='flex flex-col gap-7' >

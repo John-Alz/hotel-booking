@@ -74,7 +74,7 @@ export const NewPasswordForm = () => {
                         </div>
                         <div className='flex flex-col gap-1'>
                             <label>Confirmar contraseña</label>
-                            <input type='password' name='confirmPassword' placeholder='Confirmar contraseña' className='p-4 border rounded-4xl'
+                            <input type='password' name='confirmPassword' placeholder='Confirmar contraseña' className={`${errors.confirmPassword} p-4 border rounded-4xl`}
                                 {...register("confirmPassword", {
                                     required: {
                                         value: true,
@@ -87,7 +87,7 @@ export const NewPasswordForm = () => {
                         </div>
                     </fieldset>
                     <div className='flex flex-col gap-1 mb-20'>
-                        <button onClick={submitResetPassword} className='p-4 border bg-secondary rounded-lg border-secondary text-primary cursor-pointer'>Enviar enlace para reestablecer contraseña</button>
+                        <button onClick={submitResetPassword} className='p-4 border bg-secondary rounded-4xl border-secondary text-primary cursor-pointer'>Actualizar</button>
 
                     </div>
                 </form>

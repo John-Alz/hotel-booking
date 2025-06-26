@@ -11,6 +11,7 @@ export const HomePage = () => {
 
     return (
         <>
+            <ToastContainer />
             <div >
                 <Header />
                 <Hero />

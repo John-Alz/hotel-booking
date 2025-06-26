@@ -25,10 +25,12 @@ export const LoginForm = () => {
             let response = await authService.login(user, { withCredentials: true })
             console.log(response);
             if (response.status === 200) {
-                navigate('/')
-                toast.success(`Bienvenido`)
+                toast.success(`Hola, bienvendio a SanDiego`)
 
                 fetchProfile();
+                setTimeout(() => {
+                    navigate('/')
+                }, 2000);
             }
             // navigate('/')
         } catch (error) {
@@ -57,13 +59,13 @@ export const LoginForm = () => {
                         <ArrowLeft />
                         <p>Volver</p>
                     </div>
-                    <h2 className='text-5xl'>Iniciar sesión en en Tripster</h2>
+                    <h2 className='text-5xl'>Iniciar sesión en en SanDiego</h2>
                     <p>¿No tienes una cuenta? <Link to={'/auth/sign-up'}><span className='underline'>Regístrate</span></Link></p>
                 </div>
                 <fieldset className='my-10 flex flex-col gap-5'>
                     <div className='flex flex-col gap-1'>
                         <label>Correo electrónico</label>
-                        <input type='text' name='email' placeholder='Correo electrónico' className='p-4 border rounded-4xl'
+                        <input type='text' name='email' placeholder='Correo electrónico' className={`${errors.email ? "border-red-400" : null} p-4 border rounded-4xl`}
                             {...register("email", {
                                 required: {
                                     value: true,
@@ -81,7 +83,7 @@ export const LoginForm = () => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label>Contraseña</label>
-                        <input type='password' name='password' placeholder='Contraseña' className='p-4 border rounded-4xl'
+                        <input type='password' name='password' placeholder='Contraseña' className={`${errors.password ? "border-red-400" : null} p-4 border rounded-4xl`}
                             {...register("password", {
                                 required: {
                                     value: true,

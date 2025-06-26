@@ -28,7 +28,7 @@ export const RoomCreatePage = () => {
             <ToastContainer />
             <div className='flex gap-3 mt-6'>
                 <ArrowLeft size={35} />
-                <h2 className='text-3xl font-bold'> Agregar nueva habitación</h2>
+                <h2 className='text-3xl font-bold'> Agregar nuevo tipo habitación</h2>
             </div>
             <RoomForm onSubmitData={createRoom} />
         </div>
