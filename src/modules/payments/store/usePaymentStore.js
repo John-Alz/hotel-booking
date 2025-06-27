@@ -31,7 +31,7 @@ const usePaymentStore = create((set, get) => ({
         })
     },
 
-    fetchPayments: async (page, filters, search = "") => {
+    fetchPayments: async (page = 0, filters, search = "") => {
         const data = await api.get(`/api/v1/payments?page=${page}&size=20&orderAsc=true&numberBooking=${search}&dateFromPayment=${filters.dateFromPayment}&dateToPayment=${filters.dateToPayment}&priceMin=${filters.priceMin}&roomTypeId=${filters.roomTypeId}&status=${filters.status}`);
         if (data) set({ payments: data })
     },

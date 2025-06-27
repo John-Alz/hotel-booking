@@ -22,6 +22,7 @@ import { FiltersTableBooking } from './FiltersTableBooking';
 import { Pagination } from '../../core/components/Pagination';
 import usePagination from '../../core/store/userPagination';
 import { FilterOrderTableRoomType } from '../../rooms/components/FilterOrderTableRoomType';
+import { DownloadPDFButton } from './DownloadPDFButton';
 
 
 
@@ -56,7 +57,8 @@ export const BookingTable = () => {
                 </div>
                 <div className='flex gap-8 '>
                     <FiltersTableBooking />
-                    <FilterOrderTableRoomType />
+                    {/* <FilterOrderTableRoomType /> */}
+                    <DownloadPDFButton bookings={bookings?.content || []} />
                     <Link to={'/admin/reservas/crear-reserva'}><Button ><Plus /> Crear una reserva</Button></Link>
                 </div>
             </div>

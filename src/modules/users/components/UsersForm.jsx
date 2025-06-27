@@ -3,12 +3,15 @@ import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom';
 import useUsersStore from '../store/useUsersStore';
+import usePagination from '../../core/store/userPagination';
 
 export const UsersForm = ({ initialState, onSubmitData }) => {
 
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
 
     const fetchUsers = useUsersStore(state => state.fetchUsers);
+    const filtersUsers = useUsersStore(state => state.filtersUsers);
+    const { page } = usePagination();
 
     useEffect(() => {
         if (initialState) {
@@ -22,8 +25,6 @@ export const UsersForm = ({ initialState, onSubmitData }) => {
         }
     }, [initialState, reset])
 
-    useEffect(() => {
-    }, [])
 
     const onSubmit = handleSubmit((data) => {
         console.log(data);
@@ -38,6 +39,7 @@ export const UsersForm = ({ initialState, onSubmitData }) => {
             },
         }
         onSubmitData(dataEditUser);
+        fetchUsers(page, filtersUsers);
     })
 
     return (

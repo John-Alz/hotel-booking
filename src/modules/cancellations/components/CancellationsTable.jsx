@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import { FiltersTableCancellations } from "./FiltersTableCancellations";
 import { Pagination } from "../../core/components/Pagination";
 import usePagination from "../../core/store/userPagination";
+import { DownloadPDFCancellationsButton } from "./DownloadPDFCancellationsButton";
 
 export const CancellationsTable = () => {
 
@@ -58,6 +59,7 @@ export const CancellationsTable = () => {
                 </div>
                 <div className='flex gap-8 '>
                     <FiltersTableCancellations />
+                    <DownloadPDFCancellationsButton cancellations={cancellations?.content || []} />
                     <Link to={'/admin/reservas'}><Button ><Plus /> Cancelar una reserva</Button></Link>
                 </div>
 

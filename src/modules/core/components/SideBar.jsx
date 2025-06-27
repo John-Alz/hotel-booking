@@ -76,16 +76,16 @@ export const SideBar = () => {
         },
         {
             id: 10,
+            icon: <Receipt />,
+            text: 'Pagos',
+            link: '/admin/pagos'
+        },
+        {
+            id: 10,
             icon: <BookmarkX />,
             text: 'Cancelaciones',
             link: '/admin/cancelaciones'
         },
-        {
-            id: 10,
-            icon: <Receipt />,
-            text: 'Pagos',
-            link: '/admin/pagos'
-        }
     ];
 
     return (

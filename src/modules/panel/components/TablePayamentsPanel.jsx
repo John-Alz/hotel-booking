@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react'
 import usePaymentStore from '../../payments/store/usePaymentStore'
 import { ScrollArea } from "@/components/ui/scroll-area"
+import useUsersStore from '../../users/store/useUsersStore';
 
 export const TablePayamentsPanel = () => {
 
     const fetchPayments = usePaymentStore(state => state.fetchPayments);
     const payments = usePaymentStore(state => state.payments);
-    const filtersPayments = usePaymentStore(state => state.filtersPayments);
+    const filtersPayments = usePaymentStore(state => state.filtersPayments);;
 
     useEffect(() => {
-        fetchPayments(0, filtersPayments,);
+        fetchPayments(0, filtersPayments);
     }, [])
     console.log(payments);
+
 
 
     return (

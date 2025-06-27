@@ -223,7 +223,7 @@ export const RoomDetail = () => {
                     </article>
                 </section>
                 <div className='flex w-[80%] m-auto absolute bottom-0 right-0 left-0 py-20'>
-                    <button className='w-full bg-secondary border border-secondary py-2 px-8 rounded-full text-primary cursor-pointer hover:bg-transparent hover:text-secondary ' onClick={bookingSubmit}>Pagar ahora</button>
+                    <button className='w-full bg-secondary border border-secondary py-2 px-8 rounded-full text-primary cursor-pointer hover:bg-transparent hover:text-secondary ' onClick={bookingSubmit} >Pagar ahora</button>
                 </div>
             </div>
         </section>

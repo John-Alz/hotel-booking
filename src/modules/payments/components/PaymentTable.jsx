@@ -23,6 +23,7 @@ import { Pagination } from "../../core/components/Pagination";
 import { CancellationDetailsPage } from "../../cancellations/pages/CancellationDetailsPage";
 import { FilterOrderTable } from "./FilterOrderTable";
 import { PaymentDetailPage } from "../pages/PaymentDetailPage";
+import { DownloadPDFPaymentsButton } from "./DownloadPDFPaymentsButton";
 
 export const PaymentTable = () => {
 
@@ -58,7 +59,8 @@ export const PaymentTable = () => {
                 </div>
                 <div className='flex gap-8 '>
                     <FiltersTablePayment />
-                    <FilterOrderTable />
+                    {/* <FilterOrderTable /> */}
+                    <DownloadPDFPaymentsButton payments={payments?.content || []} />
                     {/* <Link to={'/admin/reservas'}><Button ><Plus /> Cancelar una reserva</Button></Link> */}
                 </div>
 
@@ -67,13 +69,10 @@ export const PaymentTable = () => {
                 payments?.content?.length > 0 ? <table className='min-w-full  text-base font-light text-surface bg-gray rounded-2xl bg-primary table-auto w-full'>
                     <thead className=" border-b border-[#ced4da] bg-[#ced4da]/35 rounded-xl justify-between">
                         <tr>
-                            {/* <th className="px-6 py-3 text-start text-sm font-bold ">ID</th> */}
-                            {/* <th className="px-6 py-3 text-start text-sm font-bold ">ID</th> */}
                             <th className="px-6 py-3 text-start text-sm font-bold ">N. reserva</th>
                             <th className="px-6 py-3 text-start text-sm font-bold ">Nombre del cliente</th>
                             <th className="px-6 py-3 text-start text-sm font-bold ">Correo del cliente</th>
                             <th className="px-6 py-3 text-start text-sm font-bold ">Fecha del pago</th>
-                            {/* <th className="px-6 py-3 text-start text-sm font-bold ">Motivo</th> */}
                             <th className="px-6 py-3 text-start text-sm font-bold ">tipo de habitación</th>
                             <th className="px-6 py-3 text-start text-sm font-bold ">Precio total</th>
                             <th className="px-6 py-3 text-start text-sm font-bold ">Estado</th>
@@ -111,7 +110,6 @@ export const PaymentTable = () => {
                                     <td className='px-6 py-4 text-sm'>
                                         <div className='flex items-center justify-center gap-4  text-sm'>
                                             <div className='flex gap-8'>
-                                                {/* <Link to={'/admin/crear-habitacion'}><Button ><Plus /> Crear una habitacion</Button></Link> */}
                                                 <Dialog className='bg-red-500'>
                                                     <DialogTrigger><button className="text-blue-500 cursor-pointer"><Eye /></button></DialogTrigger>
                                                     <DialogContent className="h-full w-[600px] translate-x-0 right-0">

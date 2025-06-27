@@ -65,8 +65,8 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
                 phoneNumber: initialState.client.phoneNumber !== null ? initialState.client.phoneNumber : initialState.phoneNumber,
                 roomTypeId: initialState.RoomType.id,
                 status: initialState.status,
-                checkin: initialState.checkInDate,
-                checkout: initialState.checkOutDate,
+                checkInDate: initialState.checkInDate,
+                checkOutDate: initialState.checkOutDate,
                 numberOfRoom: initialState.numberOfRoom
             });
         }
@@ -81,8 +81,8 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
             phoneNumber: data.phoneNumber,
             roomTypeId: parseInt(data.roomTypeId),
             // status: "CONFIRMADA",
-            checkInDate: data.checkin,
-            checkOutDate: data.checkout,
+            checkInDate: data.checkInDate,
+            checkOutDate: data.checkOutDate,
             numberOfRoom: parseInt(data.numberOfRoom)
         }
         console.log(bookingCreated);
@@ -141,71 +141,33 @@ export const BookingForm = ({ onSubmitData, initialState = null, bookingId, room
                 <fieldset className='flex gap-10'>
                     <div className='w-full flex flex-col gap-1' >
                         <label className='font-medium'>Check-in</label>
-                        <Popover >
-                            <PopoverTrigger asChild className='p-5 w-[100%]'>
-                                <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                        "w-full justify-start text-left font-normal",
-                                        !dateCheckin && "text-muted-foreground"
-                                    )}
-                                >
-                                    <CalendarIcon />
-                                    {dateCheckin ? format(dateCheckin, "PPP", { locale: es }) : <span>Selecciona una fecha</span>}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0 " align="start">
-                                <Calendar
-                                    className='w-full'
-                                    mode="single"
-                                    locale={es}
-                                    selected={dateCheckin}
-                                    onSelect={(selectedDate) => {
-                                        setDateCheckin(selectedDate);
-                                        if (selectedDate) {
-                                            const formatted = format(selectedDate, "yyyy-MM-dd");
-                                            setValue("checkin", formatted);
-                                        }
-                                    }}
-                                    initialFocus
-                                />
-                            </PopoverContent>
-                        </Popover>
+                        <input type='date' name='checkInDate' placeholder='Escribe el nombre de la habitacion' className={`${errors.checkInDate ? "border-red-400 border-1" : null} border-2 border-border py-2.5 px-3 rounded-3xl`}
+                            {...register('checkInDate', {
+                                required: {
+                                    value: true,
+                                    message: 'La fecha es requerida.'
+                                }
+                            })}
+                        />
+                        {
+                            errors.lastMaintenance && <span className='text-red-400 text-xs'>{errors.lastMaintenance.message}</span>
+                        }
                     </div>
                     <div className='w-full flex flex-col gap-1' >
                         <label>Check-out</label>
                         {/* <input type='date' name='checkout' placeholder='Escribe el nombre de la habitacion' className='border-2 border-border py-2 px-3 rounded-3xl'
                         /> */}
-                        <Popover >
-                            <PopoverTrigger asChild className='p-5 w-[100%]'>
-                                <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                        "w-full justify-start text-left font-normal",
-                                        !dateCheckout && "text-muted-foreground"
-                                    )}
-                                >
-                                    <CalendarIcon />
-                                    {dateCheckout ? format(dateCheckout, "PPP", { locale: es }) : <span>Selecciona una fecha</span>}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0 " align="start">
-                                <Calendar
-                                    className='w-full'
-                                    mode="single"
-                                    locale={es}
-                                    selected={dateCheckout}
-                                    onSelect={(selectedDate) => {
-                                        setDateCheckout(selectedDate);
-                                        if (selectedDate) {
-                                            const formatted = format(selectedDate, "yyyy-MM-dd");
-                                            setValue("checkout", formatted);
-                                        }
-                                    }}
-                                    initialFocus
-                                />
-                            </PopoverContent>
-                        </Popover>
+                        <input type='date' name='checkOutDate' placeholder='Escribe el nombre de la habitacion' className={`${errors.checkOutDate ? "border-red-400 border-1" : null} border-2 border-border py-2.5 px-3 rounded-3xl`}
+                            {...register('checkOutDate', {
+                                required: {
+                                    value: true,
+                                    message: 'La fecha es requerida.'
+                                }
+                            })}
+                        />
+                        {
+                            errors.lastMaintenance && <span className='text-red-400 text-xs'>{errors.lastMaintenance.message}</span>
+                        }
                     </div>
                 </fieldset>
 

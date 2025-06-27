@@ -31,7 +31,7 @@ const useBookingStore = create((set, get) => ({
     },
 
     fetchBookings: async (page, filters, numberBooking = '') => {
-        const data = await api.get(`/api/v1/booking?page=${page}&size=10&checkInDate=${filters.checkInDate}&checkOutDate=${filters.checkOutDate}&priceMin=${filters.priceMin}&roomTypeId=${filters.roomTypeId}&status=${filters.status}&numberBooking=${numberBooking}`);
+        const data = await api.get(`/api/v1/booking?page=${page}&size=6&checkInDate=${filters.checkInDate}&checkOutDate=${filters.checkOutDate}&priceMin=${filters.priceMin}&roomTypeId=${filters.roomTypeId}&status=${filters.status}&numberBooking=${numberBooking}`);
         if (data) set({ bookings: data })
     },
 

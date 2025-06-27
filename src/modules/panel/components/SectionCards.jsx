@@ -18,14 +18,20 @@ export function SectionCards() {
 
     const fetchMetrics = useMetricsStore(state => state.fetchMetrics);
     const metrics = useMetricsStore(state => state.metrics);
+    const users = useUsersStore(state => state.users);
+    const fetchUsers = useUsersStore(state => state.fetchUsers);
+    const filtersUsers = useUsersStore(state => state.filtersUsers);
 
 
     useEffect(() => {
         fetchMetrics();
+        fetchUsers(0, filtersUsers);
     }, [])
 
+    console.log(filtersUsers);
 
-    console.log(metrics);
+
+    console.log(users);
 
 
     return (
@@ -58,7 +64,7 @@ export function SectionCards() {
                 <CardHeader>
                     <CardDescription>Total Clientes</CardDescription>
                     <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-                        50
+                        {users?.content?.length}
                     </CardTitle>
                     <CardAction>
                         <Badge variant="outline">
